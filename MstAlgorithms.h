@@ -1,0 +1,10 @@
+#ifndef PROJEKT2_AIZO_MSTALGORITHMS_H
+#define PROJEKT2_AIZO_MSTALGORITHMS_H
+
+
+class MstAlgorithms {
+
+};
+
+
+#endif //PROJEKT2_AIZO_MSTALGORITHMS_H

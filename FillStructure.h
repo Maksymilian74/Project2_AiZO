@@ -1,0 +1,10 @@
+#ifndef PROJEKT2_AIZO_FILLSTRUCTURE_H
+#define PROJEKT2_AIZO_FILLSTRUCTURE_H
+
+
+class FillStructure {
+
+};
+
+
+#endif //PROJEKT2_AIZO_FILLSTRUCTURE_H

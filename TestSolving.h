@@ -1,0 +1,10 @@
+#ifndef PROJEKT2_AIZO_TESTSOLVING_H
+#define PROJEKT2_AIZO_TESTSOLVING_H
+
+
+class TestSolving {
+
+};
+
+
+#endif //PROJEKT2_AIZO_TESTSOLVING_H
