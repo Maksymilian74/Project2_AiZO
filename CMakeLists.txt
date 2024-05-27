@@ -17,4 +17,8 @@ add_executable(Projekt2_AiZO main.cpp
         SimulationSolving.cpp
         SimulationSolving.h
         TestSolving.cpp
-        TestSolving.h)
+        TestSolving.h
+        IncidenceMatrix.cpp
+        IncidenceMatrix.h
+        AdjacencyList.cpp
+        AdjacencyList.h)

@@ -1,0 +1,10 @@
+#ifndef PROJEKT2_AIZO_ADJACENCYLIST_H
+#define PROJEKT2_AIZO_ADJACENCYLIST_H
+
+
+class AdjacencyList {
+
+};
+
+
+#endif //PROJEKT2_AIZO_ADJACENCYLIST_H
