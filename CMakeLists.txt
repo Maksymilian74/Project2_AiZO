@@ -3,7 +3,7 @@ project(Projekt2_AiZO)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Projekt2_AiZO main.cpp
+add_executable(Projekt2_AiZO Main.cpp
         MstAlgorithms.cpp
         MstAlgorithms.h
         Menu.cpp
