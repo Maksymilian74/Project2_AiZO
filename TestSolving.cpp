@@ -34,12 +34,32 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
 }
 
 // Metoda odpowiedzialna za wygenerowanie grafu
-void TestSolving::generateRandomGraph(int size, int fillingMethod) {
+void TestSolving::generateRandomGraph(int vertices, int density) {
 
 }
 
 // Metoda odpowiedzialna za wyswietlenie grafu
 void TestSolving::displayGraph() {
+
+}
+
+void TestSolving::algorithmPrim() {
+
+}
+
+void TestSolving::algorithmKruskal() {
+
+}
+
+void TestSolving::algorithmDijkstra() {
+
+}
+
+void TestSolving::algorithmFordBellman() {
+
+}
+
+void TestSolving::algorithmFordFulkerson() {
 
 }
 

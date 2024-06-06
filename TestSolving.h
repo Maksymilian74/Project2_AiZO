@@ -24,6 +24,17 @@ public:
     // Metoda odpowiedzialna za wyswietlenie grafu
     void displayGraph();
 
+    void algorithmPrim();
+
+    void algorithmKruskal();
+
+    void algorithmDijkstra();
+
+    void algorithmFordBellman();
+
+    void algorithmFordFulkerson();
+
+
 private:
     std::chrono::high_resolution_clock::time_point start; // Zmienna przechowujaca początek pomiaru czasu
     std::chrono::high_resolution_clock::time_point stop; // Zmienna przechowujaca koniec pomiaru czasu
