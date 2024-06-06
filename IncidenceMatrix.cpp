@@ -1,5 +1,6 @@
 #include "IncidenceMatrix.h"
 #include <iostream>
+#include <iomanip> // dodajemy nagłówek dla manipulatorów strumieniowych
 
 IncidenceMatrix::IncidenceMatrix(int vertices, int edges) : vertices(vertices), edges(edges) {
     // Alokacja macierzy incydencji
@@ -55,14 +56,31 @@ void IncidenceMatrix::addEdge(int u, int v, int weight) {
 }
 
 void IncidenceMatrix::display() const {
-    std::cout << "Incidence Matrix:" << std::endl;
+    // Wyświetlanie nagłówka z numerami krawędzi
+    std::cout << std::endl << "Incidence Matrix:" << std::endl;
+    std::cout << "      ";
+    for (int j = 0; j < edges; ++j) {
+        std::cout << std::setw(3) << j << " ";
+    }
+    std::cout << std::endl;
+
+    // Wyświetlanie linii oddzielającej nagłówek
+    std::cout << "    +";
+    for (int j = 0; j < edges; ++j) {
+        std::cout << "----";
+    }
+    std::cout << std::endl;
+
+    // Wyświetlanie macierzy incydencji z numerami wierzchołków
     for (int i = 0; i < vertices; ++i) {
+        std::cout << std::setw(3) << i << " | ";
         for (int j = 0; j < edges; ++j) {
-            std::cout << matrix[i][j] << " ";
+            std::cout << std::setw(3) << matrix[i][j] << " ";
         }
         std::cout << std::endl;
     }
 }
+
 
 void IncidenceMatrix::displayEdges() const {
     std::cout << "Edge List:" << std::endl;

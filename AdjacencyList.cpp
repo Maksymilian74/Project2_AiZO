@@ -38,10 +38,17 @@ void AdjacencyList::display() const {
     for (int i = 0; i < vertices; ++i) {
         std::cout << "Vertex " << i << ":";
         Node* current = adjList[i];
+        if (current) {
+            std::cout << " (" << current->edge.to << ";" << current->edge.weight << ")";
+            current = current->next;
+        }
         while (current) {
-            std::cout << " -> (to: " << current->edge.to << ", weight: " << current->edge.weight << ")";
+            std::cout << ", (" << current->edge.to << ";" << current->edge.weight << ")";
             current = current->next;
         }
         std::cout << std::endl;
     }
 }
+
+
+
