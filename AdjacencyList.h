@@ -1,5 +1,5 @@
-#ifndef PROJEKT2_AIZO_ADJACENCYLIST_H
-#define PROJEKT2_AIZO_ADJACENCYLIST_H
+#ifndef ADJACENCYLIST_H
+#define ADJACENCYLIST_H
 
 struct Edge {
     int to;      // Wierzchołek docelowy
@@ -24,4 +24,4 @@ public:
     void display() const;
 };
 
-#endif //PROJEKT2_AIZO_ADJACENCYLIST_H
+#endif
