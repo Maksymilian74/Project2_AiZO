@@ -1,19 +1,19 @@
 #include "IncidenceMatrix.h"
 #include <iostream>
 
-IncidenceMatrix::IncidenceMatrix(int vertices) : vertices(vertices), edges(0), edgeCapacity(10) {
+IncidenceMatrix::IncidenceMatrix(int vertices, int edges) : vertices(vertices), edges(edges) {
     // Alokacja macierzy incydencji
     matrix = new int*[vertices];
     for (int i = 0; i < vertices; ++i) {
-        matrix[i] = new int[edgeCapacity];
-        for (int j = 0; j < edgeCapacity; ++j) {
+        matrix[i] = new int[edges];
+        for (int j = 0; j < edges; ++j) {
             matrix[i][j] = 0;
         }
     }
 
     // Alokacja listy krawędzi
-    edgeList = new int*[edgeCapacity];
-    for (int i = 0; i < edgeCapacity; ++i) {
+    edgeList = new int*[edges];
+    for (int i = 0; i < edges; ++i) {
         edgeList[i] = new int[3]; // Każda krawędź to (u, v, weight)
     }
 }
@@ -24,38 +24,10 @@ IncidenceMatrix::~IncidenceMatrix() {
     }
     delete[] matrix;
 
-    for (int i = 0; i < edgeCapacity; ++i) {
+    for (int i = 0; i < edges; ++i) {
         delete[] edgeList[i];
     }
     delete[] edgeList;
-}
-
-void IncidenceMatrix::resizeMatrix() {
-    for (int i = 0; i < vertices; ++i) {
-        int* newRow = new int[edgeCapacity * 2];
-        for (int j = 0; j < edgeCapacity; ++j) {
-            newRow[j] = matrix[i][j];
-        }
-        for (int j = edgeCapacity; j < edgeCapacity * 2; ++j) {
-            newRow[j] = 0;
-        }
-        delete[] matrix[i];
-        matrix[i] = newRow;
-    }
-    edgeCapacity *= 2;
-}
-
-void IncidenceMatrix::resizeEdgeList() {
-    int** newEdgeList = new int*[edgeCapacity * 2];
-    for (int i = 0; i < edgeCapacity; ++i) {
-        newEdgeList[i] = edgeList[i];
-    }
-    for (int i = edgeCapacity; i < edgeCapacity * 2; ++i) {
-        newEdgeList[i] = new int[3];
-    }
-    delete[] edgeList;
-    edgeList = newEdgeList;
-    edgeCapacity *= 2;
 }
 
 void IncidenceMatrix::addEdge(int u, int v, int weight) {
@@ -64,21 +36,22 @@ void IncidenceMatrix::addEdge(int u, int v, int weight) {
         return;
     }
 
-    if (edges == edgeCapacity) {
-        resizeMatrix();
-        resizeEdgeList();
+    static int currentEdge = 0;
+    if (currentEdge >= edges) {
+        std::cerr << "Error: Exceeded maximum number of edges." << std::endl;
+        return;
     }
 
     // Dodanie krawędzi do listy krawędzi
-    edgeList[edges][0] = u;
-    edgeList[edges][1] = v;
-    edgeList[edges][2] = weight;
+    edgeList[currentEdge][0] = u;
+    edgeList[currentEdge][1] = v;
+    edgeList[currentEdge][2] = weight;
 
     // Ustawienie wartości w macierzy incydencji
-    matrix[u][edges] = weight;
-    matrix[v][edges] = -weight;
+    matrix[u][currentEdge] = weight;
+    matrix[v][currentEdge] = -weight;
 
-    edges++;
+    currentEdge++;
 }
 
 void IncidenceMatrix::display() const {
