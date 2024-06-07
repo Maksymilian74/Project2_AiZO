@@ -42,6 +42,7 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
 
     // Usuwanie istniejącej macierzy, jeśli istnieje
     if (incidenceMatrix != nullptr) {
+        cout << "Deleting existing incidence matrix." << endl;
         delete incidenceMatrix;
         incidenceMatrix = nullptr;
         std::cout << "IncidenceMatrix object deleted." << std::endl;
@@ -49,6 +50,7 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
 
     // Tworzenie instancji listy sąsiedztwa dla grafu skierowanego
     if (adjacencyDirectedList != nullptr) {
+        cout << "Deleting existing incidence list." << endl;
         delete adjacencyDirectedList;
         adjacencyDirectedList = nullptr;
         std::cout << "AdjacencyDirectedList object deleted." << std::endl;
@@ -56,6 +58,7 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
 
     // Tworzenie instancji listy sąsiedztwa dla grafu nieskierowanego
     if (adjacencyUndirectedList != nullptr) {
+        cout << "Deleting existing incidence list." << endl;
         delete adjacencyUndirectedList;
         adjacencyUndirectedList = nullptr;
         std::cout << "AdjacencyUndirectedList object deleted." << std::endl;
@@ -75,6 +78,7 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
     // Wczytywanie danych o krawędziach i dodawanie ich do macierzy incydencji
     for (int i = 0; i < numEdges; ++i) {
         file >> startVertex >> endVertex >> weight;
+        std::cout << "Wpisywanie" << std::endl;
         incidenceMatrix->addEdge(startVertex, endVertex, weight);
         adjacencyDirectedList->addEdge(startVertex, endVertex, weight);
         adjacencyUndirectedList->addEdge(startVertex, endVertex, weight);

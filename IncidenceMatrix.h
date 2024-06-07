@@ -3,10 +3,11 @@
 
 class IncidenceMatrix {
 private:
-    int vertices;    // Liczba wierzchołków
-    int edges;       // Liczba krawędzi
+    int vertices;    // Liczba wierzchołkow
+    int edges;       // Liczba krawedzi
+    int currentEdge; // Liczba krawedzi aktualnie
     int** matrix;    // Macierz incydencji
-    int** edgeList;  // Lista krawędzi
+    int** edgeList;  // Lista krawedzi
 
 public:
     IncidenceMatrix(int vertices, int edges);
