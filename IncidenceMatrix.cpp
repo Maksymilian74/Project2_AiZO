@@ -57,7 +57,6 @@ void IncidenceMatrix::addEdge(int u, int v, int weight) {
 
 void IncidenceMatrix::display() const {
     // Wyświetlanie nagłówka z numerami krawędzi
-    std::cout << std::endl << "Incidence Matrix:" << std::endl;
     std::cout << "      ";
     for (int j = 0; j < edges; ++j) {
         std::cout << std::setw(3) << j << " ";

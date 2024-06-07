@@ -1,4 +1,5 @@
 #include "TestSolving.h"
+#include "FillStructure.h"
 #include <iostream>
 #include <chrono>
 #include <fstream>
@@ -23,6 +24,7 @@ TestSolving:: ~TestSolving() {
     delete incidenceMatrix;
     delete adjacencyDirectedList;
     delete adjacencyUndirectedList;
+    std::cout << "TestSolving object destroyed." << std::endl;
 }
 
 
@@ -42,26 +44,32 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
     if (incidenceMatrix != nullptr) {
         delete incidenceMatrix;
         incidenceMatrix = nullptr;
+        std::cout << "IncidenceMatrix object deleted." << std::endl;
     }
 
     // Tworzenie instancji listy sąsiedztwa dla grafu skierowanego
     if (adjacencyDirectedList != nullptr) {
         delete adjacencyDirectedList;
         adjacencyDirectedList = nullptr;
+        std::cout << "AdjacencyDirectedList object deleted." << std::endl;
     }
 
     // Tworzenie instancji listy sąsiedztwa dla grafu nieskierowanego
     if (adjacencyUndirectedList != nullptr) {
         delete adjacencyUndirectedList;
         adjacencyUndirectedList = nullptr;
+        std::cout << "AdjacencyUndirectedList object deleted." << std::endl;
     }
 
     // Tworzenie instancji macierzy incydencji
     incidenceMatrix = new IncidenceMatrix(numVertices, numEdges);
+    std::cout << "New IncidenceMatrix object created." << std::endl;
 
     adjacencyDirectedList = new AdjacencyList(numVertices);
+    std::cout << "New AdjacencyDirectedList object created." << std::endl;
 
     adjacencyUndirectedList = new AdjacencyList(numVertices);
+    std::cout << "New AdjacencyUndirectedList object created." << std::endl;
 
     int startVertex, endVertex, weight;
     // Wczytywanie danych o krawędziach i dodawanie ich do macierzy incydencji
@@ -79,31 +87,39 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
 
 // Metoda odpowiedzialna za wygenerowanie grafu
 void TestSolving::generateRandomGraph(int vertices, int density) {
+    // Usuwanie istniejącej macierzy, jeśli istnieje
+    if (incidenceMatrix != nullptr) {
+        delete incidenceMatrix;
+        incidenceMatrix = nullptr;
+    }
+
+    // Usuwanie istniejącej listy sąsiedztwa dla grafu skierowanego, jeśli istnieje
+    if (adjacencyDirectedList != nullptr) {
+        delete adjacencyDirectedList;
+        adjacencyDirectedList = nullptr;
+    }
+
+    // Usuwanie istniejącej listy sąsiedztwa dla grafu nieskierowanego, jeśli istnieje
+    if (adjacencyUndirectedList != nullptr) {
+        delete adjacencyUndirectedList;
+        adjacencyUndirectedList = nullptr;
+    }
+
+    // Obliczenie liczby krawędzi na podstawie gęstości
+    int maxEdges = vertices * (vertices - 1) / 2;
+    int numEdges = (density * maxEdges) / 100;
+
     // Tworzenie instancji macierzy incydencji
-    incidenceMatrix = new IncidenceMatrix(vertices, 2 * vertices);
+    incidenceMatrix = new IncidenceMatrix(vertices, numEdges);
 
-    // Dodawanie krawędzi do macierzy incydencji
-    incidenceMatrix->addEdge(0, 1, 10);
-    incidenceMatrix->addEdge(1, 2, 20);
-    incidenceMatrix->addEdge(2, 0, 30);
-
-    // Tworzenie instancji listy sąsiedztwa
+    // Tworzenie instancji listy sąsiedztwa dla grafu skierowanego
     adjacencyDirectedList = new AdjacencyList(vertices);
 
-    // Dodawanie krawędzi do listy sąsiedztwa
-    adjacencyDirectedList->addEdge(0, 1, 10);
-    adjacencyDirectedList->addEdge(1, 2, 20);
-    adjacencyDirectedList->addEdge(2, 0, 30);
-    adjacencyDirectedList->addEdge(2, 1, 40);
-
-    // Tworzenie instancji listy sąsiedztwa
+    // Tworzenie instancji listy sąsiedztwa dla grafu nieskierowanego
     adjacencyUndirectedList = new AdjacencyList(vertices);
 
-    // Dodawanie krawędzi do listy sąsiedztwa
-    adjacencyUndirectedList->addEdge(0, 1, 10);
-    adjacencyUndirectedList->addEdge(1, 2, 20);
-    adjacencyUndirectedList->addEdge(2, 0, 30);
-    adjacencyUndirectedList->addEdge(2, 1, 40);
+    // Wygenerowanie losowego grafu za pomocą metody z klasy FillStructure
+    FillStructure::generateRandomGraph(*incidenceMatrix, *adjacencyDirectedList, *adjacencyUndirectedList, vertices, density);
 }
 
 // Metoda odpowiedzialna za wyswietlenie grafu
@@ -150,4 +166,29 @@ void TestSolving::algorithmFordFulkerson() {
 
 }
 
-
+// test dzialania macierzy i list
+//// Tworzenie instancji macierzy incydencji
+//incidenceMatrix = new IncidenceMatrix(vertices, 2 * vertices);
+//
+//// Dodawanie krawędzi do macierzy incydencji
+//incidenceMatrix->addEdge(0, 1, 10);
+//incidenceMatrix->addEdge(1, 2, 20);
+//incidenceMatrix->addEdge(2, 0, 30);
+//
+//// Tworzenie instancji listy sąsiedztwa
+//adjacencyDirectedList = new AdjacencyList(vertices);
+//
+//// Dodawanie krawędzi do listy sąsiedztwa
+//adjacencyDirectedList->addEdge(0, 1, 10);
+//adjacencyDirectedList->addEdge(1, 2, 20);
+//adjacencyDirectedList->addEdge(2, 0, 30);
+//adjacencyDirectedList->addEdge(2, 1, 40);
+//
+//// Tworzenie instancji listy sąsiedztwa
+//adjacencyUndirectedList = new AdjacencyList(vertices);
+//
+//// Dodawanie krawędzi do listy sąsiedztwa
+//adjacencyUndirectedList->addEdge(0, 1, 10);
+//adjacencyUndirectedList->addEdge(1, 2, 20);
+//adjacencyUndirectedList->addEdge(2, 0, 30);
+//adjacencyUndirectedList->addEdge(2, 1, 40);

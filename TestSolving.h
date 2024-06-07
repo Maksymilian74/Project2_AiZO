@@ -21,7 +21,7 @@ public:
     void loadDataFromFile(string fileToOpen);
 
     // Metoda odpowiedzialna za generowanie grafu
-    void generateRandomGraph(int size, int fillingMethod);
+    void generateRandomGraph(int vertices, int density);
 
     // Metoda odpowiedzialna za wyswietlenie grafu
     void displayGraph();
