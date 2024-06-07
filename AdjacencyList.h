@@ -7,13 +7,15 @@ struct Edge {
 };
 
 class AdjacencyList {
-private:
-    int vertices;      // Liczba wierzchołków
-    int edges;         // Liczba krawędzi
+public:
     struct Node {
         Edge edge;
         Node* next;
     };
+
+private:
+    int vertices;      // Liczba wierzchołków
+    int edges;         // Liczba krawędzi
     Node** adjList;    // Tablica wskaźników do list sąsiedztwa
 
 public:
@@ -22,6 +24,9 @@ public:
 
     void addEdge(int from, int to, int weight);
     void display() const;
+    int getVertices() const;
+    int getEdges() const;
+    Node** getAdjacencyList() const;
 };
 
 #endif

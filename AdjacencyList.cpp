@@ -50,5 +50,17 @@ void AdjacencyList::display() const {
     }
 }
 
+int AdjacencyList::getVertices() const {
+    return vertices;
+}
+
+int AdjacencyList::getEdges() const {
+    return edges;
+}
+
+AdjacencyList::Node** AdjacencyList::getAdjacencyList() const {
+    return adjList;
+}
+
 
 
