@@ -38,7 +38,7 @@ void IncidenceMatrix::addEdge(int u, int v, int weight) {
     }
 
     static int currentEdge = 0;
-    if (currentEdge >= edges) {
+    if (currentEdge > edges) {
         std::cerr << "Error: Exceeded maximum number of edges." << std::endl;
         return;
     }

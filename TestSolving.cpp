@@ -35,8 +35,47 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
         return;
     }
 
+    int numEdges, numVertices;
+    file >> numEdges >> numVertices; // Wczytanie liczby krawędzi i wierzchołków
+
+    // Usuwanie istniejącej macierzy, jeśli istnieje
+    if (incidenceMatrix != nullptr) {
+        delete incidenceMatrix;
+        incidenceMatrix = nullptr;
+    }
+
+    // Tworzenie instancji listy sąsiedztwa dla grafu skierowanego
+    if (adjacencyDirectedList != nullptr) {
+        delete adjacencyDirectedList;
+        adjacencyDirectedList = nullptr;
+    }
+
+    // Tworzenie instancji listy sąsiedztwa dla grafu nieskierowanego
+    if (adjacencyUndirectedList != nullptr) {
+        delete adjacencyUndirectedList;
+        adjacencyUndirectedList = nullptr;
+    }
+
+    // Tworzenie instancji macierzy incydencji
+    incidenceMatrix = new IncidenceMatrix(numVertices, numEdges);
+
+    adjacencyDirectedList = new AdjacencyList(numVertices);
+
+    adjacencyUndirectedList = new AdjacencyList(numVertices);
+
+    int startVertex, endVertex, weight;
+    // Wczytywanie danych o krawędziach i dodawanie ich do macierzy incydencji
+    for (int i = 0; i < numEdges; ++i) {
+        file >> startVertex >> endVertex >> weight;
+        incidenceMatrix->addEdge(startVertex, endVertex, weight);
+        adjacencyDirectedList->addEdge(startVertex, endVertex, weight);
+        adjacencyUndirectedList->addEdge(startVertex, endVertex, weight);
+        adjacencyUndirectedList->addEdge(endVertex, startVertex, weight);
+    }
+
     file.close();
 }
+
 
 // Metoda odpowiedzialna za wygenerowanie grafu
 void TestSolving::generateRandomGraph(int vertices, int density) {
