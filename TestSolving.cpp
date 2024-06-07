@@ -194,7 +194,43 @@ void TestSolving::algorithmPrim() {
 }
 
 void TestSolving::algorithmKruskal() {
+    int* result = nullptr;
+    int resultSize = 0;
 
+    if (incidenceMatrix != nullptr) {
+        auto start = high_resolution_clock::now();
+        MstAlgorithms::kruskalIncidenceMatrix(*incidenceMatrix, &result, resultSize);
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
+
+        cout << "Minimum Spanning Tree (Incidence Matrix):" << endl;
+        for (int i = 0; i < resultSize; ++i) {
+            cout << "(" << result[2 * i] << ", " << result[2 * i + 1] << ")" << endl;
+        }
+        cout << "Time taken by function: " << duration.count() << " microseconds" << endl;
+
+        delete[] result;
+        result = nullptr;
+    } else {
+        cout << "No incidence matrix to run Kruskal's algorithm on." << endl;
+    }
+
+    if (adjacencyUndirectedList != nullptr) {
+        auto start = high_resolution_clock::now();
+        MstAlgorithms::kruskalAdjacencyList(*adjacencyUndirectedList, &result, resultSize);
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
+
+        cout << "Minimum Spanning Tree (Adjacency List):" << endl;
+        for (int i = 0; i < resultSize; ++i) {
+            cout << "(" << result[2 * i] << ", " << result[2 * i + 1] << ")" << endl;
+        }
+        cout << "Time taken by function: " << duration.count() << " microseconds" << endl;
+
+        delete[] result;
+    } else {
+        cout << "No adjacency list to run Kruskal's algorithm on." << endl;
+    }
 }
 
 void TestSolving::algorithmDijkstra() {

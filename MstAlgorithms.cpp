@@ -1,4 +1,5 @@
 #include "MstAlgorithms.h"
+#include "Quicksort.h"
 #include <limits>
 
 void MstAlgorithms::primIncidenceMatrix(const IncidenceMatrix& graph, int** result, int& resultSize) {
@@ -112,4 +113,116 @@ void MstAlgorithms::primAdjacencyList(const AdjacencyList& graph, int** result, 
     delete[] key;
     delete[] parent;
     delete[] inMST;
+}
+
+int MstAlgorithms::find(int parent[], int i) {
+    if (parent[i] != i) {
+        parent[i] = find(parent, parent[i]);
+    }
+    return parent[i];
+}
+
+void MstAlgorithms::unionSets(int parent[], int rank[], int x, int y) {
+    int rootX = find(parent, x);
+    int rootY = find(parent, y);
+    if (rank[rootX] < rank[rootY]) {
+        parent[rootX] = rootY;
+    } else if (rank[rootX] > rank[rootY]) {
+        parent[rootY] = rootX;
+    } else {
+        parent[rootY] = rootX;
+        rank[rootX]++;
+    }
+}
+
+void MstAlgorithms::kruskalIncidenceMatrix(const IncidenceMatrix& graph, int** result, int& resultSize) {
+    int vertices = graph.getVertices();
+    int edges = graph.getEdges();
+    const int** edgeList = graph.getEdgeList();
+
+    Edges* edgeArray = new Edges[edges];
+    for (int i = 0; i < edges; ++i) {
+        edgeArray[i].from = edgeList[i][0];
+        edgeArray[i].to = edgeList[i][1];
+        edgeArray[i].weight = edgeList[i][2];
+    }
+
+    QuickSort::sort(edgeArray, 0, edges - 1);
+
+    int* parent = new int[vertices];
+    int* rank = new int[vertices];
+
+    for (int i = 0; i < vertices; ++i) {
+        parent[i] = i;
+        rank[i] = 0;
+    }
+
+    resultSize = 0;
+    *result = new int[2 * (vertices - 1)];
+    for (int i = 0; i < edges; ++i) {
+        int rootU = find(parent, edgeArray[i].from);
+        int rootV = find(parent, edgeArray[i].to);
+
+        if (rootU != rootV) {
+            (*result)[2 * resultSize] = edgeArray[i].from;
+            (*result)[2 * resultSize + 1] = edgeArray[i].to;
+            resultSize++;
+            unionSets(parent, rank, rootU, rootV);
+        }
+    }
+
+    delete[] edgeArray;
+    delete[] parent;
+    delete[] rank;
+}
+
+void MstAlgorithms::kruskalAdjacencyList(const AdjacencyList& graph, int** result, int& resultSize) {
+    int vertices = graph.getVertices();
+    int edges = graph.getEdges();
+
+    Edges* edgeArray = new Edges[edges];
+    int edgeIndex = 0;
+
+    AdjacencyList::Node** adjList = graph.getAdjacencyList();
+    for (int i = 0; i < vertices; ++i) {
+        AdjacencyList::Node* currentNode = adjList[i];
+        while (currentNode != nullptr) {
+            if (i < currentNode->edge.to) {
+                edgeArray[edgeIndex].from = i;
+                edgeArray[edgeIndex].to = currentNode->edge.to;
+                edgeArray[edgeIndex].weight = currentNode->edge.weight;
+
+                edgeIndex++;
+            }
+            currentNode = currentNode->next;
+        }
+    }
+
+    QuickSort::sort(edgeArray, 0, edges - 1);
+
+    int* parent = new int[vertices];
+    int* rank = new int[vertices];
+
+    for (int i = 0; i < vertices; ++i) {
+        parent[i] = i;
+        rank[i] = 0;
+    }
+
+    resultSize = 0;
+    *result = new int[2 * (vertices - 1)];
+    for (int i = 0; i < edges; ++i) {
+        int rootU = find(parent, edgeArray[i].from);
+        int rootV = find(parent, edgeArray[i].to);
+
+        if (rootU != rootV) {
+            (*result)[2 * resultSize] = edgeArray[i].from;
+            (*result)[2 * resultSize + 1] = edgeArray[i].to;
+            resultSize++;
+            unionSets(parent, rank, rootU, rootV);
+        }
+    }
+
+    delete[] edgeArray;
+    delete[] parent;
+    delete[] rank;
 }

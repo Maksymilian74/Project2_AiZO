@@ -21,6 +21,8 @@ add_executable(Projekt2_AiZO Main.cpp
         IncidenceMatrix.cpp
         IncidenceMatrix.h
         AdjacencyList.cpp
-        AdjacencyList.h)
+        AdjacencyList.h
+        Quicksort.cpp
+        Quicksort.h)
 
 set(CMAKE_EXE_LINKER_FLAGS "-static")
