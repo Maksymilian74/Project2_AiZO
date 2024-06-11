@@ -4,8 +4,8 @@ project(Projekt2_AiZO)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(Projekt2_AiZO Main.cpp
-        MstAlgorithms.cpp
-        MstAlgorithms.h
+        Prim.cpp
+        Prim.h
         Menu.cpp
         Menu.h
         ShortestPathAlgorithms.cpp
@@ -22,7 +22,7 @@ add_executable(Projekt2_AiZO Main.cpp
         IncidenceMatrix.h
         AdjacencyList.cpp
         AdjacencyList.h
-        Quicksort.cpp
-        Quicksort.h)
+        Kruskal.cpp
+        Kruskal.h)
 
 set(CMAKE_EXE_LINKER_FLAGS "-static")
