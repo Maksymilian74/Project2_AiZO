@@ -2,6 +2,7 @@
 #include "FillStructure.h"
 #include "Prim.h"
 #include "Kruskal.h"
+#include "Dijkstra.h"
 #include <iostream>
 #include <chrono>
 #include <fstream>
@@ -185,7 +186,25 @@ void TestSolving::algorithmKruskal() {
 }
 
 void TestSolving::algorithmDijkstra() {
+    int startVertex, endVertex;
+    cout << "Enter start vertex: ";
+    cin >> startVertex;
+    cout << "Enter end vertex: ";
+    cin >> endVertex;
 
+    if (incidenceMatrix != nullptr) {
+        cout << "Running Dijkstra's algorithm using incidence matrix:" << endl;
+        Dijkstra::runIncidenceMatrix(*incidenceMatrix, startVertex, endVertex);
+    } else {
+        cout << "No incidence matrix available." << endl;
+    }
+
+    if (adjacencyDirectedList != nullptr) {
+        cout << "Running Dijkstra's algorithm using adjacency list:" << endl;
+        Dijkstra::runAdjacencyList(*adjacencyDirectedList, startVertex, endVertex);
+    } else {
+        cout << "No adjacency list available." << endl;
+    }
 }
 
 void TestSolving::algorithmFordBellman() {

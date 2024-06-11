@@ -10,8 +10,8 @@ add_executable(Projekt2_AiZO Main.cpp
         Menu.h
         Dijkstra.cpp
         Dijkstra.h
-        MaxFlowAlgorithms.cpp
-        MaxFlowAlgorithms.h
+        BellmanFord.cpp
+        BellmanFord.h
         FillStructure.cpp
         FillStructure.h
         SimulationSolving.cpp

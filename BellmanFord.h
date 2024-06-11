@@ -1,0 +1,10 @@
+#ifndef PROJEKT2_AIZO_BELLMANFORD_H
+#define PROJEKT2_AIZO_BELLMANFORD_H
+
+
+class BellmanFord {
+
+};
+
+
+#endif //PROJEKT2_AIZO_BELLMANFORD_H
