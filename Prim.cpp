@@ -34,15 +34,30 @@ void Prim::runIncidenceMatrix(const IncidenceMatrix &graph) {
 
         inMST[u] = true;
 
-        for (int v = 0; v < vertices; ++v) {
-            for (int e = 0; e < edges; ++ e) {
-                int weight = abs(matrix[u][e]);
-                if (weight > 0 && !inMST[v] && weight < key[v]) {
-                    parent[v] = u;
-                    key[v] = weight;
+//        for (int v = 0; v < vertices; ++v) {
+//            for (int e = 0; e < edges; ++ e) {
+//                int weight = abs(matrix[v][e]);
+//                if (weight > 0 && !inMST[v] && weight < key[v]) {
+//                    parent[v] = u;
+//                    key[v] = weight;
+//                }
+//            }
+//        }
+
+        for (int e = 0; e < edges; ++e) {
+            if (matrix[u][e] != 0) {
+                for (int v = 0; v < vertices; ++v) {
+                    if (v != u && matrix[v][e] != 0 && !inMST[v]) {
+                        int weight = abs(matrix[u][e]);
+                        if (weight < key[v]) {
+                            parent[v] = u;
+                            key[v] = weight;
+                        }
+                    }
                 }
             }
         }
+
     }
 
     cout << "Edge \tWeight\n";

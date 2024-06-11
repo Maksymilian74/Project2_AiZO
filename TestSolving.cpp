@@ -1,6 +1,7 @@
 #include "TestSolving.h"
 #include "FillStructure.h"
 #include "Prim.h"
+#include "Kruskal.h"
 #include <iostream>
 #include <chrono>
 #include <fstream>
@@ -168,7 +169,19 @@ void TestSolving::algorithmPrim() {
 }
 
 void TestSolving::algorithmKruskal() {
+    if (incidenceMatrix != nullptr) {
+        cout << "Running Kruskal's algorithm using incidence matrix:" << endl;
+        Kruskal::runIncidenceMatrix(*incidenceMatrix);
+    } else {
+        cout << "No incidence matrix available." << endl;
+    }
 
+    if (adjacencyUndirectedList != nullptr) {
+        cout << "Running Kruskal's algorithm using adjacency list:" << endl;
+        Kruskal::runAdjacencyList(*adjacencyUndirectedList);
+    } else {
+        cout << "No adjacency list available." << endl;
+    }
 }
 
 void TestSolving::algorithmDijkstra() {
