@@ -27,23 +27,35 @@ void Kruskal::unionSets(int parent[], int rank[], int x, int y) {
     }
 }
 
-// Funkcja pomocnicza do sortowania krawędzi na podstawie ich wag
-void Kruskal::sortEdges(int edges[][3], int edgeCount) {
-    for (int i = 0; i < edgeCount - 1; ++i) {
-        for (int j = 0; j < edgeCount - i - 1; ++j) {
-            if (edges[j][2] > edges[j + 1][2]) {
-                int tempSrc = edges[j][0];
-                int tempDest = edges[j][1];
-                int tempWeight = edges[j][2];
-                edges[j][0] = edges[j + 1][0];
-                edges[j][1] = edges[j + 1][1];
-                edges[j][2] = edges[j + 1][2];
-                edges[j + 1][0] = tempSrc;
-                edges[j + 1][1] = tempDest;
-                edges[j + 1][2] = tempWeight;
-            }
+void Kruskal::processEdgesWithHeap(int edges[][3], int edgeCount, int vertices) {
+    MinHeap minHeap(edgeCount);
+
+    for (int i = 0; i < edgeCount; ++i) {
+        minHeap.insertKey(edges[i][0], edges[i][1], edges[i][2]);
+    }
+
+    int* parent = new int[vertices];
+    int* rank = new int[vertices];
+
+    for (int i = 0; i < vertices; ++i) {
+        parent[i] = i;
+        rank[i] = 0;
+    }
+
+    cout << "Edge \tWeight\n";
+    while (!minHeap.isEmpty()) {
+        int* minEdge = minHeap.extractMin();
+        int x = find(parent, minEdge[0]);
+        int y = find(parent, minEdge[1]);
+
+        if (x != y) {
+            cout << minEdge[0] << " - " << minEdge[1] << "\t" << minEdge[2] << "\n";
+            unionSets(parent, rank, x, y);
         }
     }
+
+    delete[] parent;
+    delete[] rank;
 }
 
 void Kruskal::runIncidenceMatrix(const IncidenceMatrix &graph) {
@@ -58,33 +70,33 @@ void Kruskal::runIncidenceMatrix(const IncidenceMatrix &graph) {
         edgesArray[i][1] = edgeList[i][1];
         edgesArray[i][2] = abs(edgeList[i][2]);
     }
-
-    // Sortowanie krawędzi na podstawie ich wag
-    sortEdges(edgesArray, edges);
-
-    // Alokacja pamięci na rodzica i rangę dla Union-Find
-    int* parent = new int[vertices];
-    int* rank = new int[vertices];
-
-    for (int i = 0; i < vertices; ++i) {
-        parent[i] = i;
-        rank[i] = 0;
-    }
-
-    cout << "Edge \tWeight\n";
-    for (int i = 0; i < edges; ++i) {
-        int x = find(parent, edgesArray[i][0]);
-        int y = find(parent, edgesArray[i][1]);
-
-        if (x != y) {
-            cout << edgesArray[i][0] << " - " << edgesArray[i][1] << "\t" << edgesArray[i][2] << "\n";
-            unionSets(parent, rank, x, y);
-        }
-    }
+    processEdgesWithHeap(edgesArray, edges, vertices);
 
     delete[] edgesArray;
-    delete[] parent;
-    delete[] rank;
+//
+//    // Alokacja pamięci na rodzica i rangę dla Union-Find
+//    int* parent = new int[vertices];
+//    int* rank = new int[vertices];
+//
+//    for (int i = 0; i < vertices; ++i) {
+//        parent[i] = i;
+//        rank[i] = 0;
+//    }
+//
+//    cout << "Edge \tWeight\n";
+//    for (int i = 0; i < edges; ++i) {
+//        int x = find(parent, edgesArray[i][0]);
+//        int y = find(parent, edgesArray[i][1]);
+//
+//        if (x != y) {
+//            cout << edgesArray[i][0] << " - " << edgesArray[i][1] << "\t" << edgesArray[i][2] << "\n";
+//            unionSets(parent, rank, x, y);
+//        }
+//    }
+//
+//    delete[] edgesArray;
+//    delete[] parent;
+//    delete[] rank;
 }
 
 void Kruskal::runAdjacencyList(const AdjacencyList &graph) {
@@ -115,30 +127,31 @@ void Kruskal::runAdjacencyList(const AdjacencyList &graph) {
         }
     }
 
-    // Sortowanie krawędzi na podstawie ich wag
-    sortEdges(edgesArray, edges);
-
-    // Alokacja pamięci na rodzica i rangę dla Union-Find
-    int* parent = new int[vertices];
-    int* rank = new int[vertices];
-
-    for (int i = 0; i < vertices; ++i) {
-        parent[i] = i;
-        rank[i] = 0;
-    }
-
-    cout << "Edge \tWeight\n";
-    for (int i = 0; i < edges; ++i) {
-        int x = find(parent, edgesArray[i][0]);
-        int y = find(parent, edgesArray[i][1]);
-
-        if (x != y) {
-            cout << edgesArray[i][0] << " - " << edgesArray[i][1] << "\t" << edgesArray[i][2] << "\n";
-            unionSets(parent, rank, x, y);
-        }
-    }
+    processEdgesWithHeap(edgesArray, edges, vertices);
 
     delete[] edgesArray;
-    delete[] parent;
-    delete[] rank;
+//
+//    // Alokacja pamięci na rodzica i rangę dla Union-Find
+//    int* parent = new int[vertices];
+//    int* rank = new int[vertices];
+//
+//    for (int i = 0; i < vertices; ++i) {
+//        parent[i] = i;
+//        rank[i] = 0;
+//    }
+//
+//    cout << "Edge \tWeight\n";
+//    for (int i = 0; i < edges; ++i) {
+//        int x = find(parent, edgesArray[i][0]);
+//        int y = find(parent, edgesArray[i][1]);
+//
+//        if (x != y) {
+//            cout << edgesArray[i][0] << " - " << edgesArray[i][1] << "\t" << edgesArray[i][2] << "\n";
+//            unionSets(parent, rank, x, y);
+//        }
+//    }
+//
+//    delete[] edgesArray;
+//    delete[] parent;
+//    delete[] rank;
 }

@@ -8,8 +8,8 @@ add_executable(Projekt2_AiZO Main.cpp
         Prim.h
         Menu.cpp
         Menu.h
-        ShortestPathAlgorithms.cpp
-        ShortestPathAlgorithms.h
+        Dijkstra.cpp
+        Dijkstra.h
         MaxFlowAlgorithms.cpp
         MaxFlowAlgorithms.h
         FillStructure.cpp
@@ -23,6 +23,8 @@ add_executable(Projekt2_AiZO Main.cpp
         AdjacencyList.cpp
         AdjacencyList.h
         Kruskal.cpp
-        Kruskal.h)
+        Kruskal.h
+        MinHeap.cpp
+        MinHeap.h)
 
 set(CMAKE_EXE_LINKER_FLAGS "-static")

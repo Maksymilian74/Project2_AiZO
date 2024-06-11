@@ -3,6 +3,7 @@
 
 #include "IncidenceMatrix.h"
 #include "AdjacencyList.h"
+#include "MinHeap.h"
 
 class Kruskal {
 public:
@@ -12,7 +13,7 @@ public:
 private:
     static int find(int parent[], int i);
     static void unionSets(int parent[], int rank[], int x, int y);
-    static void sortEdges(int edges[][3], int edgeCount);
+    static void processEdgesWithHeap(int edges[][3], int edgeCount, int vertices);
 };
 
 #endif // KRUSKAL_H

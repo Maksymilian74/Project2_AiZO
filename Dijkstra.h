@@ -1,0 +1,10 @@
+#ifndef PROJEKT2_AIZO_DIJKSTRA_H
+#define PROJEKT2_AIZO_DIJKSTRA_H
+
+
+class Dijkstra {
+
+};
+
+
+#endif //PROJEKT2_AIZO_DIJKSTRA_H
