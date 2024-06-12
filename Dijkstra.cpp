@@ -50,32 +50,35 @@ void Dijkstra::runIncidenceMatrix(const IncidenceMatrix &graph, int startVertex,
         int u = minDistance(dist, sptSet, vertices);
         sptSet[u] = true;
 
-        for (int v = 0; v < vertices; v++) {
-            for (int e = 0; e < edges; e++) {
-                if (matrix[u][e] != 0 && (matrix[v][e] == -matrix[u][e] || matrix[v][e] == matrix[u][e])) {
-                    int weight = abs(matrix[u][e]);
-                    if (!sptSet[v] && dist[u] != numeric_limits<int>::max() && dist[u] + weight < dist[v]) {
-                        dist[v] = dist[u] + weight;
-                        parent[v] = u;
+        for (int e = 0; e < edges; e++) {
+            if (matrix[u][e] > 0) {
+                for (int v = 0; v < vertices; v++) {
+                    if (matrix[v][e] == -matrix[u][e]) {
+                        int weight = matrix[u][e];
+                        if (!sptSet[v] && dist[u] != numeric_limits<int>::max() && dist[u] + weight < dist[v]) {
+                            dist[v] = dist[u] + weight;
+                            parent[v] = u;
+                        }
                     }
                 }
             }
         }
     }
 
-    cout << "Vertex\t Distance\tPath";
-    for (int i = 0; i < vertices; i++) {
-        if (i == endVertex) {
-            cout << "\n" << startVertex << " -> " << i << " \t\t " << dist[i] << "\t\t" << startVertex << " ";
-            printPath(parent, i);
-        }
-    }
-    cout << endl;
+//    cout << "Vertex\t Distance\tPath";
+//    for (int i = 0; i < vertices; i++) {
+//        if (i == endVertex) {
+//            cout << "\n" << startVertex << " -> " << i << " \t\t " << dist[i] << "\t\t" << startVertex << " ";
+//            printPath(parent, i);
+//        }
+//    }
+//    cout << endl;
 
     delete[] dist;
     delete[] sptSet;
     delete[] parent;
 }
+
 
 // Algorytm Dijkstry dla listy sąsiedztwa
 void Dijkstra::runAdjacencyList(const AdjacencyList &graph, int startVertex, int endVertex) {
@@ -101,26 +104,23 @@ void Dijkstra::runAdjacencyList(const AdjacencyList &graph, int startVertex, int
         AdjacencyList::Node* node = adjList[u];
         while (node != nullptr) {
             int v = node->edge.to;
-            //cout<<"edge.to"<<node->edge.to<<endl;
             int weight = node->edge.weight;
-            //cout<<"edge.weight"<<node->edge.weight<<endl;
             if (!sptSet[v] && dist[u] != numeric_limits<int>::max() && dist[u] + weight < dist[v]) {
                 dist[v] = dist[u] + weight;
-                cout<<dist[v]<<endl;
                 parent[v] = u;
             }
             node = node->next;
         }
     }
 
-    cout << "Vertex\t Distance\tPath";
-    if (dist[endVertex] != numeric_limits<int>::max()) {
-        cout << "\n" << startVertex << " -> " << endVertex << " \t\t " << dist[endVertex] << "\t\t" << startVertex << " ";
-        printPath(parent, endVertex);
-    } else {
-        cout << "\nNo path from " << startVertex << " to " << endVertex;
-    }
-    cout << endl;
+//    cout << "Vertex\t Distance\tPath";
+//    if (dist[endVertex] != numeric_limits<int>::max()) {
+//        cout << "\n" << startVertex << " -> " << endVertex << " \t\t " << dist[endVertex] << "\t\t" << startVertex << " ";
+//        printPath(parent, endVertex);
+//    } else {
+//        cout << "\nNo path from " << startVertex << " to " << endVertex;
+//    }
+//    cout << endl;
 
     delete[] dist;
     delete[] sptSet;

@@ -7,7 +7,6 @@
 #include "AdjacencyList.h"
 
 using namespace std;
-using namespace std::chrono;
 
 class TestSolving {
 public:
@@ -41,9 +40,9 @@ private:
     IncidenceMatrix* incidenceMatrix; // Wskaźnik na macierz incydencji
     AdjacencyList* adjacencyDirectedList;     // Wskaźnik na listę sąsiedztwa
     AdjacencyList* adjacencyUndirectedList;     // Wskaźnik na listę sąsiedztwa
-    std::chrono::high_resolution_clock::time_point start; // Zmienna przechowujaca początek pomiaru czasu
-    std::chrono::high_resolution_clock::time_point stop; // Zmienna przechowujaca koniec pomiaru czasu
-    double time; // Zmienna przechowujaca czas sortowania
+
+    int* parent;
+    int* key;
 };
 
 #endif

@@ -5,7 +5,6 @@
 #include "Dijkstra.h"
 #include "BellmanFord.h"
 #include <iostream>
-#include <chrono>
 #include <fstream>
 
 using namespace std;
@@ -13,24 +12,21 @@ using namespace std::chrono;
 
 // Konstruktor
 TestSolving::TestSolving() {
-
-    // Inicjalizacja zmiennych do pomiaru czasu
-    start = high_resolution_clock::now();
-    stop = high_resolution_clock::now();
-    time = 0;
     incidenceMatrix = nullptr;
     adjacencyDirectedList = nullptr;
     adjacencyUndirectedList = nullptr;
+    parent = nullptr;
+    key = nullptr;
 }
 
 // Destruktor
-TestSolving:: ~TestSolving() {
+TestSolving::~TestSolving() {
     delete incidenceMatrix;
     delete adjacencyDirectedList;
     delete adjacencyUndirectedList;
-    std::cout << "TestSolving object destroyed." << std::endl;
+    delete[] parent;
+    delete[] key;
 }
-
 
 // Metoda odpowiedzialna za wczytanie danych z pliku do tablicy
 void TestSolving::loadDataFromFile(string fileToOpen) {
@@ -46,18 +42,14 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
 
     // Usuwanie istniejącej macierzy, jeśli istnieje
     if (incidenceMatrix != nullptr) {
-        cout << "Deleting existing incidence matrix." << endl;
         delete incidenceMatrix;
         incidenceMatrix = nullptr;
-        std::cout << "IncidenceMatrix object deleted." << std::endl;
     }
 
     // Tworzenie instancji listy sąsiedztwa dla grafu skierowanego
     if (adjacencyDirectedList != nullptr) {
-        cout << "Deleting existing incidence list." << endl;
         delete adjacencyDirectedList;
         adjacencyDirectedList = nullptr;
-        std::cout << "AdjacencyDirectedList object deleted." << std::endl;
     }
 
     // Tworzenie instancji listy sąsiedztwa dla grafu nieskierowanego
@@ -70,13 +62,10 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
 
     // Tworzenie instancji macierzy incydencji
     incidenceMatrix = new IncidenceMatrix(numVertices, numEdges);
-    std::cout << "New IncidenceMatrix object created." << std::endl;
 
     adjacencyDirectedList = new AdjacencyList(numVertices);
-    std::cout << "New AdjacencyDirectedList object created." << std::endl;
 
     adjacencyUndirectedList = new AdjacencyList(numVertices);
-    std::cout << "New AdjacencyUndirectedList object created." << std::endl;
 
     int startVertex, endVertex, weight;
     // Wczytywanie danych o krawędziach i dodawanie ich do macierzy incydencji
@@ -91,7 +80,6 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
 
     file.close();
 }
-
 
 // Metoda odpowiedzialna za wygenerowanie grafu
 void TestSolving::generateRandomGraph(int vertices, int density) {
@@ -155,35 +143,79 @@ void TestSolving::displayGraph() {
 }
 
 void TestSolving::algorithmPrim() {
+    int vertices = incidenceMatrix->getVertices();
+
+    delete[] parent;
+    delete[] key;
+    parent = new int[vertices];
+    key = new int[vertices];
+
     if (incidenceMatrix != nullptr) {
         cout << "Running Prim's algorithm using incidence matrix:" << endl;
-        Prim::runIncidenceMatrix(*incidenceMatrix);
+        Prim::runIncidenceMatrix(*incidenceMatrix, parent, key);
+        cout << "Edge \tWeight\n";
+        for (int i = 1; i < incidenceMatrix->getVertices(); ++i) {
+            cout << parent[i] << " - " << i << "\t" << key[i] << "\n";
+        }
     } else {
         cout << "No incidence matrix available." << endl;
     }
 
     if (adjacencyUndirectedList != nullptr) {
         cout << "Running Prim's algorithm using adjacency list:" << endl;
-        Prim::runAdjacencyList(*adjacencyUndirectedList);
+        Prim::runAdjacencyList(*adjacencyUndirectedList, parent, key);
+        cout << "Edge \tWeight\n";
+        for (int i = 1; i < adjacencyUndirectedList->getVertices(); ++i) {
+            cout << parent[i] << " - " << i << "\t" << key[i] << "\n";
+        }
     } else {
         cout << "No adjacency list available." << endl;
     }
+
+    delete[] parent;
+    delete[] key;
+    parent = nullptr;
+    key = nullptr;
 }
 
 void TestSolving::algorithmKruskal() {
+    int vertices = incidenceMatrix->getVertices();
+
+    delete[] parent;
+    delete[] key;
+    parent = new int[vertices];
+    key = new int[vertices];
+
     if (incidenceMatrix != nullptr) {
         cout << "Running Kruskal's algorithm using incidence matrix:" << endl;
-        Kruskal::runIncidenceMatrix(*incidenceMatrix);
+        Kruskal::runIncidenceMatrix(*incidenceMatrix, parent, key);
+        cout << "Edge \tWeight\n";
+        for (int i = 1; i < incidenceMatrix->getVertices(); ++i) {
+            if (parent[i] != i) {
+                cout << parent[i] << " - " << i << "\t" << key[i] << "\n";
+            }
+        }
     } else {
         cout << "No incidence matrix available." << endl;
     }
 
     if (adjacencyUndirectedList != nullptr) {
         cout << "Running Kruskal's algorithm using adjacency list:" << endl;
-        Kruskal::runAdjacencyList(*adjacencyUndirectedList);
+        Kruskal::runAdjacencyList(*adjacencyUndirectedList, parent, key);
+        cout << "Edge \tWeight\n";
+        for (int i = 1; i < adjacencyUndirectedList->getVertices(); ++i) {
+            if (parent[i] != i) {
+                cout << parent[i] << " - " << i << "\t" << key[i] << "\n";
+            }
+        }
     } else {
         cout << "No adjacency list available." << endl;
     }
+
+    delete[] parent;
+    delete[] key;
+    parent = nullptr;
+    key = nullptr;
 }
 
 void TestSolving::algorithmDijkstra() {
@@ -229,8 +261,3 @@ void TestSolving::algorithmFordBellman() {
         cout << "No adjacency list available." << endl;
     }
 }
-
-void TestSolving::algorithmFordFulkerson() {
-
-}
-

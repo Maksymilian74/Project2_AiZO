@@ -74,3 +74,18 @@ void MinHeap::heapify(int idx) {
 bool MinHeap::isEmpty() const {
     return heapSize == 0;
 }
+
+void MinHeap::decreaseKey(int u, int new_weight) {
+    int i;
+    for (i = 0; i < heapSize; ++i) {
+        if (heapArray[i][0] == u) {
+            heapArray[i][2] = new_weight;
+            break;
+        }
+    }
+
+    while (i != 0 && heapArray[i][2] < heapArray[(i - 1) / 2][2]) {
+        swap(heapArray[i], heapArray[(i - 1) / 2]);
+        i = (i - 1) / 2;
+    }
+}

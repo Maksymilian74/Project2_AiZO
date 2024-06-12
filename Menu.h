@@ -16,6 +16,9 @@ private:
     // Metoda wyswietlajaca menu dla trybu testowego
     int displayTestingMenu();
 
+    // Metoda wyswietlajaca menu dla wyboru algorytmu
+    int displayAlgorithmMenu();
+
     // Metoda wyswietlajaca menu dla trybu badawczego
     int displaySimulationMenu();
 };

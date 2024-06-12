@@ -1,5 +1,6 @@
 #include "Menu.h"
 #include "TestSolving.h"
+#include "SimulationSolving.h"
 #include <iostream>
 
 using namespace std;
@@ -8,10 +9,12 @@ void Menu::runMainMenu() { // Implementacja glownego menu
     int number;
     int test;
     int simulation;
+    int algorithm;
     int vertices;
     int density;
     string fileToOpen;
     TestSolving* testSolving = nullptr;
+    SimulationSolving* simulationSolving = nullptr;
 
     do {
         number = displayMainMenu(); // Wyswietlenie glownego menu
@@ -65,11 +68,6 @@ void Menu::runMainMenu() { // Implementacja glownego menu
                             break;
                         case 8:
                             cout << "-------------------------------------------\n";
-                            cout << "Algorytm Forda-Fulkersona\n";
-                            testSolving->algorithmFordFulkerson();
-                            break;
-                        case 9:
-                            cout << "-------------------------------------------\n";
                             cout << "Wyjscie do wyboru trybu pracy  \n";
                             break;
                         default:
@@ -77,20 +75,22 @@ void Menu::runMainMenu() { // Implementacja glownego menu
                             cout << "Bledny numer, podaj prawidlowa wartosc\n";
                             break;
                     }
-                } while(test != 9);
+                } while(test != 8);
                 delete testSolving;  // Zwolnieni pamieci po obiekcie TestSolving
                 testSolving = nullptr; // Ustawienie wskaznika na nullptr
                 break;
             case 2:
                 cout << "-------------------------------------------\n";
                 cout << "Tryb pracy badawczej\n";
-                //tworzenie obiektu podmenu
+                simulationSolving = new SimulationSolving(); // Utworzenie obiektu klasy SimulationSolving
                 do {
                     simulation = displaySimulationMenu(); // Wyswietlenie menu dla trybu badawczego
                     switch (simulation) {
                         case 1:
                             cout << "-------------------------------------------\n";
                             cout << "Wybor algorytmu\n";
+                            algorithm = displayAlgorithmMenu();
+                            simulationSolving->testAlgorithm(algorithm);
                             break;
                         case 2:
                             cout << "-------------------------------------------\n";
@@ -102,6 +102,8 @@ void Menu::runMainMenu() { // Implementacja glownego menu
                             break;
                     }
                 } while(simulation != 2);
+                delete simulationSolving;  // Zwolnieni pamieci po obiekcie SimulationSolving
+                simulationSolving = nullptr; // Ustawienie wskaznika na nullptr
                 break;
             case 3:
                 cout << "-------------------------------------------\n";
@@ -140,8 +142,7 @@ int Menu::displayTestingMenu() { // Implementacja wyswietlania menu dla trybu te
     cout << "5. Uruchom algorytm Kruskala                    \n";
     cout << "6. Uruchom algorytm Dijkstry                    \n";
     cout << "7. Uruchom algorytm Forda-Bellmana              \n";
-    cout << "8. Uruchom algorytm Forda-Fulkersona            \n";
-    cout << "9. Wyjscie do wyboru trybu pracy                \n";
+    cout << "8. Wyjscie do wyboru trybu pracy                \n";
     cout << "Wpisz numer zadania:";
     cin >> task;
     return task;
@@ -153,6 +154,23 @@ int Menu::displaySimulationMenu() { // Implementacja wyswietlania menu dla trybu
     cout << "      --- Simulation Menu ---      \n";
     cout << "1. Wybor algorytmu                 \n";
     cout << "2. Wyjscie do wyboru trybu pracy   \n";
+    cout << "Wpisz numer zadania:";
+    cin >> task;
+    return task;
+}
+
+int Menu::displayAlgorithmMenu() { // Implementacja wyswietlania menu dla trybu testowego
+    int task;
+    cout << "------------------------------------------------\n";
+    cout << "           --- Algorithm Menu ---               \n";
+    cout << "1. Uruchom algorytm Prima - macierz             \n";
+    cout << "2. Uruchom algorytm Prima - lista               \n";
+    cout << "3. Uruchom algorytm Kruskala - macierz          \n";
+    cout << "4. Uruchom algorytm Kruskala - lista            \n";
+    cout << "5. Uruchom algorytm Dijkstry - macierz          \n";
+    cout << "6. Uruchom algorytm Dijkstry - lista            \n";
+    cout << "7. Uruchom algorytm Forda-Bellmana - macierz    \n";
+    cout << "8. Uruchom algorytm Forda-Bellmana - lista      \n";
     cout << "Wpisz numer zadania:";
     cin >> task;
     return task;

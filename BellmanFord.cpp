@@ -73,14 +73,14 @@ void BellmanFord::runIncidenceMatrix(const IncidenceMatrix &graph, int startVert
         }
     }
 
-    cout << "Vertex\t Distance\tPath";
-    if (dist[endVertex] != numeric_limits<int>::max()) {
-        cout << "\n" << startVertex << " -> " << endVertex << " \t\t " << dist[endVertex] << "\t\t" << startVertex << " ";
-        printPath(parent, endVertex);
-    } else {
-        cout << "\nNo path from " << startVertex << " to " << endVertex;
-    }
-    cout << endl;
+//    cout << "Vertex\t Distance\tPath";
+//    if (dist[endVertex] != numeric_limits<int>::max()) {
+//        cout << "\n" << startVertex << " -> " << endVertex << " \t\t " << dist[endVertex] << "\t\t" << startVertex << " ";
+//        printPath(parent, endVertex);
+//    } else {
+//        cout << "\nNo path from " << startVertex << " to " << endVertex;
+//    }
+//    cout << endl;
 
     delete[] dist;
     delete[] parent;
@@ -133,14 +133,14 @@ void BellmanFord::runAdjacencyList(const AdjacencyList &graph, int startVertex, 
         }
     }
 
-    cout << "Vertex\t Distance\tPath";
-    if (dist[endVertex] != numeric_limits<int>::max()) {
-        cout << "\n" << startVertex << " -> " << endVertex << " \t\t " << dist[endVertex] << "\t\t" << startVertex << " ";
-        printPath(parent, endVertex);
-    } else {
-        cout << "\nNo path from " << startVertex << " to " << endVertex;
-    }
-    cout << endl;
+//    cout << "Vertex\t Distance\tPath";
+//    if (dist[endVertex] != numeric_limits<int>::max()) {
+//        cout << "\n" << startVertex << " -> " << endVertex << " \t\t " << dist[endVertex] << "\t\t" << startVertex << " ";
+//        printPath(parent, endVertex);
+//    } else {
+//        cout << "\nNo path from " << startVertex << " to " << endVertex;
+//    }
+//    cout << endl;
 
     delete[] dist;
     delete[] parent;

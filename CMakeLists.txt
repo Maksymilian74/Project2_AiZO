@@ -25,6 +25,7 @@ add_executable(Projekt2_AiZO Main.cpp
         Kruskal.cpp
         Kruskal.h
         MinHeap.cpp
-        MinHeap.h)
+        MinHeap.h
+)
 
 set(CMAKE_EXE_LINKER_FLAGS "-static")

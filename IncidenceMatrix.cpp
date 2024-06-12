@@ -18,7 +18,6 @@ IncidenceMatrix::IncidenceMatrix(int vertices, int edges) : vertices(vertices), 
     for (int i = 0; i < edges; ++i) {
         edgeList[i] = new int[3]; // Każda krawędź to (u, v, weight)
     }
-    std::cout << "IncidenceMatrix object created with " << vertices << " vertices and " << edges << " edges." << std::endl;
 }
 
 IncidenceMatrix::~IncidenceMatrix() {
@@ -31,7 +30,6 @@ IncidenceMatrix::~IncidenceMatrix() {
         delete[] edgeList[i];
     }
     delete[] edgeList;
-    std::cout << "IncidenceMatrix object destroyed." << std::endl;
 }
 
 void IncidenceMatrix::addEdge(int u, int v, int weight) {
@@ -40,12 +38,10 @@ void IncidenceMatrix::addEdge(int u, int v, int weight) {
         return;
     }
 
-    std::cout << "numer: " << currentEdge << std::endl;
     if (currentEdge > edges) {
         std::cerr << "Error: Exceeded maximum number of edges." << std::endl;
         return;
     }
-    std::cout << "Edge added from " << u << " to " << v << " with weight " << weight << "." << std::endl;
     // Dodanie krawędzi do listy krawędzi
     edgeList[currentEdge][0] = u;
     edgeList[currentEdge][1] = v;

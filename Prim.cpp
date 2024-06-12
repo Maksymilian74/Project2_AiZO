@@ -1,48 +1,33 @@
 #include "Prim.h"
+#include "MinHeap.h"
 #include <iostream>
 #include <limits>
+#include <cmath>
 
 using namespace std;
 
-void Prim::runIncidenceMatrix(const IncidenceMatrix &graph) {
+void Prim::runIncidenceMatrix(const IncidenceMatrix &graph, int* &parent, int* &key) {
     int vertices = graph.getVertices();
     int edges = graph.getEdges();
     const int** matrix = graph.getMatrix();
 
-    int* parent = new int[vertices];
-    int* key = new int[vertices];
     bool* inMST = new bool[vertices];
+
+    MinHeap minHeap(vertices);
 
     for (int i = 0; i < vertices; ++i) {
         key[i] = numeric_limits<int>::max();
         inMST[i] = false;
+        minHeap.insertKey(i, -1, key[i]);
     }
 
     key[0] = 0;
-    parent[0] = -1;
+    minHeap.decreaseKey(0, 0);
 
-    for (int count = 0; count < vertices - 1; ++count) {
-        int minKey = numeric_limits<int>::max();
-        int u = -1;
-
-        for (int v = 0; v < vertices; ++v) {
-            if (!inMST[v] && key[v] < minKey) {
-                minKey = key[v];
-                u = v;
-            }
-        }
-
+    while (!minHeap.isEmpty()) {
+        int* minNode = minHeap.extractMin();
+        int u = minNode[0];
         inMST[u] = true;
-
-//        for (int v = 0; v < vertices; ++v) {
-//            for (int e = 0; e < edges; ++ e) {
-//                int weight = abs(matrix[v][e]);
-//                if (weight > 0 && !inMST[v] && weight < key[v]) {
-//                    parent[v] = u;
-//                    key[v] = weight;
-//                }
-//            }
-//        }
 
         for (int e = 0; e < edges; ++e) {
             if (matrix[u][e] != 0) {
@@ -50,53 +35,39 @@ void Prim::runIncidenceMatrix(const IncidenceMatrix &graph) {
                     if (v != u && matrix[v][e] != 0 && !inMST[v]) {
                         int weight = abs(matrix[u][e]);
                         if (weight < key[v]) {
-                            parent[v] = u;
                             key[v] = weight;
+                            parent[v] = u;
+                            minHeap.decreaseKey(v, weight);
                         }
                     }
                 }
             }
         }
-
     }
 
-    cout << "Edge \tWeight\n";
-    for (int i = 1; i < vertices; ++i) {
-        cout << parent[i] << " - " << i << "\t" << key[i] << "\n";
-    }
-
-    delete[] parent;
-    delete[] key;
     delete[] inMST;
 }
 
-void Prim::runAdjacencyList(const AdjacencyList &graph) {
+void Prim::runAdjacencyList(const AdjacencyList &graph, int* &parent, int* &key) {
     int vertices = graph.getVertices();
     AdjacencyList::Node** adjList = graph.getAdjacencyList();
 
-    int* parent = new int[vertices];
-    int* key = new int[vertices];
     bool* inMST = new bool[vertices];
+
+    MinHeap minHeap(vertices);
 
     for (int i = 0; i < vertices; ++i) {
         key[i] = numeric_limits<int>::max();
         inMST[i] = false;
+        minHeap.insertKey(i, -1, key[i]);
     }
 
     key[0] = 0;
-    parent[0] = -1;
+    minHeap.decreaseKey(0, 0);
 
-    for (int count = 0; count < vertices - 1; ++count) {
-        int minKey = numeric_limits<int>::max();
-        int u = -1;
-
-        for (int v = 0; v < vertices; ++v) {
-            if (!inMST[v] && key[v] < minKey) {
-                minKey = key[v];
-                u = v;
-            }
-        }
-
+    while (!minHeap.isEmpty()) {
+        int* minNode = minHeap.extractMin();
+        int u = minNode[0];
         inMST[u] = true;
 
         AdjacencyList::Node* node = adjList[u];
@@ -106,17 +77,11 @@ void Prim::runAdjacencyList(const AdjacencyList &graph) {
             if (!inMST[v] && weight < key[v]) {
                 key[v] = weight;
                 parent[v] = u;
+                minHeap.decreaseKey(v, weight);
             }
             node = node->next;
         }
     }
 
-    cout << "Edge \tWeight\n";
-    for (int i = 1; i < vertices; ++i) {
-        cout << parent[i] << " - " << i << "\t" << key[i] << "\n";
-    }
-
-    delete[] parent;
-    delete[] key;
     delete[] inMST;
 }

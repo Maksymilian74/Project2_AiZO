@@ -16,6 +16,7 @@ public:
     void insertKey(int u, int v, int weight);
     int* extractMin();
     bool isEmpty() const;
+    void decreaseKey(int u, int new_weight);
 };
 
 #endif // MINHEAP_H
