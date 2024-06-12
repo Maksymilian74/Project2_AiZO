@@ -26,7 +26,7 @@ AdjacencyList::~AdjacencyList() {
 // Metoda odpowiedzialna za dodanie krawedzi do listy sasiedztwa
 void AdjacencyList::addEdge(int from, int to, int weight) {
     if (from >= vertices || to >= vertices) {
-        std::cerr << "Invalid vertices!" << std::endl;
+        std::cerr << "Zla liczba wierzcholkow!" << std::endl;
         return;
     }
 
@@ -40,7 +40,7 @@ void AdjacencyList::addEdge(int from, int to, int weight) {
 // Metoda odpowiedzialna za wyswietlanie listy sasiedztwa
 void AdjacencyList::display() const {
     for (int i = 0; i < vertices; ++i) {
-        std::cout << "Vertex " << i << ":";
+        std::cout << "Wierzcholek " << i << ":";
         Node* current = adjList[i];
         if (current) {
             std::cout << " (" << current->edge.to << ";" << current->edge.weight << ")";

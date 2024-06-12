@@ -22,7 +22,7 @@ MinHeap::~MinHeap() {
 // Metoda odpowiedzialna za dodanie klucza do kopca
 void MinHeap::insertKey(int u, int v, int weight) {
     if (heapSize == capacity) {
-        cout << "Heap overflow!" << endl;
+        cout << "Przepelnienie kopca!" << endl;
         return;
     }
 

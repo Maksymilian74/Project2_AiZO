@@ -42,7 +42,7 @@ void Kruskal::processEdgesWithHeap(int edges[][3], int edgeCount, int vertices) 
         rank[i] = 0;
     }
 
-    cout << "Edge \tWeight\n";
+    cout << "Krawedz \tWaga\n";
     while (!minHeap.isEmpty()) {
         int* minEdge = minHeap.extractMin();
         int x = find(parent, minEdge[0]);

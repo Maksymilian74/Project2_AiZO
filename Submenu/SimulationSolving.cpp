@@ -38,28 +38,28 @@ void SimulationSolving::testAlgorithm(int algorithmType) {
     for (int density : densityArray) {
         switch (density) {
             case 25:
-                cout << "\nDensity: 25%\n";
+                cout << "\nGestosc: 25%\n";
                 break;
             case 50:
-                cout << "\nDensity: 50%\n";
+                cout << "\nGestosc: 50%\n";
                 break;
             case 99:
-                cout << "\nDensity: 99%\n";
+                cout << "\nGestosc: 99%\n";
                 break;
             default:
-                cout << "Invalid density!\n";
+                cout << "Nieprawidlowa gestosc!\n";
                 break;
         }
 
         for (int vertices : verticesArray) {
-            cout << "\nVertices: " << vertices << endl;
+            cout << "\nWierzcholek: " << vertices << endl;
 
             time = 0;
             for (int i = 0; i < iterations; i++) {
                 generateRandomGraph(vertices, density);
                 time += runAlgorithm(algorithmType, vertices);
             }
-            cout << "Algorithm " << algorithmType << " Average Time: " << time / iterations << " ms\n";
+            cout << "Algorytm " << algorithmType << " Sredni czas: " << time / iterations << " ms\n";
         }
     }
 }
@@ -109,7 +109,7 @@ double SimulationSolving::runAlgorithm(int algorithmType, int vertices) {
             stop = high_resolution_clock::now();
             break;
         default:
-            cout << "Unknown algorithm type!\n";
+            cout << "Nieznany algorytm!\n";
             break;
     }
 

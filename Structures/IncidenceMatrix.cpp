@@ -37,12 +37,12 @@ IncidenceMatrix::~IncidenceMatrix() {
 // Metoda odpowiedzialna za dodanie krawedzi do macierzy incydencji
 void IncidenceMatrix::addEdge(int u, int v, int weight) {
     if (u >= vertices || v >= vertices) {
-        std::cerr << "Error: Vertex index out of bounds." << std::endl;
+        std::cerr << "Blad: Wierzcholek poza zakresem" << std::endl;
         return;
     }
 
     if (currentEdge > edges) {
-        std::cerr << "Error: Exceeded maximum number of edges." << std::endl;
+        std::cerr << "Blad: Osiagnieto minimalna liczbe krawedzi" << std::endl;
         return;
     }
     // Dodanie krawedzi do listy krawedzi
@@ -84,9 +84,9 @@ void IncidenceMatrix::display() const {
 
 // Metoda odpowiedzialna za wyswietlanie krawedzi
 void IncidenceMatrix::displayEdges() const {
-    std::cout << "Edge List:" << std::endl;
+    std::cout << "Lista krawedzi:" << std::endl;
     for (int i = 0; i < edges; ++i) {
-        std::cout << "Edge " << i << ": (" << edgeList[i][0] << ", " << edgeList[i][1] << ") Weight: " << edgeList[i][2] << std::endl;
+        std::cout << "Krawedz " << i << ": (" << edgeList[i][0] << ", " << edgeList[i][1] << ") Waga: " << edgeList[i][2] << std::endl;
     }
 }
 

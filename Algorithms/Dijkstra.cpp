@@ -64,7 +64,7 @@ void Dijkstra::runIncidenceMatrix(const IncidenceMatrix &graph, int startVertex,
         }
     }
 
-    cout << "Vertex\t Distance\tPath";
+    cout << "Wierzcholek\t Odleglosc\tSciezka";
     for (int i = 0; i < vertices; i++) {
         if (i == endVertex) {
             cout << "\n" << startVertex << " -> " << i << " \t\t " << dist[i] << "\t\t" << startVertex << " ";
@@ -112,12 +112,12 @@ void Dijkstra::runAdjacencyList(const AdjacencyList &graph, int startVertex, int
         }
     }
 
-    cout << "Vertex\t Distance\tPath";
+    cout << "Wierzcholek\t Odleglosc\tSciezka";
     if (dist[endVertex] != numeric_limits<int>::max()) {
         cout << "\n" << startVertex << " -> " << endVertex << " \t\t " << dist[endVertex] << "\t\t" << startVertex << " ";
         printPath(parent, endVertex);
     } else {
-        cout << "\nNo path from " << startVertex << " to " << endVertex;
+        cout << "\nBrak sciezki z " << startVertex << " do " << endVertex;
     }
     cout << endl;
 

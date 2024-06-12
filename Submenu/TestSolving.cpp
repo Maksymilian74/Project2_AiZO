@@ -54,10 +54,8 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
 
     // Tworzenie instancji listy sasiedztwa dla grafu nieskierowanego
     if (adjacencyUndirectedList != nullptr) {
-        cout << "Deleting existing incidence list." << endl;
         delete adjacencyUndirectedList;
         adjacencyUndirectedList = nullptr;
-        std::cout << "AdjacencyUndirectedList object deleted." << std::endl;
     }
 
     // Tworzenie instancji macierzy incydencji
@@ -123,24 +121,24 @@ void TestSolving::generateRandomGraph(int vertices, int density) {
 // Metoda odpowiedzialna za wyswietlenie grafu
 void TestSolving::displayGraph() {
     if (incidenceMatrix != nullptr) {
-        std::cout << std::endl << "Incidence Matrix:" << std::endl;
+        std::cout << std::endl << "Macierz incydencji:" << std::endl;
         incidenceMatrix->display();
     }  else {
-        std::cout << "No matrix to display." << std::endl;
+        std::cout << "Brak macierzy." << std::endl;
     }
 
     if (adjacencyDirectedList != nullptr) {
-        std::cout << std::endl << "Adjacency Directed Graph List:" << std::endl;
+        std::cout << std::endl << "Lista sasiedztwa dla grafu skierowanego:" << std::endl;
         adjacencyDirectedList->display();
     } else {
-        std::cout << "No list to display." << std::endl;
+        std::cout << "Brak listy." << std::endl;
     }
 
     if (adjacencyUndirectedList != nullptr) {
-        std::cout << std::endl << "Adjacency Undirected Graph List:" << std::endl;
+        std::cout << std::endl << "Lista sasiedztwa dla grafu nieskierowanego:" << std::endl;
         adjacencyUndirectedList->display();
     } else {
-        std::cout << "No list to display." << std::endl;
+        std::cout << "Brak listy" << std::endl;
     }
 }
 
@@ -154,25 +152,25 @@ void TestSolving::algorithmPrim() {
     key = new int[vertices];
 
     if (incidenceMatrix != nullptr) {
-        cout << "Running Prim's algorithm using incidence matrix:" << endl;
+        cout << "Algorytm Prima dla macierzy incydencji:" << endl;
         Prim::runIncidenceMatrix(*incidenceMatrix, parent, key);
-        cout << "Edge \tWeight\n";
+        cout << "Krawedz \tWaga\n";
         for (int i = 1; i < incidenceMatrix->getVertices(); ++i) {
             cout << parent[i] << " - " << i << "\t" << key[i] << "\n";
         }
     } else {
-        cout << "No incidence matrix available." << endl;
+        cout << "Brak macierzy" << endl;
     }
 
     if (adjacencyUndirectedList != nullptr) {
-        cout << "Running Prim's algorithm using adjacency list:" << endl;
+        cout << "Algorytm Prima dla listy sasiedztwa:" << endl;
         Prim::runAdjacencyList(*adjacencyUndirectedList, parent, key);
-        cout << "Edge \tWeight\n";
+        cout << "Krawedz \tWaga\n";
         for (int i = 1; i < adjacencyUndirectedList->getVertices(); ++i) {
             cout << parent[i] << " - " << i << "\t" << key[i] << "\n";
         }
     } else {
-        cout << "No adjacency list available." << endl;
+        cout << "Brak listy" << endl;
     }
 
     delete[] parent;
@@ -184,63 +182,63 @@ void TestSolving::algorithmPrim() {
 // Metoda odpowiedzialna za uruchomienie algorytmu Kruskala
 void TestSolving::algorithmKruskal() {
     if (incidenceMatrix != nullptr) {
-        cout << "Running Kruskal's algorithm using incidence matrix:" << endl;
+        cout << "Algorytm Kruskala dla macierzy incydencji:" << endl;
         Kruskal::runIncidenceMatrix(*incidenceMatrix);
-        cout << "Edge \tWeight\n";
+        cout << "Krawedz \tWaga\n";
     } else {
-        cout << "No incidence matrix available." << endl;
+        cout << "Brak macierzy\n" << endl;
     }
 
     if (adjacencyUndirectedList != nullptr) {
-        cout << "Running Kruskal's algorithm using adjacency list:" << endl;
+        cout << "Algorytm Kruskala dla listy sasiedztwa:" << endl;
         Kruskal::runAdjacencyList(*adjacencyUndirectedList);
     } else {
-        cout << "No adjacency list available." << endl;
+        cout << "Brak listy." << endl;
     }
 }
 
 // Metoda odpowiedzialna za uruchomienie algorytmu Dijkstry
 void TestSolving::algorithmDijkstra() {
     int startVertex, endVertex;
-    cout << "Enter start vertex: ";
+    cout << "Krawedz startowa: ";
     cin >> startVertex;
-    cout << "Enter end vertex: ";
+    cout << "Krawedz koncowa: ";
     cin >> endVertex;
 
     if (incidenceMatrix != nullptr) {
-        cout << "Running Dijkstra's algorithm using incidence matrix:" << endl;
+        cout << "Algorytm Dijkstry dla macierzy incydencji:" << endl;
         Dijkstra::runIncidenceMatrix(*incidenceMatrix, startVertex, endVertex);
     } else {
-        cout << "No incidence matrix available." << endl;
+        cout << "Brak macierzy" << endl;
     }
 
     if (adjacencyDirectedList != nullptr) {
-        cout << "Running Dijkstra's algorithm using adjacency list:" << endl;
+        cout << "Algorytm Dijkstry dla listy sasiedztwa:" << endl;
         Dijkstra::runAdjacencyList(*adjacencyDirectedList, startVertex, endVertex);
     } else {
-        cout << "No adjacency list available." << endl;
+        cout << "Brak listy" << endl;
     }
 }
 
 // Metoda odpowiedzialna za uruchomienie algorytmu Bellmana-Forda
 void TestSolving::algorithmFordBellman() {
     int startVertex, endVertex;
-    cout << "Enter start vertex: ";
+    cout << "Krawedz startowa: ";
     cin >> startVertex;
-    cout << "Enter end vertex: ";
+    cout << "Krawedz koncowa: ";
     cin >> endVertex;
 
     if (incidenceMatrix != nullptr) {
-        cout << "Running Bellman-Ford algorithm using incidence matrix:" << endl;
+        cout << "Algorytm Bellmana-Forda dla macierzy incydencji:" << endl;
         BellmanFord::runIncidenceMatrix(*incidenceMatrix, startVertex, endVertex);
     } else {
-        cout << "No incidence matrix available." << endl;
+        cout << "Brak macierzy" << endl;
     }
 
     if (adjacencyDirectedList != nullptr) {
-        cout << "Running Bellman-Ford algorithm using adjacency list:" << endl;
+        cout << "Algorytm Bellmana-Forda dla listy sasiedztwa:" << endl;
         BellmanFord::runAdjacencyList(*adjacencyDirectedList, startVertex, endVertex);
     } else {
-        cout << "No adjacency list available." << endl;
+        cout << "Brak listy" << endl;
     }
 }

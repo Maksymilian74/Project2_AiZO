@@ -64,7 +64,7 @@ void BellmanFord::runIncidenceMatrix(const IncidenceMatrix &graph, int startVert
                     }
                 }
                 if (v != -1 && dist[u] != numeric_limits<int>::max() && dist[u] + abs(matrix[u][e]) < dist[v]) {
-                    cout << "Graph contains negative weight cycle" << endl;
+                    cout << "Graf zawiera cykle ujemne" << endl;
                     delete[] dist;
                     delete[] parent;
                     return;
@@ -73,12 +73,12 @@ void BellmanFord::runIncidenceMatrix(const IncidenceMatrix &graph, int startVert
         }
     }
 
-    cout << "Vertex\t Distance\tPath";
+    cout << "Wierzcholek\t Odleglosc\tSciezka";
     if (dist[endVertex] != numeric_limits<int>::max()) {
         cout << "\n" << startVertex << " -> " << endVertex << " \t\t " << dist[endVertex] << "\t\t" << startVertex << " ";
         printPath(parent, endVertex);
     } else {
-        cout << "\nNo path from " << startVertex << " to " << endVertex;
+        cout << "\nBrak sciezki " << startVertex << " do " << endVertex;
     }
     cout << endl;
 
@@ -124,7 +124,7 @@ void BellmanFord::runAdjacencyList(const AdjacencyList &graph, int startVertex, 
             int v = node->edge.to;
             int weight = node->edge.weight;
             if (dist[u] != numeric_limits<int>::max() && dist[u] + weight < dist[v]) {
-                cout << "Graph contains negative weight cycle" << endl;
+                cout << "Graf zawiera cykle ujemne" << endl;
                 delete[] dist;
                 delete[] parent;
                 return;
@@ -133,12 +133,12 @@ void BellmanFord::runAdjacencyList(const AdjacencyList &graph, int startVertex, 
         }
     }
 
-    cout << "Vertex\t Distance\tPath";
+    cout << "Wierzcholek\t Odleglosc\tSciezka";
     if (dist[endVertex] != numeric_limits<int>::max()) {
         cout << "\n" << startVertex << " -> " << endVertex << " \t\t " << dist[endVertex] << "\t\t" << startVertex << " ";
         printPath(parent, endVertex);
     } else {
-        cout << "\nNo path from " << startVertex << " to " << endVertex;
+        cout << "\nBrak sciezki " << startVertex << " do " << endVertex;
     }
     cout << endl;
 
