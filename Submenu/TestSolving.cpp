@@ -1,9 +1,9 @@
 #include "TestSolving.h"
-#include "FillStructure.h"
-#include "Prim.h"
-#include "Kruskal.h"
-#include "Dijkstra.h"
-#include "BellmanFord.h"
+#include "../Utils/FillStructure.h"
+#include "../Algorithms/Prim.h"
+#include "../Algorithms/Kruskal.h"
+#include "../Algorithms/Dijkstra.h"
+#include "../Algorithms/BellmanFord.h"
 #include <iostream>
 #include <fstream>
 
@@ -40,19 +40,19 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
     int numEdges, numVertices;
     file >> numEdges >> numVertices; // Wczytanie liczby krawędzi i wierzchołków
 
-    // Usuwanie istniejącej macierzy, jeśli istnieje
+    // Usuwanie istniejącej macierzy, jesli istnieje
     if (incidenceMatrix != nullptr) {
         delete incidenceMatrix;
         incidenceMatrix = nullptr;
     }
 
-    // Tworzenie instancji listy sąsiedztwa dla grafu skierowanego
+    // Tworzenie instancji listy sasiedztwa dla grafu skierowanego
     if (adjacencyDirectedList != nullptr) {
         delete adjacencyDirectedList;
         adjacencyDirectedList = nullptr;
     }
 
-    // Tworzenie instancji listy sąsiedztwa dla grafu nieskierowanego
+    // Tworzenie instancji listy sasiedztwa dla grafu nieskierowanego
     if (adjacencyUndirectedList != nullptr) {
         cout << "Deleting existing incidence list." << endl;
         delete adjacencyUndirectedList;
@@ -63,12 +63,14 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
     // Tworzenie instancji macierzy incydencji
     incidenceMatrix = new IncidenceMatrix(numVertices, numEdges);
 
+    // Tworzenie instancji listy sasiedztwa dla grafu skierowanego
     adjacencyDirectedList = new AdjacencyList(numVertices);
 
+    // Tworzenie instancji listy sasiedztwa dla grafu nieskierowanego
     adjacencyUndirectedList = new AdjacencyList(numVertices);
 
     int startVertex, endVertex, weight;
-    // Wczytywanie danych o krawędziach i dodawanie ich do macierzy incydencji
+    // Wczytywanie danych o krawedziach i dodawanie ich do macierzy incydencji
     for (int i = 0; i < numEdges; ++i) {
         file >> startVertex >> endVertex >> weight;
         std::cout << "Wpisywanie" << std::endl;
@@ -83,35 +85,35 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
 
 // Metoda odpowiedzialna za wygenerowanie grafu
 void TestSolving::generateRandomGraph(int vertices, int density) {
-    // Usuwanie istniejącej macierzy, jeśli istnieje
+    // Usuwanie istniejacej macierzy, jesli istnieje
     if (incidenceMatrix != nullptr) {
         delete incidenceMatrix;
         incidenceMatrix = nullptr;
     }
 
-    // Usuwanie istniejącej listy sąsiedztwa dla grafu skierowanego, jeśli istnieje
+    // Usuwanie istniejącej listy sasiedztwa dla grafu skierowanego, jesli istnieje
     if (adjacencyDirectedList != nullptr) {
         delete adjacencyDirectedList;
         adjacencyDirectedList = nullptr;
     }
 
-    // Usuwanie istniejącej listy sąsiedztwa dla grafu nieskierowanego, jeśli istnieje
+    // Usuwanie istniejącej listy sasiedztwa dla grafu nieskierowanego, jesli istnieje
     if (adjacencyUndirectedList != nullptr) {
         delete adjacencyUndirectedList;
         adjacencyUndirectedList = nullptr;
     }
 
-    // Obliczenie liczby krawędzi na podstawie gęstości
+    // Obliczenie liczby krawedzi na podstawie gestosci
     int maxEdges = vertices * (vertices - 1) / 2;
     int numEdges = (density * maxEdges) / 100;
 
     // Tworzenie instancji macierzy incydencji
     incidenceMatrix = new IncidenceMatrix(vertices, numEdges);
 
-    // Tworzenie instancji listy sąsiedztwa dla grafu skierowanego
+    // Tworzenie instancji listy sasiedztwa dla grafu skierowanego
     adjacencyDirectedList = new AdjacencyList(vertices);
 
-    // Tworzenie instancji listy sąsiedztwa dla grafu nieskierowanego
+    // Tworzenie instancji listy sasiedztwa dla grafu nieskierowanego
     adjacencyUndirectedList = new AdjacencyList(vertices);
 
     // Wygenerowanie losowego grafu za pomocą metody z klasy FillStructure
@@ -142,6 +144,7 @@ void TestSolving::displayGraph() {
     }
 }
 
+// Metoda odpowiedzialna za uruchomienie algorytmu Prima
 void TestSolving::algorithmPrim() {
     int vertices = incidenceMatrix->getVertices();
 
@@ -178,6 +181,7 @@ void TestSolving::algorithmPrim() {
     key = nullptr;
 }
 
+// Metoda odpowiedzialna za uruchomienie algorytmu Kruskala
 void TestSolving::algorithmKruskal() {
     if (incidenceMatrix != nullptr) {
         cout << "Running Kruskal's algorithm using incidence matrix:" << endl;
@@ -195,6 +199,7 @@ void TestSolving::algorithmKruskal() {
     }
 }
 
+// Metoda odpowiedzialna za uruchomienie algorytmu Dijkstry
 void TestSolving::algorithmDijkstra() {
     int startVertex, endVertex;
     cout << "Enter start vertex: ";
@@ -217,6 +222,7 @@ void TestSolving::algorithmDijkstra() {
     }
 }
 
+// Metoda odpowiedzialna za uruchomienie algorytmu Bellmana-Forda
 void TestSolving::algorithmFordBellman() {
     int startVertex, endVertex;
     cout << "Enter start vertex: ";

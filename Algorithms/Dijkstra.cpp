@@ -1,11 +1,10 @@
 #include "Dijkstra.h"
 #include <iostream>
 #include <limits>
-#include <cmath>
 
 using namespace std;
 
-// Funkcja pomocnicza do znalezienia wierzchołka z minimalną odległością
+// Funkcja pomocnicza do znalezienia wierzcholka z minimalną odlegloscia
 int Dijkstra::minDistance(int dist[], bool sptSet[], int vertices) {
     int min = numeric_limits<int>::max(), min_index;
 
@@ -19,7 +18,7 @@ int Dijkstra::minDistance(int dist[], bool sptSet[], int vertices) {
     return min_index;
 }
 
-// Funkcja pomocnicza do wydrukowania ścieżki
+// Funkcja pomocnicza do wydrukowania sciezki
 void Dijkstra::printPath(int parent[], int vertex) {
     if (parent[vertex] == -1)
         return;
@@ -34,9 +33,9 @@ void Dijkstra::runIncidenceMatrix(const IncidenceMatrix &graph, int startVertex,
     int edges = graph.getEdges();
     const int** matrix = graph.getMatrix();
 
-    int* dist = new int[vertices]; // Tablica do przechowywania najkrótszych odległości
-    bool* sptSet = new bool[vertices]; // Tablica do przechowywania wierzchołków włączonych do MST
-    int* parent = new int[vertices]; // Tablica do przechowywania ścieżki
+    int* dist = new int[vertices]; // Tablica do przechowywania najkrotszych odleglosci
+    bool* sptSet = new bool[vertices]; // Tablica do przechowywania wierzcholkow wlaczonych do MST
+    int* parent = new int[vertices]; // Tablica do przechowywania sciezki
 
     for (int i = 0; i < vertices; i++) {
         dist[i] = numeric_limits<int>::max();
@@ -65,14 +64,14 @@ void Dijkstra::runIncidenceMatrix(const IncidenceMatrix &graph, int startVertex,
         }
     }
 
-//    cout << "Vertex\t Distance\tPath";
-//    for (int i = 0; i < vertices; i++) {
-//        if (i == endVertex) {
-//            cout << "\n" << startVertex << " -> " << i << " \t\t " << dist[i] << "\t\t" << startVertex << " ";
-//            printPath(parent, i);
-//        }
-//    }
-//    cout << endl;
+    cout << "Vertex\t Distance\tPath";
+    for (int i = 0; i < vertices; i++) {
+        if (i == endVertex) {
+            cout << "\n" << startVertex << " -> " << i << " \t\t " << dist[i] << "\t\t" << startVertex << " ";
+            printPath(parent, i);
+        }
+    }
+    cout << endl;
 
     delete[] dist;
     delete[] sptSet;
@@ -80,7 +79,7 @@ void Dijkstra::runIncidenceMatrix(const IncidenceMatrix &graph, int startVertex,
 }
 
 
-// Algorytm Dijkstry dla listy sąsiedztwa
+// Algorytm Dijkstry dla listy sasiedztwa
 void Dijkstra::runAdjacencyList(const AdjacencyList &graph, int startVertex, int endVertex) {
     int vertices = graph.getVertices();
     AdjacencyList::Node** adjList = graph.getAdjacencyList();
@@ -113,14 +112,14 @@ void Dijkstra::runAdjacencyList(const AdjacencyList &graph, int startVertex, int
         }
     }
 
-//    cout << "Vertex\t Distance\tPath";
-//    if (dist[endVertex] != numeric_limits<int>::max()) {
-//        cout << "\n" << startVertex << " -> " << endVertex << " \t\t " << dist[endVertex] << "\t\t" << startVertex << " ";
-//        printPath(parent, endVertex);
-//    } else {
-//        cout << "\nNo path from " << startVertex << " to " << endVertex;
-//    }
-//    cout << endl;
+    cout << "Vertex\t Distance\tPath";
+    if (dist[endVertex] != numeric_limits<int>::max()) {
+        cout << "\n" << startVertex << " -> " << endVertex << " \t\t " << dist[endVertex] << "\t\t" << startVertex << " ";
+        printPath(parent, endVertex);
+    } else {
+        cout << "\nNo path from " << startVertex << " to " << endVertex;
+    }
+    cout << endl;
 
     delete[] dist;
     delete[] sptSet;

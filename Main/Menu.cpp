@@ -1,6 +1,6 @@
 #include "Menu.h"
-#include "TestSolving.h"
-#include "SimulationSolving.h"
+#include "../Submenu/TestSolving.h"
+#include "../Submenu/SimulationSolving.h"
 #include <iostream>
 
 using namespace std;
@@ -89,7 +89,7 @@ void Menu::runMainMenu() { // Implementacja glownego menu
                         case 1:
                             cout << "-------------------------------------------\n";
                             cout << "Wybor algorytmu\n";
-                            algorithm = displayAlgorithmMenu();
+                            algorithm = displayAlgorithmMenu(); // Wyswietlenie menu do wyboru problemu badawczego
                             simulationSolving->testAlgorithm(algorithm);
                             break;
                         case 2:
@@ -159,7 +159,7 @@ int Menu::displaySimulationMenu() { // Implementacja wyswietlania menu dla trybu
     return task;
 }
 
-int Menu::displayAlgorithmMenu() { // Implementacja wyswietlania menu dla trybu testowego
+int Menu::displayAlgorithmMenu() { // Implementacja wyswietlania menu do wyboru algorytmu
     int task;
     cout << "------------------------------------------------\n";
     cout << "           --- Algorithm Menu ---               \n";

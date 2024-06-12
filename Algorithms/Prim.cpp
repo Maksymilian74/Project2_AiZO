@@ -1,11 +1,12 @@
 #include "Prim.h"
-#include "MinHeap.h"
+#include "../Structures/MinHeap.h"
 #include <iostream>
 #include <limits>
 #include <cmath>
 
 using namespace std;
 
+// Algorytm Prima dla macierzy incydencji
 void Prim::runIncidenceMatrix(const IncidenceMatrix &graph, int* &parent, int* &key) {
     int vertices = graph.getVertices();
     int edges = graph.getEdges();
@@ -48,6 +49,7 @@ void Prim::runIncidenceMatrix(const IncidenceMatrix &graph, int* &parent, int* &
     delete[] inMST;
 }
 
+// Algorytm Prima dla listy sasiedztwa
 void Prim::runAdjacencyList(const AdjacencyList &graph, int* &parent, int* &key) {
     int vertices = graph.getVertices();
     AdjacencyList::Node** adjList = graph.getAdjacencyList();
@@ -82,6 +84,5 @@ void Prim::runAdjacencyList(const AdjacencyList &graph, int* &parent, int* &key)
             node = node->next;
         }
     }
-
     delete[] inMST;
 }

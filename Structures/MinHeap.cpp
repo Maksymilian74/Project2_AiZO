@@ -1,9 +1,9 @@
 #include "MinHeap.h"
 #include <iostream>
-#include <climits>
 
 using namespace std;
 
+// Konstruktor
 MinHeap::MinHeap(int capacity) : capacity(capacity), heapSize(0) {
     heapArray = new int*[capacity];
     for (int i = 0; i < capacity; ++i) {
@@ -11,6 +11,7 @@ MinHeap::MinHeap(int capacity) : capacity(capacity), heapSize(0) {
     }
 }
 
+// Destruktor
 MinHeap::~MinHeap() {
     for (int i = 0; i < heapSize; ++i) {
         delete[] heapArray[i];
@@ -18,25 +19,27 @@ MinHeap::~MinHeap() {
     delete[] heapArray;
 }
 
+// Metoda odpowiedzialna za dodanie klucza do kopca
 void MinHeap::insertKey(int u, int v, int weight) {
     if (heapSize == capacity) {
         cout << "Heap overflow!" << endl;
         return;
     }
 
-    // Insert the new key at the end
+    // wstawianie klucza na koniec
     int i = heapSize++;
     heapArray[i][0] = u;
     heapArray[i][1] = v;
     heapArray[i][2] = weight;
 
-    // Fix the min heap property if it is violated
+    // naprawa kopca
     while (i != 0 && heapArray[i][2] < heapArray[(i - 1) / 2][2]) {
         swap(heapArray[i], heapArray[(i - 1) / 2]);
         i = (i - 1) / 2;
     }
 }
 
+// Metoda odpowiedzialna za wyciagniecie minimum
 int* MinHeap::extractMin() {
     if (heapSize <= 0) {
         return nullptr;
@@ -46,7 +49,7 @@ int* MinHeap::extractMin() {
         return heapArray[0];
     }
 
-    // Store the minimum value, and remove it from heap
+    // przechowanie najmniejszej wartosci i usuniecie z kopca
     int* root = heapArray[0];
     heapArray[0] = heapArray[--heapSize];
     heapify(0);
@@ -54,6 +57,7 @@ int* MinHeap::extractMin() {
     return root;
 }
 
+// Metoda pomocnicza do naprawy kopca
 void MinHeap::heapify(int idx) {
     int smallest = idx;
     int left = 2 * idx + 1;
@@ -71,10 +75,12 @@ void MinHeap::heapify(int idx) {
     }
 }
 
+// Metoda odpowiedzialna za sprawdzenie czy kopiec jest pusty
 bool MinHeap::isEmpty() const {
     return heapSize == 0;
 }
 
+// Metoda odpowiedzialna za zmniejszenie wagi
 void MinHeap::decreaseKey(int u, int new_weight) {
     int i;
     for (i = 0; i < heapSize; ++i) {
@@ -83,7 +89,6 @@ void MinHeap::decreaseKey(int u, int new_weight) {
             break;
         }
     }
-
     while (i != 0 && heapArray[i][2] < heapArray[(i - 1) / 2][2]) {
         swap(heapArray[i], heapArray[(i - 1) / 2]);
         i = (i - 1) / 2;

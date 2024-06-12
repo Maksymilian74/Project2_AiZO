@@ -1,18 +1,17 @@
 #include "Kruskal.h"
 #include <iostream>
-#include <limits>
 #include <cmath>
 
 using namespace std;
 
-// Funkcja pomocnicza do znalezienia zestawu elementu i (zastosowanie ścieżkowej kompresji)
+// Metoda pomocnicza do znalezienia zestawu elementu i zastosowanie sciezkowej kompresji
 int Kruskal::find(int parent[], int i) {
     if (parent[i] != i)
         parent[i] = find(parent, parent[i]);
     return parent[i];
 }
 
-// Funkcja pomocnicza do połączenia dwóch zestawów x i y (zastosowanie unii przez rangę)
+// Metoda pomocnicza do polaczenia dwoch zestawow x i y
 void Kruskal::unionSets(int parent[], int rank[], int x, int y) {
     int rootX = find(parent, x);
     int rootY = find(parent, y);
@@ -27,6 +26,7 @@ void Kruskal::unionSets(int parent[], int rank[], int x, int y) {
     }
 }
 
+// Metoda pomocnicza do obslugi kolejki
 void Kruskal::processEdgesWithHeap(int edges[][3], int edgeCount, int vertices) {
     MinHeap minHeap(edgeCount);
 
@@ -58,12 +58,13 @@ void Kruskal::processEdgesWithHeap(int edges[][3], int edgeCount, int vertices) 
     delete[] rank;
 }
 
+// Algorytm Kruskala dla macierzy incydencji
 void Kruskal::runIncidenceMatrix(const IncidenceMatrix &graph) {
     int vertices = graph.getVertices();
     int edges = graph.getEdges();
     const int** edgeList = graph.getEdgeList();
 
-    // Tworzenie tablicy krawędzi
+    // Tworzenie tablicy krawedzi
     int (*edgesArray)[3] = new int[edges][3];
     for (int i = 0; i < edges; ++i) {
         edgesArray[i][0] = edgeList[i][0];
@@ -73,38 +74,15 @@ void Kruskal::runIncidenceMatrix(const IncidenceMatrix &graph) {
     processEdgesWithHeap(edgesArray, edges, vertices);
 
     delete[] edgesArray;
-//
-//    // Alokacja pamięci na rodzica i rangę dla Union-Find
-//    int* parent = new int[vertices];
-//    int* rank = new int[vertices];
-//
-//    for (int i = 0; i < vertices; ++i) {
-//        parent[i] = i;
-//        rank[i] = 0;
-//    }
-//
-//    cout << "Edge \tWeight\n";
-//    for (int i = 0; i < edges; ++i) {
-//        int x = find(parent, edgesArray[i][0]);
-//        int y = find(parent, edgesArray[i][1]);
-//
-//        if (x != y) {
-//            cout << edgesArray[i][0] << " - " << edgesArray[i][1] << "\t" << edgesArray[i][2] << "\n";
-//            unionSets(parent, rank, x, y);
-//        }
-//    }
-//
-//    delete[] edgesArray;
-//    delete[] parent;
-//    delete[] rank;
 }
 
+// Algorytm Kruskala dla listy sasiedztwa
 void Kruskal::runAdjacencyList(const AdjacencyList &graph) {
     int vertices = graph.getVertices();
     int edges = 0;
     AdjacencyList::Node** adjList = graph.getAdjacencyList();
 
-    // Zliczanie liczby krawędzi
+    // Zliczanie liczby krawedzi
     for (int u = 0; u < vertices; ++u) {
         AdjacencyList::Node* node = adjList[u];
         while (node != nullptr) {
@@ -113,7 +91,7 @@ void Kruskal::runAdjacencyList(const AdjacencyList &graph) {
         }
     }
 
-    // Tworzenie tablicy krawędzi
+    // Tworzenie tablicy krawedzi
     int (*edgesArray)[3] = new int[edges][3];
     int index = 0;
     for (int u = 0; u < vertices; ++u) {
@@ -130,28 +108,4 @@ void Kruskal::runAdjacencyList(const AdjacencyList &graph) {
     processEdgesWithHeap(edgesArray, edges, vertices);
 
     delete[] edgesArray;
-//
-//    // Alokacja pamięci na rodzica i rangę dla Union-Find
-//    int* parent = new int[vertices];
-//    int* rank = new int[vertices];
-//
-//    for (int i = 0; i < vertices; ++i) {
-//        parent[i] = i;
-//        rank[i] = 0;
-//    }
-//
-//    cout << "Edge \tWeight\n";
-//    for (int i = 0; i < edges; ++i) {
-//        int x = find(parent, edgesArray[i][0]);
-//        int y = find(parent, edgesArray[i][1]);
-//
-//        if (x != y) {
-//            cout << edgesArray[i][0] << " - " << edgesArray[i][1] << "\t" << edgesArray[i][2] << "\n";
-//            unionSets(parent, rank, x, y);
-//        }
-//    }
-//
-//    delete[] edgesArray;
-//    delete[] parent;
-//    delete[] rank;
 }

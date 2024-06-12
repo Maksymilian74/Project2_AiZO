@@ -2,26 +2,27 @@
 #include <cstdlib>
 #include <ctime>
 
+// Metoda odpowiedzialna za generowanie losowego grafu
 void FillStructure::generateRandomGraph(IncidenceMatrix &matrix, AdjacencyList &directedList, AdjacencyList &undirectedList, int vertices, int density) {
     std::srand(std::time(0));
 
-    // Tworzenie minimalnego drzewa rozpinającego (MST)
+    // Tworzenie minimalnego drzewa rozpinajacego (MST)
     for (int i = 1; i < vertices; ++i) {
         int u = i;
         int v = std::rand() % i;
-        int weight = std::rand() % 100 + 1; // Losowa waga krawędzi
+        int weight = std::rand() % 100 + 1; // Losowa waga krawedzi
         matrix.addEdge(u, v, weight);
         directedList.addEdge(u, v, weight);
         undirectedList.addEdge(u, v, weight);
         undirectedList.addEdge(v, u, weight);
     }
 
-    // Obliczenie maksymalnej liczby krawędzi
+    // Obliczenie maksymalnej liczby krawedzi
     int maxEdges = vertices * (vertices - 1) / 2;
     int requiredEdges = (density * maxEdges) / 100;
 
-    // Dodanie pozostałych krawędzi do osiągnięcia wymaganej gęstości
-    int edgeCount = vertices - 1; // Bo już mamy (vertices - 1) krawędzi w MST
+    // Dodanie pozostalych krawedzi do osiagniecia wymaganej gestosci
+    int edgeCount = vertices - 1; // Bo juz mamy (vertices - 1) krawedzi w MST
     while (edgeCount < requiredEdges) {
         int u = std::rand() % vertices;
         int v = std::rand() % vertices;

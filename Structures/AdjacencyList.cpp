@@ -1,6 +1,7 @@
 #include "AdjacencyList.h"
 #include <iostream>
 
+// Konstruktor
 AdjacencyList::AdjacencyList(int vertices)
         : vertices(vertices), edges(0) {
     adjList = new Node*[vertices];
@@ -9,6 +10,7 @@ AdjacencyList::AdjacencyList(int vertices)
     }
 }
 
+// Destruktor
 AdjacencyList::~AdjacencyList() {
     for (int i = 0; i < vertices; ++i) {
         Node* current = adjList[i];
@@ -21,6 +23,7 @@ AdjacencyList::~AdjacencyList() {
     delete[] adjList;
 }
 
+// Metoda odpowiedzialna za dodanie krawedzi do listy sasiedztwa
 void AdjacencyList::addEdge(int from, int to, int weight) {
     if (from >= vertices || to >= vertices) {
         std::cerr << "Invalid vertices!" << std::endl;
@@ -34,6 +37,7 @@ void AdjacencyList::addEdge(int from, int to, int weight) {
     edges++;
 }
 
+// Metoda odpowiedzialna za wyswietlanie listy sasiedztwa
 void AdjacencyList::display() const {
     for (int i = 0; i < vertices; ++i) {
         std::cout << "Vertex " << i << ":";
@@ -50,14 +54,17 @@ void AdjacencyList::display() const {
     }
 }
 
+// Getter liczby wierzcholkow
 int AdjacencyList::getVertices() const {
     return vertices;
 }
 
+// Getter liczby krawedzi
 int AdjacencyList::getEdges() const {
     return edges;
 }
 
+// Getter listy sasiedztwa
 AdjacencyList::Node** AdjacencyList::getAdjacencyList() const {
     return adjList;
 }

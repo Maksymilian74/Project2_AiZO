@@ -1,7 +1,8 @@
 #include "IncidenceMatrix.h"
 #include <iostream>
-#include <iomanip> // dodajemy nagłówek dla manipulatorów strumieniowych
+#include <iomanip>
 
+// Konstruktor
 IncidenceMatrix::IncidenceMatrix(int vertices, int edges) : vertices(vertices), edges(edges) {
     currentEdge = 0;
     // Alokacja macierzy incydencji
@@ -13,13 +14,14 @@ IncidenceMatrix::IncidenceMatrix(int vertices, int edges) : vertices(vertices), 
         }
     }
 
-    // Alokacja listy krawędzi
+    // Alokacja listy krawedzi
     edgeList = new int*[edges];
     for (int i = 0; i < edges; ++i) {
-        edgeList[i] = new int[3]; // Każda krawędź to (u, v, weight)
+        edgeList[i] = new int[3]; // Kazda krawedz to (u, v, weight)
     }
 }
 
+// Destruktor
 IncidenceMatrix::~IncidenceMatrix() {
     for (int i = 0; i < vertices; ++i) {
         delete[] matrix[i];
@@ -32,6 +34,7 @@ IncidenceMatrix::~IncidenceMatrix() {
     delete[] edgeList;
 }
 
+// Metoda odpowiedzialna za dodanie krawedzi do macierzy incydencji
 void IncidenceMatrix::addEdge(int u, int v, int weight) {
     if (u >= vertices || v >= vertices) {
         std::cerr << "Error: Vertex index out of bounds." << std::endl;
@@ -42,12 +45,12 @@ void IncidenceMatrix::addEdge(int u, int v, int weight) {
         std::cerr << "Error: Exceeded maximum number of edges." << std::endl;
         return;
     }
-    // Dodanie krawędzi do listy krawędzi
+    // Dodanie krawedzi do listy krawedzi
     edgeList[currentEdge][0] = u;
     edgeList[currentEdge][1] = v;
     edgeList[currentEdge][2] = weight;
 
-    // Ustawienie wartości w macierzy incydencji
+    // Ustawienie wartosci w macierzy incydencji
     matrix[u][currentEdge] = weight;
     matrix[v][currentEdge] = -weight;
 
@@ -55,21 +58,21 @@ void IncidenceMatrix::addEdge(int u, int v, int weight) {
 }
 
 void IncidenceMatrix::display() const {
-    // Wyświetlanie nagłówka z numerami krawędzi
+    // Wyswietlanie nagłowka z numerami krawedzi
     std::cout << "      ";
     for (int j = 0; j < edges; ++j) {
         std::cout << std::setw(3) << j << " ";
     }
     std::cout << std::endl;
 
-    // Wyświetlanie linii oddzielającej nagłówek
+    // Wyswietlanie linii oddzielajacej naglowek
     std::cout << "    +";
     for (int j = 0; j < edges; ++j) {
         std::cout << "----";
     }
     std::cout << std::endl;
 
-    // Wyświetlanie macierzy incydencji z numerami wierzchołków
+    // Wyswietlanie macierzy incydencji z numerami wierzcholkow
     for (int i = 0; i < vertices; ++i) {
         std::cout << std::setw(3) << i << " | ";
         for (int j = 0; j < edges; ++j) {
@@ -79,7 +82,7 @@ void IncidenceMatrix::display() const {
     }
 }
 
-
+// Metoda odpowiedzialna za wyswietlanie krawedzi
 void IncidenceMatrix::displayEdges() const {
     std::cout << "Edge List:" << std::endl;
     for (int i = 0; i < edges; ++i) {
@@ -87,18 +90,22 @@ void IncidenceMatrix::displayEdges() const {
     }
 }
 
+// Getter liczby wierzcholkow
 int IncidenceMatrix::getVertices() const {
     return vertices;
 }
 
+// Getter liczby krawedzi
 int IncidenceMatrix::getEdges() const {
     return edges;
 }
 
+// Getter macierzy
 const int** IncidenceMatrix::getMatrix() const {
     return const_cast<const int**>(matrix);
 }
 
+// Getter listy krawedzi
 const int** IncidenceMatrix::getEdgeList() const {
     return const_cast<const int**>(edgeList);
 }

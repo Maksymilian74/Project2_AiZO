@@ -5,7 +5,7 @@
 
 using namespace std;
 
-// Funkcja pomocnicza do wydrukowania ścieżki
+// Metoda pomocnicza do wydrukowania sciezki
 void BellmanFord::printPath(int parent[], int vertex) {
     if (parent[vertex] == -1) {
         return;
@@ -15,7 +15,7 @@ void BellmanFord::printPath(int parent[], int vertex) {
     cout << vertex << " ";
 }
 
-// Algorytm Bellmana-Forda dla macierzy incydencji
+// Algorytm BellmanaForda dla macierzy incydencji
 void BellmanFord::runIncidenceMatrix(const IncidenceMatrix &graph, int startVertex, int endVertex) {
     int vertices = graph.getVertices();
     int edges = graph.getEdges();
@@ -73,20 +73,20 @@ void BellmanFord::runIncidenceMatrix(const IncidenceMatrix &graph, int startVert
         }
     }
 
-//    cout << "Vertex\t Distance\tPath";
-//    if (dist[endVertex] != numeric_limits<int>::max()) {
-//        cout << "\n" << startVertex << " -> " << endVertex << " \t\t " << dist[endVertex] << "\t\t" << startVertex << " ";
-//        printPath(parent, endVertex);
-//    } else {
-//        cout << "\nNo path from " << startVertex << " to " << endVertex;
-//    }
-//    cout << endl;
+    cout << "Vertex\t Distance\tPath";
+    if (dist[endVertex] != numeric_limits<int>::max()) {
+        cout << "\n" << startVertex << " -> " << endVertex << " \t\t " << dist[endVertex] << "\t\t" << startVertex << " ";
+        printPath(parent, endVertex);
+    } else {
+        cout << "\nNo path from " << startVertex << " to " << endVertex;
+    }
+    cout << endl;
 
     delete[] dist;
     delete[] parent;
 }
 
-// Algorytm Bellmana-Forda dla listy sąsiedztwa
+// Algorytm BellmanaForda dla listy sasiedztwa
 void BellmanFord::runAdjacencyList(const AdjacencyList &graph, int startVertex, int endVertex) {
     int vertices = graph.getVertices();
     AdjacencyList::Node** adjList = graph.getAdjacencyList();
@@ -133,14 +133,14 @@ void BellmanFord::runAdjacencyList(const AdjacencyList &graph, int startVertex, 
         }
     }
 
-//    cout << "Vertex\t Distance\tPath";
-//    if (dist[endVertex] != numeric_limits<int>::max()) {
-//        cout << "\n" << startVertex << " -> " << endVertex << " \t\t " << dist[endVertex] << "\t\t" << startVertex << " ";
-//        printPath(parent, endVertex);
-//    } else {
-//        cout << "\nNo path from " << startVertex << " to " << endVertex;
-//    }
-//    cout << endl;
+    cout << "Vertex\t Distance\tPath";
+    if (dist[endVertex] != numeric_limits<int>::max()) {
+        cout << "\n" << startVertex << " -> " << endVertex << " \t\t " << dist[endVertex] << "\t\t" << startVertex << " ";
+        printPath(parent, endVertex);
+    } else {
+        cout << "\nNo path from " << startVertex << " to " << endVertex;
+    }
+    cout << endl;
 
     delete[] dist;
     delete[] parent;

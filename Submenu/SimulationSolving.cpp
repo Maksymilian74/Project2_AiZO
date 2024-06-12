@@ -1,15 +1,16 @@
 #include "SimulationSolving.h"
-#include "Prim.h"
-#include "Kruskal.h"
-#include "Dijkstra.h"
-#include "BellmanFord.h"
-#include "FillStructure.h"
+#include "../Algorithms/Prim.h"
+#include "../Algorithms/Kruskal.h"
+#include "../Algorithms/Dijkstra.h"
+#include "../Algorithms/BellmanFord.h"
+#include "../Utils/FillStructure.h"
 #include <iostream>
 #include <chrono>
 
 using namespace std;
 using namespace std::chrono;
 
+// Konstruktor
 SimulationSolving::SimulationSolving() {
     incidenceMatrix = nullptr;
     adjacencyDirectedList = nullptr;
@@ -19,6 +20,7 @@ SimulationSolving::SimulationSolving() {
     key = nullptr;
 }
 
+// Destruktor
 SimulationSolving::~SimulationSolving() {
     delete incidenceMatrix;
     delete adjacencyDirectedList;
@@ -27,6 +29,7 @@ SimulationSolving::~SimulationSolving() {
     delete[] key;
 }
 
+// Metoda do testowania konkretnego algorytmu
 void SimulationSolving::testAlgorithm(int algorithmType) {
     int verticesArray[] = {10, 20, 50, 100, 200, 500, 1000};
     int densityArray[] = {25, 50, 99};
@@ -61,6 +64,7 @@ void SimulationSolving::testAlgorithm(int algorithmType) {
     }
 }
 
+// Metoda do uruchamiania konkretnego algorytmu i mierzenia jego czasu wykonania
 double SimulationSolving::runAlgorithm(int algorithmType, int vertices) {
     double timeIteration = 0;
     switch (algorithmType) {
@@ -110,30 +114,30 @@ double SimulationSolving::runAlgorithm(int algorithmType, int vertices) {
     }
 
     timeIteration = duration_cast<duration<double, milli>>(stop - start).count();
-    //cout << "Algorithm " << algorithmType << " Time: " << time << " ms\n";
     return timeIteration;
 }
 
+// Metoda do generowania losowego grafu
 void SimulationSolving::generateRandomGraph(int vertices, int density) {
-    // Usuwanie istniejącej macierzy, jeśli istnieje
+    // Usuwanie istniejacej macierzy, jesli istnieje
     if (incidenceMatrix != nullptr) {
         delete incidenceMatrix;
         incidenceMatrix = nullptr;
     }
 
-    // Usuwanie istniejącej listy sąsiedztwa dla grafu skierowanego, jeśli istnieje
+    // Usuwanie istniejacej listy sasiedztwa dla grafu skierowanego, jesli istnieje
     if (adjacencyDirectedList != nullptr) {
         delete adjacencyDirectedList;
         adjacencyDirectedList = nullptr;
     }
 
-    // Usuwanie istniejącej listy sąsiedztwa dla grafu nieskierowanego, jeśli istnieje
+    // Usuwanie istniejacej listy sasiedztwa dla grafu nieskierowanego, jesli istnieje
     if (adjacencyUndirectedList != nullptr) {
         delete adjacencyUndirectedList;
         adjacencyUndirectedList = nullptr;
     }
 
-    incidenceMatrix = new IncidenceMatrix(vertices, (density * vertices * (vertices - 1)) / 200); // Max edges for directed graph
+    incidenceMatrix = new IncidenceMatrix(vertices, (density * vertices * (vertices - 1)) / 200); // maksymalna ilosc krawedzi
     adjacencyDirectedList = new AdjacencyList(vertices);
     adjacencyUndirectedList = new AdjacencyList(vertices);
 
