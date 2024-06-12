@@ -94,16 +94,19 @@ void Dijkstra::runAdjacencyList(const AdjacencyList &graph, int startVertex, int
 
     dist[startVertex] = 0;
 
-    for (int count = 0; count < vertices - 1; count++) {
+    for (int count = 0; count < vertices; count++) {
         int u = minDistance(dist, sptSet, vertices);
         sptSet[u] = true;
 
         AdjacencyList::Node* node = adjList[u];
         while (node != nullptr) {
             int v = node->edge.to;
+            //cout<<"edge.to"<<node->edge.to<<endl;
             int weight = node->edge.weight;
+            //cout<<"edge.weight"<<node->edge.weight<<endl;
             if (!sptSet[v] && dist[u] != numeric_limits<int>::max() && dist[u] + weight < dist[v]) {
                 dist[v] = dist[u] + weight;
+                cout<<dist[v]<<endl;
                 parent[v] = u;
             }
             node = node->next;

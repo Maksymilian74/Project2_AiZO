@@ -3,6 +3,7 @@
 #include "Prim.h"
 #include "Kruskal.h"
 #include "Dijkstra.h"
+#include "BellmanFord.h"
 #include <iostream>
 #include <chrono>
 #include <fstream>
@@ -208,7 +209,25 @@ void TestSolving::algorithmDijkstra() {
 }
 
 void TestSolving::algorithmFordBellman() {
+    int startVertex, endVertex;
+    cout << "Enter start vertex: ";
+    cin >> startVertex;
+    cout << "Enter end vertex: ";
+    cin >> endVertex;
 
+    if (incidenceMatrix != nullptr) {
+        cout << "Running Bellman-Ford algorithm using incidence matrix:" << endl;
+        BellmanFord::runIncidenceMatrix(*incidenceMatrix, startVertex, endVertex);
+    } else {
+        cout << "No incidence matrix available." << endl;
+    }
+
+    if (adjacencyDirectedList != nullptr) {
+        cout << "Running Bellman-Ford algorithm using adjacency list:" << endl;
+        BellmanFord::runAdjacencyList(*adjacencyDirectedList, startVertex, endVertex);
+    } else {
+        cout << "No adjacency list available." << endl;
+    }
 }
 
 void TestSolving::algorithmFordFulkerson() {

@@ -1,10 +1,16 @@
-#ifndef PROJEKT2_AIZO_BELLMANFORD_H
-#define PROJEKT2_AIZO_BELLMANFORD_H
+#ifndef BELLMANFORD_H
+#define BELLMANFORD_H
 
+#include "IncidenceMatrix.h"
+#include "AdjacencyList.h"
 
 class BellmanFord {
+public:
+    static void runIncidenceMatrix(const IncidenceMatrix &graph, int startVertex, int endVertex);
+    static void runAdjacencyList(const AdjacencyList &graph, int startVertex, int endVertex);
 
+private:
+    static void printPath(int parent[], int vertex);
 };
 
-
-#endif //PROJEKT2_AIZO_BELLMANFORD_H
+#endif // BELLMANFORD_H
