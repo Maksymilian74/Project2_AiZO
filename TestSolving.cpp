@@ -179,43 +179,20 @@ void TestSolving::algorithmPrim() {
 }
 
 void TestSolving::algorithmKruskal() {
-    int vertices = incidenceMatrix->getVertices();
-
-    delete[] parent;
-    delete[] key;
-    parent = new int[vertices];
-    key = new int[vertices];
-
     if (incidenceMatrix != nullptr) {
         cout << "Running Kruskal's algorithm using incidence matrix:" << endl;
-        Kruskal::runIncidenceMatrix(*incidenceMatrix, parent, key);
+        Kruskal::runIncidenceMatrix(*incidenceMatrix);
         cout << "Edge \tWeight\n";
-        for (int i = 1; i < incidenceMatrix->getVertices(); ++i) {
-            if (parent[i] != i) {
-                cout << parent[i] << " - " << i << "\t" << key[i] << "\n";
-            }
-        }
     } else {
         cout << "No incidence matrix available." << endl;
     }
 
     if (adjacencyUndirectedList != nullptr) {
         cout << "Running Kruskal's algorithm using adjacency list:" << endl;
-        Kruskal::runAdjacencyList(*adjacencyUndirectedList, parent, key);
-        cout << "Edge \tWeight\n";
-        for (int i = 1; i < adjacencyUndirectedList->getVertices(); ++i) {
-            if (parent[i] != i) {
-                cout << parent[i] << " - " << i << "\t" << key[i] << "\n";
-            }
-        }
+        Kruskal::runAdjacencyList(*adjacencyUndirectedList);
     } else {
         cout << "No adjacency list available." << endl;
     }
-
-    delete[] parent;
-    delete[] key;
-    parent = nullptr;
-    key = nullptr;
 }
 
 void TestSolving::algorithmDijkstra() {
