@@ -35,10 +35,7 @@ private:
     double runAlgorithm(int algorithmType, int vertices);
 
     // Metoda do generowania losowego grafu
-    void generateRandomGraph(int vertices, int density);
-
-    int* parent;  // Tablica do przechowywania rodzicow w wynikowym MST
-    int* key;  // Tablica do przechowywania kluczy lub wag dla wierzcholkow
+    void generateRandomGraph(int vertices, int density, int algorithmType);
 };
 
 #endif

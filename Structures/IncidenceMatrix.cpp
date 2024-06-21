@@ -82,5 +82,25 @@ int IncidenceMatrix::getEdges() const {
     return edges;
 }
 
+//Metoda sprawdzajaca istnienie krawedzi
+bool IncidenceMatrix::checkEdge(int v1, int v2){
+    if (v1 >= vertices || v2 >= vertices) {
+        std::cerr << "Blad: Wierzcholek poza zakresem" << std::endl;
+        return false;
+    }
 
+    for (int i = 0; i < currentEdge; ++i) {
+        if (matrix[v1][i] != 0 && matrix[v2][i] != 0) {
+            // Sprawdzenie grafu nieskierowanego
+            if (matrix[v1][i] == matrix[v2][i]) {
+                return true;
+            }
+            // Sprawdzenie grafu skierowanego
+            if ((matrix[v1][i] > 0 && matrix[v2][i] < 0) || (matrix[v1][i] < 0 && matrix[v2][i] > 0)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 

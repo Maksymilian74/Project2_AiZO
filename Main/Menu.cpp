@@ -35,43 +35,52 @@ void Menu::runMainMenu() { // Implementacja glownego menu
                             break;
                         case 2:
                             cout << "-------------------------------------------\n";
-                            cout << "Wygenerowanie grafu losowo\n";
+                            cout << "Wygenerowanie nieskierowanego grafu losowo\n";
                             cout << "Podaj liczbe wierzcholkow\n";
                             cin >> vertices;
                             cout << "Podaj gestosc grafu\n";
                             cin >> density;
-                            testSolving->generateRandomGraph(vertices, density);
+                            testSolving->generateRandomUndirectedGraph(vertices, density);
                             break;
                         case 3:
+                            cout << "-------------------------------------------\n";
+                            cout << "Wygenerowanie skierowanego grafu losowo\n";
+                            cout << "Podaj liczbe wierzcholkow\n";
+                            cin >> vertices;
+                            cout << "Podaj gestosc grafu\n";
+                            cin >> density;
+                            testSolving->generateRandomDirectedGraph(vertices, density);
+                            break;
+                        case 4:
                             cout << "-------------------------------------------\n";
                             cout << "Wyswietlenie grafu nieskierowanego\n";
                             testSolving->displayUndirectedGraph();
                             break;
-                        case 4:
+                        case 5:
                             cout << "-------------------------------------------\n";
                             cout << "Wyswietlenie grafu skierowanego\n";
                             testSolving->displayDirectedGraph();
                             break;
-                        case 5:
+                        case 6:
                             cout << "-------------------------------------------\n";
                             cout << "Algorytm Prima\n";
                             testSolving->algorithmPrim();
                             break;
-                        case 6:
+                        case 7:
                             cout << "Algorytm Kruskala\n";
                             testSolving->algorithmKruskal();
                             break;
-                        case 7:
+                        case 8:
                             cout << "-------------------------------------------\n";
                             cout << "Algorytm Dijkstry\n";
                             testSolving->algorithmDijkstra();
                             break;
-                        case 8:
+                        case 9:
                             cout << "-------------------------------------------\n";
                             cout << "Algorytm Forda-Bellmana\n";
                             testSolving->algorithmFordBellman();
                             break;
-                        case 9:
+                        case 10:
                             cout << "-------------------------------------------\n";
                             cout << "Wyjscie do wyboru trybu pracy  \n";
                             break;
@@ -80,7 +89,7 @@ void Menu::runMainMenu() { // Implementacja glownego menu
                             cout << "Bledny numer, podaj prawidlowa wartosc\n";
                             break;
                     }
-                } while(test != 9);
+                } while(test != 10);
                 delete testSolving;  // Zwolnieni pamieci po obiekcie TestSolving
                 testSolving = nullptr; // Ustawienie wskaznika na nullptr
                 break;
@@ -141,14 +150,15 @@ int Menu::displayTestingMenu() { // Implementacja wyswietlania menu dla trybu te
     cout << "------------------------------------------------\n";
     cout << "            --- Testing Menu ---                \n";
     cout << "1. Wczytanie danych z pliku                     \n";
-    cout << "2. Wygenerowanie grafu losowo                   \n";
-    cout << "3. Wyswietlenie grafu nieskierowanego           \n";
-    cout << "4. Wyswietlenie grafu skierowanego              \n";
-    cout << "5. Uruchom algorytm Prima                       \n";
-    cout << "6. Uruchom algorytm Kruskala                    \n";
-    cout << "7. Uruchom algorytm Dijkstry                    \n";
-    cout << "8. Uruchom algorytm Forda-Bellmana              \n";
-    cout << "9. Wyjscie do wyboru trybu pracy                \n";
+    cout << "2. Wygenerowanie nieskierowanego grafu losowo   \n";
+    cout << "3. Wygenerowanie skierowanego grafu losowo      \n";
+    cout << "4. Wyswietlenie grafu nieskierowanego           \n";
+    cout << "5. Wyswietlenie grafu skierowanego              \n";
+    cout << "6. Uruchom algorytm Prima                       \n";
+    cout << "7. Uruchom algorytm Kruskala                    \n";
+    cout << "8. Uruchom algorytm Dijkstry                    \n";
+    cout << "9. Uruchom algorytm Forda-Bellmana              \n";
+    cout << "10. Wyjscie do wyboru trybu pracy                \n";
     cout << "Wpisz numer zadania:";
     cin >> task;
     return task;

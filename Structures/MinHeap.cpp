@@ -6,9 +6,9 @@ using namespace std;
 
 MinHeap::MinHeap(int edges) : heap(edges), currentSize(0) {}
 
-MinHeap::~MinHeap() {}
-
 MinHeap::MinHeap(const MinHeap& other) : heap(other.heap), currentSize(other.currentSize) {}
+
+MinHeap::~MinHeap() {}
 
 MinHeap& MinHeap::operator=(const MinHeap& other) {
     if (this != &other) {
@@ -16,31 +16,6 @@ MinHeap& MinHeap::operator=(const MinHeap& other) {
         currentSize = other.currentSize;
     }
     return *this;
-}
-
-Edge MinHeap::front() const {
-    if (currentSize == 0) {
-        throw out_of_range("Kolejka jest pusta");
-    }
-    return heap[0];
-}
-
-void MinHeap::push(const Edge& edge) {
-    if (currentSize == heap.size()) {
-        heap.resize(heap.size() * 2);
-    }
-    heap[currentSize] = edge;
-    heapifyUp(currentSize);
-    currentSize++;
-}
-
-void MinHeap::pop() {
-    if (currentSize == 0) {
-        return;
-    }
-    currentSize--;
-    heap[0] = heap[currentSize];
-    heapifyDown(0);
 }
 
 void MinHeap::heapifyUp(int index) {
@@ -71,4 +46,29 @@ void MinHeap::heapifyDown(int index) {
         swap(heap[index], heap[tmp]);
         heapifyDown(tmp);
     }
+}
+
+void MinHeap::push(const Edge& edge) {
+    if (currentSize == heap.size()) {
+        heap.resize(heap.size() * 2);
+    }
+    heap[currentSize] = edge;
+    heapifyUp(currentSize);
+    currentSize++;
+}
+
+void MinHeap::pop() {
+    if (currentSize == 0) {
+        return;
+    }
+    currentSize--;
+    heap[0] = heap[currentSize];
+    heapifyDown(0);
+}
+
+Edge MinHeap::front() const {
+    if (currentSize == 0) {
+        throw out_of_range("Kolejka jest pusta");
+    }
+    return heap[0];
 }

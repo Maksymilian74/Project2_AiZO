@@ -4,8 +4,8 @@
  * oraz struktur danych
  */
 
-#ifndef PROJEKT2_AIZO_TESTSOLVING_H
-#define PROJEKT2_AIZO_TESTSOLVING_H
+#ifndef TESTSOLVING_H
+#define TESTSOLVING_H
 
 #include <chrono>
 #include <string>
@@ -26,7 +26,10 @@ public:
     void loadDataFromFile(string fileToOpen);
 
     // Metoda odpowiedzialna za generowanie grafu
-    void generateRandomGraph(int vertices, int density);
+    void generateRandomDirectedGraph(int vertices, int density);
+
+    // Metoda odpowiedzialna za generowanie grafu
+    void generateRandomUndirectedGraph(int vertices, int density);
 
     // Metoda odpowiedzialna za wyswietlenie grafu
     void displayUndirectedGraph();
@@ -51,9 +54,6 @@ private:
     IncidenceMatrix* incidenceDirectedMatrix; // Wskaznik na macierz incydencji
     AdjacencyList* adjacencyDirectedList;     // Wskaznik na liste sasiedztwa
     AdjacencyList* adjacencyUndirectedList;     // Wskaznik na liste sasiedztwa
-
-    int* parent; // Tablica rodzicow w drzewie rozpinajacym
-    int* key; // Tablica kluczy dla wierzcholkow w drzewie rozpinajacym
 };
 
 #endif

@@ -33,8 +33,8 @@ public:
     // Metoda zwracajaca liczbe krawedzi
     int getEdges() const;
 
-    // Metoda zwracajaca macierz incydencji
-    const int** getMatrix() const;
+    // Metoda sprawdzajaca istnienie krawedzi
+    bool checkEdge(int, int);
 
 };
 

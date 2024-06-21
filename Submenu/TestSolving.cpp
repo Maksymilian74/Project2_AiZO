@@ -16,8 +16,6 @@ TestSolving::TestSolving() {
     incidenceDirectedMatrix = nullptr;
     adjacencyDirectedList = nullptr;
     adjacencyUndirectedList = nullptr;
-    parent = nullptr;
-    key = nullptr;
 }
 
 // Destruktor
@@ -26,8 +24,6 @@ TestSolving::~TestSolving() {
     delete incidenceDirectedMatrix;
     delete adjacencyDirectedList;
     delete adjacencyUndirectedList;
-    delete[] parent;
-    delete[] key;
 }
 
 // Metoda odpowiedzialna za wczytanie danych z pliku do tablicy
@@ -94,13 +90,7 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
 }
 
 // Metoda odpowiedzialna za wygenerowanie grafu
-void TestSolving::generateRandomGraph(int vertices, int density) {
-    // Usuwanie istniejacej macierzy, jesli istnieje
-    if (incidenceUndirectedMatrix != nullptr) {
-        delete incidenceUndirectedMatrix;
-        incidenceUndirectedMatrix = nullptr;
-    }
-
+void TestSolving::generateRandomDirectedGraph(int vertices, int density) {
     // Usuwanie istniejacej macierzy, jesli istnieje
     if (incidenceDirectedMatrix != nullptr) {
         delete incidenceDirectedMatrix;
@@ -113,6 +103,33 @@ void TestSolving::generateRandomGraph(int vertices, int density) {
         adjacencyDirectedList = nullptr;
     }
 
+    // Obliczenie liczby krawedzi na podstawie gestosci
+    int maxEdges = vertices * (vertices - 1);
+    int numEdges = (density * maxEdges) / 100;
+
+    // Sprawdzenie, czy maksymalna liczba krawedzi dla zadanej gestosci jest wieksza od vertices - 1
+    if (numEdges < vertices - 1) {
+        numEdges = vertices - 1; // Ustawienie minimalnej liczby krawedzi potrzebnej do utworzenia grafu spojnego
+    }
+
+    // Tworzenie instancji macierzy incydencji
+    incidenceDirectedMatrix = new IncidenceMatrix(vertices, numEdges);
+
+    // Tworzenie instancji listy sasiedztwa dla grafu skierowanego
+    adjacencyDirectedList = new AdjacencyList(vertices);
+
+    // Wygenerowanie losowego grafu za pomocą metody z klasy FillStructure
+    FillStructure::generateRandomDirectedGraph( *incidenceDirectedMatrix, *adjacencyDirectedList, vertices, density);
+}
+
+// Metoda odpowiedzialna za wygenerowanie grafu
+void TestSolving::generateRandomUndirectedGraph(int vertices, int density) {
+    // Usuwanie istniejacej macierzy, jesli istnieje
+    if (incidenceUndirectedMatrix != nullptr) {
+        delete incidenceUndirectedMatrix;
+        incidenceUndirectedMatrix = nullptr;
+    }
+
     // Usuwanie istniejącej listy sasiedztwa dla grafu nieskierowanego, jesli istnieje
     if (adjacencyUndirectedList != nullptr) {
         delete adjacencyUndirectedList;
@@ -123,20 +140,19 @@ void TestSolving::generateRandomGraph(int vertices, int density) {
     int maxEdges = vertices * (vertices - 1) / 2;
     int numEdges = (density * maxEdges) / 100;
 
+    // Sprawdzenie, czy maksymalna liczba krawedzi dla zadanej gestosci jest wieksza od vertices - 1
+    if (numEdges < vertices - 1) {
+        numEdges = vertices - 1; // Ustawienie minimalnej liczby krawedzi potrzebnej do utworzenia grafu spojnego
+    }
+
     // Tworzenie instancji macierzy incydencji
     incidenceUndirectedMatrix = new IncidenceMatrix(vertices, numEdges);
-
-    // Tworzenie instancji macierzy incydencji
-    incidenceDirectedMatrix = new IncidenceMatrix(vertices, numEdges);
-
-    // Tworzenie instancji listy sasiedztwa dla grafu skierowanego
-    adjacencyDirectedList = new AdjacencyList(vertices);
 
     // Tworzenie instancji listy sasiedztwa dla grafu nieskierowanego
     adjacencyUndirectedList = new AdjacencyList(vertices);
 
     // Wygenerowanie losowego grafu za pomocą metody z klasy FillStructure
-    FillStructure::generateRandomGraph(*incidenceUndirectedMatrix, *incidenceDirectedMatrix, *adjacencyDirectedList, *adjacencyUndirectedList, vertices, density);
+    FillStructure::generateRandomUndirectedGraph(*incidenceUndirectedMatrix, *adjacencyUndirectedList, vertices, density);
 }
 
 // Metoda odpowiedzialna za wyswietlenie grafu
@@ -177,17 +193,12 @@ void TestSolving::displayDirectedGraph() {
 void TestSolving::algorithmPrim() {
     int vertices = incidenceUndirectedMatrix->getVertices();
 
-    delete[] parent;
-    delete[] key;
-    parent = new int[vertices];
-    key = new int[vertices];
 
     if (incidenceUndirectedMatrix != nullptr) {
         cout << "Algorytm Prima dla macierzy incydencji:" << endl;
    //     Prim::runIncidenceMatrix(*incidenceUndirectedMatrix, parent, key);
         cout << "Krawedz \tWaga\n";
         for (int i = 1; i < incidenceUndirectedMatrix->getVertices(); ++i) {
-            cout << parent[i] << " - " << i << "\t" << key[i] << "\n";
         }
     } else {
         cout << "Brak macierzy" << endl;
@@ -198,16 +209,10 @@ void TestSolving::algorithmPrim() {
     //    Prim::runAdjacencyList(*adjacencyUndirectedList, parent, key);
         cout << "Krawedz \tWaga\n";
         for (int i = 1; i < adjacencyUndirectedList->getVertices(); ++i) {
-            cout << parent[i] << " - " << i << "\t" << key[i] << "\n";
         }
     } else {
         cout << "Brak listy" << endl;
     }
-
-    delete[] parent;
-    delete[] key;
-    parent = nullptr;
-    key = nullptr;
 }
 
 // Metoda odpowiedzialna za uruchomienie algorytmu Kruskala

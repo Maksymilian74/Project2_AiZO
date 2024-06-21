@@ -17,8 +17,6 @@ SimulationSolving::SimulationSolving() {
     adjacencyDirectedList = nullptr;
     adjacencyUndirectedList = nullptr;
     time = 0;
-    parent = nullptr;
-    key = nullptr;
 }
 
 // Destruktor
@@ -27,8 +25,6 @@ SimulationSolving::~SimulationSolving() {
     delete incidenceDirectedMatrix;
     delete adjacencyDirectedList;
     delete adjacencyUndirectedList;
-    delete[] parent;
-    delete[] key;
 }
 
 // Metoda do testowania konkretnego algorytmu
@@ -58,7 +54,7 @@ void SimulationSolving::testAlgorithm(int algorithmType) {
 
             time = 0;
             for (int i = 0; i < iterations; i++) {
-                generateRandomGraph(vertices, density);
+                generateRandomGraph(vertices, density, algorithmType);
                 time += runAlgorithm(algorithmType, vertices);
             }
             cout << "Algorytm " << algorithmType << " Sredni czas: " << time / iterations << " ms\n";
@@ -120,45 +116,59 @@ double SimulationSolving::runAlgorithm(int algorithmType, int vertices) {
 }
 
 // Metoda do generowania losowego grafu
-void SimulationSolving::generateRandomGraph(int vertices, int density) {
-    // Usuwanie istniejacej macierzy, jesli istnieje
-    if (incidenceUndirectedMatrix != nullptr) {
-        delete incidenceUndirectedMatrix;
-        incidenceUndirectedMatrix = nullptr;
-    }
+void SimulationSolving::generateRandomGraph(int vertices, int density, int algorithmType) {
+    if(algorithmType == 1 || algorithmType == 2 || algorithmType == 3 || algorithmType == 4 ) {
+        // Usuwanie istniejacej macierzy, jesli istnieje
+        if (incidenceUndirectedMatrix != nullptr) {
+            delete incidenceUndirectedMatrix;
+            incidenceUndirectedMatrix = nullptr;
+        }
 
-    // Usuwanie istniejacej macierzy, jesli istnieje
-    if (incidenceDirectedMatrix != nullptr) {
-        delete incidenceDirectedMatrix;
-        incidenceDirectedMatrix = nullptr;
-    }
+        // Usuwanie istniejacej listy sasiedztwa dla grafu nieskierowanego, jesli istnieje
+        if (adjacencyUndirectedList != nullptr) {
+            delete adjacencyUndirectedList;
+            adjacencyUndirectedList = nullptr;
+        }
 
-    // Usuwanie istniejacej listy sasiedztwa dla grafu skierowanego, jesli istnieje
-    if (adjacencyDirectedList != nullptr) {
-        delete adjacencyDirectedList;
-        adjacencyDirectedList = nullptr;
-    }
+        // Obliczenie liczby krawedzi na podstawie gestosci
+        int maxEdges = vertices * (vertices - 1) / 2;
+        int numEdges = (density * maxEdges) / 100;
 
-    // Usuwanie istniejacej listy sasiedztwa dla grafu nieskierowanego, jesli istnieje
-    if (adjacencyUndirectedList != nullptr) {
-        delete adjacencyUndirectedList;
-        adjacencyUndirectedList = nullptr;
-    }
+        // Sprawdzenie, czy maksymalna liczba krawedzi dla zadanej gestosci jest wieksza od vertices - 1
+        if (numEdges < vertices - 1) {
+            numEdges = vertices - 1; // Ustawienie minimalnej liczby krawedzi potrzebnej do utworzenia grafu spojnego
+        }
 
-    incidenceUndirectedMatrix = new IncidenceMatrix(vertices, (density * vertices * (vertices - 1)) / 200); // maksymalna ilosc krawedzi
-    incidenceDirectedMatrix = new IncidenceMatrix(vertices, (density * vertices * (vertices - 1)) / 200); // maksymalna ilosc krawedzi
-    adjacencyDirectedList = new AdjacencyList(vertices);
-    adjacencyUndirectedList = new AdjacencyList(vertices);
+        incidenceUndirectedMatrix = new IncidenceMatrix(vertices, numEdges); // maksymalna ilosc krawedzi
+        adjacencyUndirectedList = new AdjacencyList(vertices);
 
-    FillStructure::generateRandomGraph(*incidenceUndirectedMatrix, *incidenceDirectedMatrix, *adjacencyDirectedList, *adjacencyUndirectedList, vertices, density);
+        FillStructure::generateRandomUndirectedGraph( *incidenceUndirectedMatrix, *adjacencyUndirectedList, vertices, density);
 
-    // Alokacja pamięci dla parent i key
-    if (parent != nullptr) {
-        delete[] parent;
+    } else {
+        // Usuwanie istniejacej macierzy, jesli istnieje
+        if (incidenceDirectedMatrix != nullptr) {
+            delete incidenceDirectedMatrix;
+            incidenceDirectedMatrix = nullptr;
+        }
+
+        // Usuwanie istniejacej listy sasiedztwa dla grafu skierowanego, jesli istnieje
+        if (adjacencyDirectedList != nullptr) {
+            delete adjacencyDirectedList;
+            adjacencyDirectedList = nullptr;
+        }
+
+        // Obliczenie liczby krawedzi na podstawie gestosci
+        int maxEdges = vertices * (vertices - 1);
+        int numEdges = (density * maxEdges) / 100;
+
+        // Sprawdzenie, czy maksymalna liczba krawedzi dla zadanej gestosci jest wieksza od vertices - 1
+        if (numEdges < vertices - 1) {
+            numEdges = vertices - 1; // Ustawienie minimalnej liczby krawedzi potrzebnej do utworzenia grafu spojnego
+        }
+
+        incidenceDirectedMatrix = new IncidenceMatrix(vertices, numEdges); // maksymalna ilosc krawedzi
+        adjacencyDirectedList = new AdjacencyList(vertices);
+
+        FillStructure::generateRandomDirectedGraph( *incidenceDirectedMatrix, *adjacencyDirectedList, vertices, density);
     }
-    if (key != nullptr) {
-        delete[] key;
-    }
-    parent = new int[vertices];
-    key = new int[vertices];
 }

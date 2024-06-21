@@ -22,8 +22,8 @@ public:
     T& operator[](int index) const;  // Operator dostepu do elementu (const)
     T& operator[](int index);  // Operator dostepu do elementu
 
-    void PushBack(const T& value);  // Dodanie elementu na koniec
-    void PopBack();  // Usuniecie elementu z konca
+    void pushBack(const T& value);  // Dodanie elementu na koniec
+    void popBack();  // Usuniecie elementu z konca
     void resize(int newSize);  // Zmiana rozmiaru tablicy
 
     int size() const;  // Zwraca rozmiar tablicy
