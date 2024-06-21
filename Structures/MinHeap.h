@@ -7,33 +7,34 @@
 #ifndef MINHEAP_H
 #define MINHEAP_H
 
+#include "Array.h"
+
+struct Edge {
+    int startVertex;
+    int endVertex;
+    int weight;
+
+    Edge(int u = 0, int v = 0, int w = 0) : startVertex(u), endVertex(v), weight(w) {}
+};
+
 class MinHeap {
-private:
-    int** heapArray; // Tablica przechowujaca elementy kopca
-    int capacity;    // Maksymalna pojemnosc kopca
-    int heapSize;    // Aktualna liczba elementow w kopcu
-
-    // Pomocnicza funkcja do utrzymania wlasnosci kopca minimalnego
-    void heapify(int idx);
-
 public:
-    // Konstruktor
-    MinHeap(int capacity);
-
-    // Destruktor
+    MinHeap(int edges);
     ~MinHeap();
+    MinHeap(const MinHeap& other);
+    MinHeap& operator=(const MinHeap& other);
 
-    // Metoda do wstawiania nowego elementu do kopca
-    void insertKey(int u, int v, int weight);
+    Edge front() const;
+    void push(const Edge& edge);
+    void pop();
+    bool empty() const { return currentSize == 0; }
 
-    // Metoda do usuwania i zwracania najmniejszego elementu z kopca
-    int* extractMin();
+private:
+    Array<Edge> heap;
+    int currentSize;
 
-    // Metoda sprawdzajaca, czy kopiec jest pusty
-    bool isEmpty() const;
-
-    // Metoda do zmniejszania klucza elementu o indeksie u
-    void decreaseKey(int u, int new_weight);
+    void heapifyUp(int index);
+    void heapifyDown(int index);
 };
 
 #endif
