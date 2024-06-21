@@ -210,15 +210,14 @@ void TestSolving::algorithmPrim() {
 void TestSolving::algorithmKruskal() {
     if (incidenceUndirectedMatrix != nullptr) {
         cout << "Algorytm Kruskala dla macierzy incydencji:" << endl;
- //       Kruskal::runIncidenceMatrix(*incidenceUndirectedMatrix);
-        cout << "Krawedz \tWaga\n";
+        Kruskal::runIncidenceMatrix(*incidenceUndirectedMatrix).display();
     } else {
         cout << "Brak macierzy\n" << endl;
     }
 
     if (adjacencyUndirectedList != nullptr) {
-        cout << "Algorytm Kruskala dla listy sasiedztwa:" << endl;
- //       Kruskal::runAdjacencyList(*adjacencyUndirectedList);
+        cout << endl << "Algorytm Kruskala dla listy sasiedztwa:" << endl;
+        Kruskal::runAdjacencyList(*adjacencyUndirectedList).display();
     } else {
         cout << "Brak listy." << endl;
     }

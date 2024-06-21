@@ -10,24 +10,16 @@
 #include "../Structures/IncidenceMatrix.h"
 #include "../Structures/AdjacencyList.h"
 #include "../Structures/MinHeap.h"
+#include "../Utils/UnionFind.h"
 
 class Kruskal {
 public:
     // Metoda odpowiedzialna za uruchumienie algorytmu dla macierzy incydencji
-    static void runIncidenceMatrix(const IncidenceMatrix &graph);
+    static IncidenceMatrix runIncidenceMatrix(IncidenceMatrix &matrix);
 
     // Metoda odpowiedzialna za uruchumienie algorytmu dla listy sasiedztwa
-    static void runAdjacencyList(const AdjacencyList &graph);
+    static AdjacencyList runAdjacencyList(AdjacencyList &list);
 
-private:
-    // Metoda odpowiedzialna za znalezienie zestawu elementu i zastosowanie sciezkowej kompresji
-    static int find(int parent[], int i);
-
-    // Metoda pomocnicza do polaczenia dwoch zestawow x i y
-    static void unionSets(int parent[], int rank[], int x, int y);
-
-    // Metoda pomocnicza do obslugi kolejki
-    static void processEdgesWithHeap(int edges[][3], int edgeCount, int vertices);
 };
 
 #endif

@@ -78,12 +78,12 @@ double SimulationSolving::runAlgorithm(int algorithmType, int vertices) {
             break;
         case 3:
             start = high_resolution_clock::now();
-     //       Kruskal::runIncidenceMatrix(*incidenceUndirectedMatrix);
+            Kruskal::runIncidenceMatrix(*incidenceUndirectedMatrix);
             stop = high_resolution_clock::now();
             break;
         case 4:
             start = high_resolution_clock::now();
-   //         Kruskal::runAdjacencyList(*adjacencyUndirectedList);
+            Kruskal::runAdjacencyList(*adjacencyUndirectedList);
             stop = high_resolution_clock::now();
             break;
         case 5:

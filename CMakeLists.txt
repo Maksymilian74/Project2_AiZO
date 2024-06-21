@@ -28,6 +28,8 @@ add_executable(Projekt2_AiZO Main/Main.cpp
         Structures/MinHeap.h
         Structures/Array.cpp
         Structures/Array.h
+        Utils/UnionFind.cpp
+        Utils/UnionFind.h
 )
 
 set(CMAKE_EXE_LINKER_FLAGS "-static")
