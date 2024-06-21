@@ -14,11 +14,6 @@ IncidenceMatrix::IncidenceMatrix(int vertices, int edges) : vertices(vertices), 
         }
     }
 
-    // Alokacja listy krawedzi
-    edgeList = new int*[edges];
-    for (int i = 0; i < edges; ++i) {
-        edgeList[i] = new int[3]; // Kazda krawedz to (u, v, weight)
-    }
 }
 
 // Destruktor
@@ -28,10 +23,6 @@ IncidenceMatrix::~IncidenceMatrix() {
     }
     delete[] matrix;
 
-    for (int i = 0; i < edges; ++i) {
-        delete[] edgeList[i];
-    }
-    delete[] edgeList;
 }
 
 // Metoda odpowiedzialna za dodanie krawedzi do macierzy incydencji
@@ -45,10 +36,6 @@ void IncidenceMatrix::addEdge(int u, int v, int weight, bool directed) {
         std::cerr << "Blad: Osiagnieto minimalna liczbe krawedzi" << std::endl;
         return;
     }
-    // Dodanie krawedzi do listy krawedzi
-    edgeList[currentEdge][0] = u;
-    edgeList[currentEdge][1] = v;
-    edgeList[currentEdge][2] = weight;
 
     // Ustawienie wartosci w macierzy incydencji
     matrix[u][currentEdge] = weight;
@@ -85,14 +72,6 @@ void IncidenceMatrix::display() const {
     }
 }
 
-// Metoda odpowiedzialna za wyswietlanie krawedzi
-void IncidenceMatrix::displayEdges() const {
-    std::cout << "Lista krawedzi:" << std::endl;
-    for (int i = 0; i < edges; ++i) {
-        std::cout << "Krawedz " << i << ": (" << edgeList[i][0] << ", " << edgeList[i][1] << ") Waga: " << edgeList[i][2] << std::endl;
-    }
-}
-
 // Getter liczby wierzcholkow
 int IncidenceMatrix::getVertices() const {
     return vertices;
@@ -103,12 +82,5 @@ int IncidenceMatrix::getEdges() const {
     return edges;
 }
 
-// Getter macierzy
-const int** IncidenceMatrix::getMatrix() const {
-    return const_cast<const int**>(matrix);
-}
 
-// Getter listy krawedzi
-const int** IncidenceMatrix::getEdgeList() const {
-    return const_cast<const int**>(edgeList);
-}
+

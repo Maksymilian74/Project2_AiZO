@@ -62,14 +62,10 @@ void Kruskal::processEdgesWithHeap(int edges[][3], int edgeCount, int vertices) 
 void Kruskal::runIncidenceMatrix(const IncidenceMatrix &graph) {
     int vertices = graph.getVertices();
     int edges = graph.getEdges();
-    const int** edgeList = graph.getEdgeList();
 
     // Tworzenie tablicy krawedzi
     int (*edgesArray)[3] = new int[edges][3];
     for (int i = 0; i < edges; ++i) {
-        edgesArray[i][0] = edgeList[i][0];
-        edgesArray[i][1] = edgeList[i][1];
-        edgesArray[i][2] = abs(edgeList[i][2]);
     }
     processEdgesWithHeap(edgesArray, edges, vertices);
 
