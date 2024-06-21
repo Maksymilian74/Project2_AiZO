@@ -1,127 +1,117 @@
-//#include "Dijkstra.h"
-//#include <iostream>
-//#include <limits>
-//
-//using namespace std;
-//
-//// Funkcja pomocnicza do znalezienia wierzcholka z minimalną odlegloscia
-//int Dijkstra::minDistance(int dist[], bool sptSet[], int vertices) {
-//    int min = numeric_limits<int>::max(), min_index;
-//
-//    for (int v = 0; v < vertices; v++) {
-//        if (!sptSet[v] && dist[v] <= min) {
-//            min = dist[v];
-//            min_index = v;
-//        }
-//    }
-//
-//    return min_index;
-//}
-//
-//// Funkcja pomocnicza do wydrukowania sciezki
-//void Dijkstra::printPath(int parent[], int vertex) {
-//    if (parent[vertex] == -1)
-//        return;
-//
-//    printPath(parent, parent[vertex]);
-//    cout << vertex << " ";
-//}
-//
-//// Algorytm Dijkstry dla macierzy incydencji
-//void Dijkstra::runIncidenceMatrix(const IncidenceMatrix &graph, int startVertex, int endVertex) {
-//    int vertices = graph.getVertices();
-//    int edges = graph.getEdges();
-//    const int** matrix = graph.getMatrix();
-//
-//    int* dist = new int[vertices]; // Tablica do przechowywania najkrotszych odleglosci
-//    bool* sptSet = new bool[vertices]; // Tablica do przechowywania wierzcholkow wlaczonych do MST
-//    int* parent = new int[vertices]; // Tablica do przechowywania sciezki
-//
-//    for (int i = 0; i < vertices; i++) {
-//        dist[i] = numeric_limits<int>::max();
-//        sptSet[i] = false;
-//        parent[i] = -1;
-//    }
-//
-//    dist[startVertex] = 0;
-//
-//    for (int count = 0; count < vertices - 1; count++) {
-//        int u = minDistance(dist, sptSet, vertices);
-//        sptSet[u] = true;
-//
-//        for (int e = 0; e < edges; e++) {
-//            if (matrix[u][e] > 0) {
-//                for (int v = 0; v < vertices; v++) {
-//                    if (matrix[v][e] == -matrix[u][e]) {
-//                        int weight = matrix[u][e];
-//                        if (!sptSet[v] && dist[u] != numeric_limits<int>::max() && dist[u] + weight < dist[v]) {
-//                            dist[v] = dist[u] + weight;
-//                            parent[v] = u;
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//    cout << "Wierzcholek\t Odleglosc\tSciezka";
-//    for (int i = 0; i < vertices; i++) {
-//        if (i == endVertex) {
-//            cout << "\n" << startVertex << " -> " << i << " \t\t " << dist[i] << "\t\t" << startVertex << " ";
-//            printPath(parent, i);
-//        }
-//    }
-//    cout << endl;
-//
-//    delete[] dist;
-//    delete[] sptSet;
-//    delete[] parent;
-//}
-//
-//
-//// Algorytm Dijkstry dla listy sasiedztwa
-//void Dijkstra::runAdjacencyList(const AdjacencyList &graph, int startVertex, int endVertex) {
-//    int vertices = graph.getVertices();
-//    AdjacencyList::Node** adjList = graph.getAdjacencyList();
-//
-//    int* dist = new int[vertices];
-//    bool* sptSet = new bool[vertices];
-//    int* parent = new int[vertices];
-//
-//    for (int i = 0; i < vertices; i++) {
-//        dist[i] = numeric_limits<int>::max();
-//        sptSet[i] = false;
-//        parent[i] = -1;
-//    }
-//
-//    dist[startVertex] = 0;
-//
-//    for (int count = 0; count < vertices; count++) {
-//        int u = minDistance(dist, sptSet, vertices);
-//        sptSet[u] = true;
-//
-//        AdjacencyList::Node* node = adjList[u];
-//        while (node != nullptr) {
-//            int v = node->edge.to;
-//            int weight = node->edge.weight;
-//            if (!sptSet[v] && dist[u] != numeric_limits<int>::max() && dist[u] + weight < dist[v]) {
-//                dist[v] = dist[u] + weight;
-//                parent[v] = u;
-//            }
-//            node = node->next;
-//        }
-//    }
-//
-//    cout << "Wierzcholek\t Odleglosc\tSciezka";
-//    if (dist[endVertex] != numeric_limits<int>::max()) {
-//        cout << "\n" << startVertex << " -> " << endVertex << " \t\t " << dist[endVertex] << "\t\t" << startVertex << " ";
-//        printPath(parent, endVertex);
-//    } else {
-//        cout << "\nBrak sciezki z " << startVertex << " do " << endVertex;
-//    }
-//    cout << endl;
-//
-//    delete[] dist;
-//    delete[] sptSet;
-//    delete[] parent;
-//}
+#include "Dijkstra.h"
+#include "../Structures/Array.cpp"
+
+
+// Algorytm Dijkstry dla macierzy incydencji
+Array<int> Dijkstra::runIncidenceMatrix(IncidenceMatrix &matrix, int startingVertex, int endingVertex) {
+    int vertexes = matrix.getVertices();
+    int edges = matrix.getEdges();
+
+    Array<bool> visited(vertexes);
+    Array<int> parent(vertexes);
+    Array<int> distance(vertexes);
+
+    for (int i = 0; i < vertexes; i++) {
+        visited[i] = false;
+        parent[i] = -1;
+        distance[i] = INT_MAX;
+    }
+
+    distance[startingVertex] = 0;
+
+    for (int i = 0; i < vertexes; i++) {
+        int minimum = minimumVertex(distance, visited, vertexes);
+        visited[minimum] = true;
+
+        for (int j = 0; j < edges; j++) {
+            if (matrix.getWeight(minimum, j) > 0 && !visited[matrix.getSecVertex(j)] &&
+                distance[minimum] != INT_MAX) {
+                int dist = distance[minimum] + matrix.getWeight(minimum, j);
+                if (dist < distance[matrix.getSecVertex(j)]) {
+                    distance[matrix.getSecVertex(j)] = dist;
+                    parent[matrix.getSecVertex(j)] = minimum;
+                }
+            }
+        }
+    }
+
+    Array<int> tmpPath(vertexes);
+    int pathIndex = 0;
+    int tmp = endingVertex;
+    while (tmp != -1) {
+        tmpPath[pathIndex++] = tmp;
+        tmp = parent[tmp];
+    }
+
+    for (int i = 0; i < pathIndex / 2; ++i) {
+        std::swap(tmpPath[i], tmpPath[pathIndex - i - 1]);
+    }
+
+    Array<int> result(pathIndex + 1);
+    for (int i = 0; i < pathIndex; ++i) {
+        result[i] = tmpPath[i];
+    }
+    result[pathIndex] = distance[endingVertex];
+
+    return result;
+}
+
+
+// Algorytm Dijkstry dla listy sasiedztwa
+Array<int> Dijkstra::runAdjacencyList(AdjacencyList &list, int startingVertex, int endingVertex) {
+    int vertexes = list.getVertices();
+
+    Array<bool> visited(vertexes);
+    Array<int> parent(vertexes);
+    Array<int> distance(vertexes);
+
+    for (int i = 0; i < vertexes; i++) {
+        visited[i] = false;
+        parent[i] = -1;
+        distance[i] = INT_MAX;
+    }
+
+    distance[startingVertex] = 0;
+
+    for (int i = 0; i < vertexes; i++) {
+        int minimum = minimumVertex(distance, visited, vertexes);
+        visited[minimum] = true;
+
+        for (Node *vertex = list.getList(minimum); vertex; vertex = vertex->next) {
+            if (!visited[vertex->vertex] && distance[minimum] != INT_MAX && (distance[vertex->vertex] > distance[minimum] + vertex->edge)) {
+                distance[vertex->vertex] = distance[minimum] + vertex->edge;
+                parent[vertex->vertex] = minimum;
+            }
+        }
+    }
+
+    Array<int> tmpPath(vertexes);
+    int pathIndex = 0;
+    int tmp = endingVertex;
+    while (tmp != -1) {
+        tmpPath[pathIndex++] = tmp;
+        tmp = parent[tmp];
+    }
+
+    for (int i = 0; i < pathIndex / 2; ++i) {
+        std::swap(tmpPath[i], tmpPath[pathIndex - i - 1]);
+    }
+
+    Array<int> result(pathIndex + 1);
+    for (int i = 0; i < pathIndex; ++i) {
+        result[i] = tmpPath[i];
+    }
+    result[pathIndex] = distance[endingVertex];
+
+    return result;
+}
+
+int Dijkstra::minimumVertex(Array<int> &dist, Array<bool> &visited, int n) {
+    int min = -1;
+    for (int i = 0; i < n; i++) {
+        if (!visited[i] && (min == -1 || dist[i] < dist[min])) {
+            min = i;
+        }
+    }
+    return min;
+}

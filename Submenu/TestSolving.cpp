@@ -1,5 +1,7 @@
 #include "TestSolving.h"
 #include "../Utils/FillStructure.h"
+#include "../Structures/Array.h"
+#include "../Structures/Array.cpp"
 #include "../Algorithms/Prim.h"
 #include "../Algorithms/Kruskal.h"
 #include "../Algorithms/Dijkstra.h"
@@ -78,7 +80,6 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
     // Wczytywanie danych o krawedziach i dodawanie ich do macierzy incydencji
     for (int i = 0; i < numEdges; ++i) {
         file >> startVertex >> endVertex >> weight;
-        std::cout << "Wpisywanie" << std::endl;
         incidenceUndirectedMatrix->addEdge(startVertex, endVertex, weight,false);
         incidenceDirectedMatrix->addEdge(startVertex, endVertex, weight,true);
         adjacencyDirectedList->addEdge(startVertex, endVertex, weight);
@@ -225,22 +226,36 @@ void TestSolving::algorithmKruskal() {
 
 // Metoda odpowiedzialna za uruchomienie algorytmu Dijkstry
 void TestSolving::algorithmDijkstra() {
-    int startVertex, endVertex;
+    int startingVertex, endingVertex;
     cout << "Krawedz startowa: ";
-    cin >> startVertex;
+    cin >> startingVertex;
     cout << "Krawedz koncowa: ";
-    cin >> endVertex;
+    cin >> endingVertex;
 
     if (incidenceDirectedMatrix != nullptr) {
+        Array<int> resultPath;
         cout << "Algorytm Dijkstry dla macierzy incydencji:" << endl;
-//        Dijkstra::runIncidenceMatrix(*incidenceDirectedMatrix, startVertex, endVertex);
+        resultPath=Dijkstra::runIncidenceMatrix(*incidenceDirectedMatrix, startingVertex, endingVertex);
+        std::cout << std::endl << " Wynik algorytmu: " << std::endl;
+        std::cout << " Sciezka: ";
+        for (int i = 0; i < resultPath.size() - 1; ++i) {
+            std::cout << resultPath[i] << " ";
+        }
+        std::cout << "\n Dystans: " << resultPath[resultPath.size() - 1] << std::endl << std::endl;
     } else {
         cout << "Brak macierzy" << endl;
     }
 
     if (adjacencyDirectedList != nullptr) {
+        Array<int> resultPath;
         cout << "Algorytm Dijkstry dla listy sasiedztwa:" << endl;
- //       Dijkstra::runAdjacencyList(*adjacencyDirectedList, startVertex, endVertex);
+        resultPath=Dijkstra::runAdjacencyList(*adjacencyDirectedList, startingVertex, endingVertex);
+        std::cout << std::endl << " Wynik algorytmu: " << std::endl;
+        std::cout << " Sciezka: ";
+        for (int i = 0; i < resultPath.size() - 1; ++i) {
+            std::cout << resultPath[i] << " ";
+        }
+        std::cout << "\n Dystans: " << resultPath[resultPath.size() - 1] << std::endl << std::endl;
     } else {
         cout << "Brak listy" << endl;
     }

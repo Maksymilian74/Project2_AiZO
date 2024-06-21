@@ -39,6 +39,9 @@ public:
     // Metoda zwracajaca drugi wierzcholek danej krawedzi
     int getSecondVertex(int j, int u);
 
+    // Metoda zwracajaca drugi wierzcholek danej krawedzi
+    int getSecVertex(int j);
+
     // Metoda sprawdzajaca istnienie krawedzi
     bool checkEdge(int, int);
 
