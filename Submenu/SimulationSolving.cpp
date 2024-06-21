@@ -98,12 +98,12 @@ double SimulationSolving::runAlgorithm(int algorithmType, int vertices) {
             break;
         case 7:
             start = high_resolution_clock::now();
-    //        BellmanFord::runIncidenceMatrix(*incidenceDirectedMatrix, 0, vertices - 1);
+            BellmanFord::runIncidenceMatrix(*incidenceDirectedMatrix, 0, vertices - 1);
             stop = high_resolution_clock::now();
             break;
         case 8:
             start = high_resolution_clock::now();
-   //         BellmanFord::runAdjacencyList(*adjacencyDirectedList, 0, vertices - 1);
+            BellmanFord::runAdjacencyList(*adjacencyDirectedList, 0, vertices - 1);
             stop = high_resolution_clock::now();
             break;
         default:

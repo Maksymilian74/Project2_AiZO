@@ -270,15 +270,29 @@ void TestSolving::algorithmFordBellman() {
     cin >> endVertex;
 
     if (incidenceDirectedMatrix != nullptr) {
+        Array<int> resultPath;
         cout << "Algorytm Bellmana-Forda dla macierzy incydencji:" << endl;
- //       BellmanFord::runIncidenceMatrix(*incidenceDirectedMatrix, startVertex, endVertex);
+        resultPath=BellmanFord::runIncidenceMatrix(*incidenceDirectedMatrix, startVertex, endVertex);
+        std::cout << std::endl << " Wynik algorytmu: " << std::endl;
+        std::cout << " Sciezka: ";
+        for (int i = 0; i < resultPath.size() - 1; ++i) {
+            std::cout << resultPath[i] << " ";
+        }
+        std::cout << "\n Dystans: " << resultPath[resultPath.size() - 1] << std::endl << std::endl;
     } else {
         cout << "Brak macierzy" << endl;
     }
 
     if (adjacencyDirectedList != nullptr) {
+        Array<int> resultPath;
         cout << "Algorytm Bellmana-Forda dla listy sasiedztwa:" << endl;
-   //     BellmanFord::runAdjacencyList(*adjacencyDirectedList, startVertex, endVertex);
+        resultPath=BellmanFord::runAdjacencyList(*adjacencyDirectedList, startVertex, endVertex);
+        std::cout << std::endl << " Wynik algorytmu: " << std::endl;
+        std::cout << " Sciezka: ";
+        for (int i = 0; i < resultPath.size() - 1; ++i) {
+            std::cout << resultPath[i] << " ";
+        }
+        std::cout << "\n Dystans: " << resultPath[resultPath.size() - 1] << std::endl << std::endl;
     } else {
         cout << "Brak listy" << endl;
     }
