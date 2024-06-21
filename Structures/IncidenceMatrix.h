@@ -23,7 +23,7 @@ public:
     ~IncidenceMatrix();
 
     // Metoda do dodawania krawedzi do macierzy incydencji
-    void addEdge(int u, int v, int weight);
+    void addEdge(int u, int v, int weight, bool directed);
 
     // Metoda do wyswietlania macierzy incydencji
     void display() const;

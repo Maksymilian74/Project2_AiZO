@@ -13,7 +13,7 @@
 class FillStructure {
 public:
     // Metoda odpowiedzialna za generowanie losowego grafu
-    static void generateRandomGraph(IncidenceMatrix &matrix, AdjacencyList &directedList, AdjacencyList &undirectedList, int vertices, int density);
+    static void generateRandomGraph(IncidenceMatrix &Undirectedmatrix,IncidenceMatrix &Directedmatrix, AdjacencyList &directedList, AdjacencyList &undirectedList, int vertices, int density);
 };
 
 #endif

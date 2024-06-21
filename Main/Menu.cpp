@@ -44,29 +44,34 @@ void Menu::runMainMenu() { // Implementacja glownego menu
                             break;
                         case 3:
                             cout << "-------------------------------------------\n";
-                            cout << "Wyswietlenie grafu\n";
-                            testSolving->displayGraph();
+                            cout << "Wyswietlenie grafu nieskierowanego\n";
+                            testSolving->displayUndirectedGraph();
                             break;
                         case 4:
+                            cout << "-------------------------------------------\n";
+                            cout << "Wyswietlenie grafu skierowanego\n";
+                            testSolving->displayDirectedGraph();
+                            break;
+                        case 5:
                             cout << "-------------------------------------------\n";
                             cout << "Algorytm Prima\n";
                             testSolving->algorithmPrim();
                             break;
-                        case 5:
+                        case 6:
                             cout << "Algorytm Kruskala\n";
                             testSolving->algorithmKruskal();
                             break;
-                        case 6:
+                        case 7:
                             cout << "-------------------------------------------\n";
                             cout << "Algorytm Dijkstry\n";
                             testSolving->algorithmDijkstra();
                             break;
-                        case 7:
+                        case 8:
                             cout << "-------------------------------------------\n";
                             cout << "Algorytm Forda-Bellmana\n";
                             testSolving->algorithmFordBellman();
                             break;
-                        case 8:
+                        case 9:
                             cout << "-------------------------------------------\n";
                             cout << "Wyjscie do wyboru trybu pracy  \n";
                             break;
@@ -75,7 +80,7 @@ void Menu::runMainMenu() { // Implementacja glownego menu
                             cout << "Bledny numer, podaj prawidlowa wartosc\n";
                             break;
                     }
-                } while(test != 8);
+                } while(test != 9);
                 delete testSolving;  // Zwolnieni pamieci po obiekcie TestSolving
                 testSolving = nullptr; // Ustawienie wskaznika na nullptr
                 break;
@@ -137,12 +142,13 @@ int Menu::displayTestingMenu() { // Implementacja wyswietlania menu dla trybu te
     cout << "            --- Testing Menu ---                \n";
     cout << "1. Wczytanie danych z pliku                     \n";
     cout << "2. Wygenerowanie grafu losowo                   \n";
-    cout << "3. Wyswietlenie grafu                           \n";
-    cout << "4. Uruchom algorytm Prima                       \n";
-    cout << "5. Uruchom algorytm Kruskala                    \n";
-    cout << "6. Uruchom algorytm Dijkstry                    \n";
-    cout << "7. Uruchom algorytm Forda-Bellmana              \n";
-    cout << "8. Wyjscie do wyboru trybu pracy                \n";
+    cout << "3. Wyswietlenie grafu nieskierowanego           \n";
+    cout << "4. Wyswietlenie grafu skierowanego              \n";
+    cout << "5. Uruchom algorytm Prima                       \n";
+    cout << "6. Uruchom algorytm Kruskala                    \n";
+    cout << "7. Uruchom algorytm Dijkstry                    \n";
+    cout << "8. Uruchom algorytm Forda-Bellmana              \n";
+    cout << "9. Wyjscie do wyboru trybu pracy                \n";
     cout << "Wpisz numer zadania:";
     cin >> task;
     return task;

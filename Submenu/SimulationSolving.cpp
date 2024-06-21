@@ -12,7 +12,8 @@ using namespace std::chrono;
 
 // Konstruktor
 SimulationSolving::SimulationSolving() {
-    incidenceMatrix = nullptr;
+    incidenceUndirectedMatrix = nullptr;
+    incidenceDirectedMatrix = nullptr;
     adjacencyDirectedList = nullptr;
     adjacencyUndirectedList = nullptr;
     time = 0;
@@ -22,7 +23,8 @@ SimulationSolving::SimulationSolving() {
 
 // Destruktor
 SimulationSolving::~SimulationSolving() {
-    delete incidenceMatrix;
+    delete incidenceUndirectedMatrix;
+    delete incidenceDirectedMatrix;
     delete adjacencyDirectedList;
     delete adjacencyUndirectedList;
     delete[] parent;
@@ -70,7 +72,7 @@ double SimulationSolving::runAlgorithm(int algorithmType, int vertices) {
     switch (algorithmType) {
         case 1:
             start = high_resolution_clock::now();
-            Prim::runIncidenceMatrix(*incidenceMatrix, parent, key);
+            Prim::runIncidenceMatrix(*incidenceUndirectedMatrix, parent, key);
             stop = high_resolution_clock::now();
             break;
         case 2:
@@ -80,7 +82,7 @@ double SimulationSolving::runAlgorithm(int algorithmType, int vertices) {
             break;
         case 3:
             start = high_resolution_clock::now();
-            Kruskal::runIncidenceMatrix(*incidenceMatrix);
+            Kruskal::runIncidenceMatrix(*incidenceUndirectedMatrix);
             stop = high_resolution_clock::now();
             break;
         case 4:
@@ -90,7 +92,7 @@ double SimulationSolving::runAlgorithm(int algorithmType, int vertices) {
             break;
         case 5:
             start = high_resolution_clock::now();
-            Dijkstra::runIncidenceMatrix(*incidenceMatrix, 0, vertices - 1); // Example: from vertex 0 to vertex (vertices - 1)
+            Dijkstra::runIncidenceMatrix(*incidenceDirectedMatrix, 0, vertices - 1); // Example: from vertex 0 to vertex (vertices - 1)
             stop = high_resolution_clock::now();
             break;
         case 6:
@@ -100,7 +102,7 @@ double SimulationSolving::runAlgorithm(int algorithmType, int vertices) {
             break;
         case 7:
             start = high_resolution_clock::now();
-            BellmanFord::runIncidenceMatrix(*incidenceMatrix, 0, vertices - 1); // Example: from vertex 0 to vertex (vertices - 1)
+            BellmanFord::runIncidenceMatrix(*incidenceDirectedMatrix, 0, vertices - 1); // Example: from vertex 0 to vertex (vertices - 1)
             stop = high_resolution_clock::now();
             break;
         case 8:
@@ -120,9 +122,15 @@ double SimulationSolving::runAlgorithm(int algorithmType, int vertices) {
 // Metoda do generowania losowego grafu
 void SimulationSolving::generateRandomGraph(int vertices, int density) {
     // Usuwanie istniejacej macierzy, jesli istnieje
-    if (incidenceMatrix != nullptr) {
-        delete incidenceMatrix;
-        incidenceMatrix = nullptr;
+    if (incidenceUndirectedMatrix != nullptr) {
+        delete incidenceUndirectedMatrix;
+        incidenceUndirectedMatrix = nullptr;
+    }
+
+    // Usuwanie istniejacej macierzy, jesli istnieje
+    if (incidenceDirectedMatrix != nullptr) {
+        delete incidenceDirectedMatrix;
+        incidenceDirectedMatrix = nullptr;
     }
 
     // Usuwanie istniejacej listy sasiedztwa dla grafu skierowanego, jesli istnieje
@@ -137,11 +145,12 @@ void SimulationSolving::generateRandomGraph(int vertices, int density) {
         adjacencyUndirectedList = nullptr;
     }
 
-    incidenceMatrix = new IncidenceMatrix(vertices, (density * vertices * (vertices - 1)) / 200); // maksymalna ilosc krawedzi
+    incidenceUndirectedMatrix = new IncidenceMatrix(vertices, (density * vertices * (vertices - 1)) / 200); // maksymalna ilosc krawedzi
+    incidenceDirectedMatrix = new IncidenceMatrix(vertices, (density * vertices * (vertices - 1)) / 200); // maksymalna ilosc krawedzi
     adjacencyDirectedList = new AdjacencyList(vertices);
     adjacencyUndirectedList = new AdjacencyList(vertices);
 
-    FillStructure::generateRandomGraph(*incidenceMatrix, *adjacencyDirectedList, *adjacencyUndirectedList, vertices, density);
+    FillStructure::generateRandomGraph(*incidenceUndirectedMatrix, *incidenceDirectedMatrix, *adjacencyDirectedList, *adjacencyUndirectedList, vertices, density);
 
     // Alokacja pamięci dla parent i key
     if (parent != nullptr) {

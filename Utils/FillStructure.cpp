@@ -3,7 +3,7 @@
 #include <ctime>
 
 // Metoda odpowiedzialna za generowanie losowego grafu
-void FillStructure::generateRandomGraph(IncidenceMatrix &matrix, AdjacencyList &directedList, AdjacencyList &undirectedList, int vertices, int density) {
+void FillStructure::generateRandomGraph(IncidenceMatrix &Undirectedmatrix, IncidenceMatrix &Directedmatrix, AdjacencyList &directedList, AdjacencyList &undirectedList, int vertices, int density) {
     std::srand(std::time(0));
 
     // Tworzenie minimalnego drzewa rozpinajacego (MST)
@@ -11,7 +11,8 @@ void FillStructure::generateRandomGraph(IncidenceMatrix &matrix, AdjacencyList &
         int u = i;
         int v = std::rand() % i;
         int weight = std::rand() % 100 + 1; // Losowa waga krawedzi
-        matrix.addEdge(u, v, weight);
+        Undirectedmatrix.addEdge(u, v, weight, false);
+        Directedmatrix.addEdge(u, v, weight, true);
         directedList.addEdge(u, v, weight);
         undirectedList.addEdge(u, v, weight);
         undirectedList.addEdge(v, u, weight);
@@ -28,7 +29,8 @@ void FillStructure::generateRandomGraph(IncidenceMatrix &matrix, AdjacencyList &
         int v = std::rand() % vertices;
         if (u != v) {
             int weight = std::rand() % 100 + 1;
-            matrix.addEdge(u, v, weight);
+            Undirectedmatrix.addEdge(u, v, weight, false);
+            Directedmatrix.addEdge(u, v, weight, true);
             directedList.addEdge(u, v, weight);
             undirectedList.addEdge(u, v, weight);
             undirectedList.addEdge(v, u, weight);

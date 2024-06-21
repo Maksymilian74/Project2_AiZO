@@ -12,7 +12,8 @@ using namespace std::chrono;
 
 // Konstruktor
 TestSolving::TestSolving() {
-    incidenceMatrix = nullptr;
+    incidenceUndirectedMatrix = nullptr;
+    incidenceDirectedMatrix = nullptr;
     adjacencyDirectedList = nullptr;
     adjacencyUndirectedList = nullptr;
     parent = nullptr;
@@ -21,7 +22,8 @@ TestSolving::TestSolving() {
 
 // Destruktor
 TestSolving::~TestSolving() {
-    delete incidenceMatrix;
+    delete incidenceUndirectedMatrix;
+    delete incidenceDirectedMatrix;
     delete adjacencyDirectedList;
     delete adjacencyUndirectedList;
     delete[] parent;
@@ -41,9 +43,15 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
     file >> numEdges >> numVertices; // Wczytanie liczby krawędzi i wierzchołków
 
     // Usuwanie istniejącej macierzy, jesli istnieje
-    if (incidenceMatrix != nullptr) {
-        delete incidenceMatrix;
-        incidenceMatrix = nullptr;
+    if (incidenceUndirectedMatrix != nullptr) {
+        delete incidenceUndirectedMatrix;
+        incidenceUndirectedMatrix = nullptr;
+    }
+
+    // Usuwanie istniejącej macierzy, jesli istnieje
+    if (incidenceDirectedMatrix != nullptr) {
+        delete incidenceDirectedMatrix;
+        incidenceDirectedMatrix = nullptr;
     }
 
     // Tworzenie instancji listy sasiedztwa dla grafu skierowanego
@@ -59,7 +67,10 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
     }
 
     // Tworzenie instancji macierzy incydencji
-    incidenceMatrix = new IncidenceMatrix(numVertices, numEdges);
+    incidenceUndirectedMatrix = new IncidenceMatrix(numVertices, numEdges);
+
+    // Tworzenie instancji macierzy incydencji
+    incidenceDirectedMatrix = new IncidenceMatrix(numVertices, numEdges);
 
     // Tworzenie instancji listy sasiedztwa dla grafu skierowanego
     adjacencyDirectedList = new AdjacencyList(numVertices);
@@ -72,7 +83,8 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
     for (int i = 0; i < numEdges; ++i) {
         file >> startVertex >> endVertex >> weight;
         std::cout << "Wpisywanie" << std::endl;
-        incidenceMatrix->addEdge(startVertex, endVertex, weight);
+        incidenceUndirectedMatrix->addEdge(startVertex, endVertex, weight,false);
+        incidenceDirectedMatrix->addEdge(startVertex, endVertex, weight,true);
         adjacencyDirectedList->addEdge(startVertex, endVertex, weight);
         adjacencyUndirectedList->addEdge(startVertex, endVertex, weight);
         adjacencyUndirectedList->addEdge(endVertex, startVertex, weight);
@@ -84,9 +96,15 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
 // Metoda odpowiedzialna za wygenerowanie grafu
 void TestSolving::generateRandomGraph(int vertices, int density) {
     // Usuwanie istniejacej macierzy, jesli istnieje
-    if (incidenceMatrix != nullptr) {
-        delete incidenceMatrix;
-        incidenceMatrix = nullptr;
+    if (incidenceUndirectedMatrix != nullptr) {
+        delete incidenceUndirectedMatrix;
+        incidenceUndirectedMatrix = nullptr;
+    }
+
+    // Usuwanie istniejacej macierzy, jesli istnieje
+    if (incidenceDirectedMatrix != nullptr) {
+        delete incidenceDirectedMatrix;
+        incidenceDirectedMatrix = nullptr;
     }
 
     // Usuwanie istniejącej listy sasiedztwa dla grafu skierowanego, jesli istnieje
@@ -106,7 +124,10 @@ void TestSolving::generateRandomGraph(int vertices, int density) {
     int numEdges = (density * maxEdges) / 100;
 
     // Tworzenie instancji macierzy incydencji
-    incidenceMatrix = new IncidenceMatrix(vertices, numEdges);
+    incidenceUndirectedMatrix = new IncidenceMatrix(vertices, numEdges);
+
+    // Tworzenie instancji macierzy incydencji
+    incidenceDirectedMatrix = new IncidenceMatrix(vertices, numEdges);
 
     // Tworzenie instancji listy sasiedztwa dla grafu skierowanego
     adjacencyDirectedList = new AdjacencyList(vertices);
@@ -115,23 +136,16 @@ void TestSolving::generateRandomGraph(int vertices, int density) {
     adjacencyUndirectedList = new AdjacencyList(vertices);
 
     // Wygenerowanie losowego grafu za pomocą metody z klasy FillStructure
-    FillStructure::generateRandomGraph(*incidenceMatrix, *adjacencyDirectedList, *adjacencyUndirectedList, vertices, density);
+    FillStructure::generateRandomGraph(*incidenceUndirectedMatrix, *incidenceDirectedMatrix, *adjacencyDirectedList, *adjacencyUndirectedList, vertices, density);
 }
 
 // Metoda odpowiedzialna za wyswietlenie grafu
-void TestSolving::displayGraph() {
-    if (incidenceMatrix != nullptr) {
-        std::cout << std::endl << "Macierz incydencji:" << std::endl;
-        incidenceMatrix->display();
+void TestSolving::displayUndirectedGraph() {
+    if (incidenceUndirectedMatrix != nullptr) {
+        std::cout << std::endl << "Macierz incydencji dla grafu nieskierowanego:" << std::endl;
+        incidenceUndirectedMatrix->display();
     }  else {
         std::cout << "Brak macierzy." << std::endl;
-    }
-
-    if (adjacencyDirectedList != nullptr) {
-        std::cout << std::endl << "Lista sasiedztwa dla grafu skierowanego:" << std::endl;
-        adjacencyDirectedList->display();
-    } else {
-        std::cout << "Brak listy." << std::endl;
     }
 
     if (adjacencyUndirectedList != nullptr) {
@@ -142,20 +156,37 @@ void TestSolving::displayGraph() {
     }
 }
 
+// Metoda odpowiedzialna za wyswietlenie grafu
+void TestSolving::displayDirectedGraph() {
+    if (incidenceDirectedMatrix != nullptr) {
+        std::cout << std::endl << "Macierz incydencji dla grafu skierowanego:" << std::endl;
+        incidenceDirectedMatrix->display();
+    }  else {
+        std::cout << "Brak macierzy." << std::endl;
+    }
+
+    if (adjacencyDirectedList != nullptr) {
+        std::cout << std::endl << "Lista sasiedztwa dla grafu skierowanego:" << std::endl;
+        adjacencyDirectedList->display();
+    } else {
+        std::cout << "Brak listy." << std::endl;
+    }
+}
+
 // Metoda odpowiedzialna za uruchomienie algorytmu Prima
 void TestSolving::algorithmPrim() {
-    int vertices = incidenceMatrix->getVertices();
+    int vertices = incidenceUndirectedMatrix->getVertices();
 
     delete[] parent;
     delete[] key;
     parent = new int[vertices];
     key = new int[vertices];
 
-    if (incidenceMatrix != nullptr) {
+    if (incidenceUndirectedMatrix != nullptr) {
         cout << "Algorytm Prima dla macierzy incydencji:" << endl;
-        Prim::runIncidenceMatrix(*incidenceMatrix, parent, key);
+        Prim::runIncidenceMatrix(*incidenceUndirectedMatrix, parent, key);
         cout << "Krawedz \tWaga\n";
-        for (int i = 1; i < incidenceMatrix->getVertices(); ++i) {
+        for (int i = 1; i < incidenceUndirectedMatrix->getVertices(); ++i) {
             cout << parent[i] << " - " << i << "\t" << key[i] << "\n";
         }
     } else {
@@ -181,9 +212,9 @@ void TestSolving::algorithmPrim() {
 
 // Metoda odpowiedzialna za uruchomienie algorytmu Kruskala
 void TestSolving::algorithmKruskal() {
-    if (incidenceMatrix != nullptr) {
+    if (incidenceUndirectedMatrix != nullptr) {
         cout << "Algorytm Kruskala dla macierzy incydencji:" << endl;
-        Kruskal::runIncidenceMatrix(*incidenceMatrix);
+        Kruskal::runIncidenceMatrix(*incidenceUndirectedMatrix);
         cout << "Krawedz \tWaga\n";
     } else {
         cout << "Brak macierzy\n" << endl;
@@ -205,9 +236,9 @@ void TestSolving::algorithmDijkstra() {
     cout << "Krawedz koncowa: ";
     cin >> endVertex;
 
-    if (incidenceMatrix != nullptr) {
+    if (incidenceDirectedMatrix != nullptr) {
         cout << "Algorytm Dijkstry dla macierzy incydencji:" << endl;
-        Dijkstra::runIncidenceMatrix(*incidenceMatrix, startVertex, endVertex);
+        Dijkstra::runIncidenceMatrix(*incidenceDirectedMatrix, startVertex, endVertex);
     } else {
         cout << "Brak macierzy" << endl;
     }
@@ -228,9 +259,9 @@ void TestSolving::algorithmFordBellman() {
     cout << "Krawedz koncowa: ";
     cin >> endVertex;
 
-    if (incidenceMatrix != nullptr) {
+    if (incidenceDirectedMatrix != nullptr) {
         cout << "Algorytm Bellmana-Forda dla macierzy incydencji:" << endl;
-        BellmanFord::runIncidenceMatrix(*incidenceMatrix, startVertex, endVertex);
+        BellmanFord::runIncidenceMatrix(*incidenceDirectedMatrix, startVertex, endVertex);
     } else {
         cout << "Brak macierzy" << endl;
     }

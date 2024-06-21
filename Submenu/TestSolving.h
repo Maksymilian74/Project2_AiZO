@@ -29,7 +29,10 @@ public:
     void generateRandomGraph(int vertices, int density);
 
     // Metoda odpowiedzialna za wyswietlenie grafu
-    void displayGraph();
+    void displayUndirectedGraph();
+
+    // Metoda odpowiedzialna za wyswietlenie grafu
+    void displayDirectedGraph();
 
     // Metoda uruchamiajaca algorytm Prima
     void algorithmPrim();
@@ -44,7 +47,8 @@ public:
     void algorithmFordBellman();
 
 private:
-    IncidenceMatrix* incidenceMatrix; // Wskaznik na macierz incydencji
+    IncidenceMatrix* incidenceUndirectedMatrix; // Wskaznik na macierz incydencji
+    IncidenceMatrix* incidenceDirectedMatrix; // Wskaznik na macierz incydencji
     AdjacencyList* adjacencyDirectedList;     // Wskaznik na liste sasiedztwa
     AdjacencyList* adjacencyUndirectedList;     // Wskaznik na liste sasiedztwa
 

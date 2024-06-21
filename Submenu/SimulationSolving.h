@@ -13,7 +13,8 @@
 
 class SimulationSolving {
 private:
-    IncidenceMatrix* incidenceMatrix;        // Wskaznik na macierz incydencji
+    IncidenceMatrix* incidenceUndirectedMatrix;        // Wskaznik na macierz incydencji
+    IncidenceMatrix* incidenceDirectedMatrix;        // Wskaznik na macierz incydencji
     AdjacencyList* adjacencyDirectedList;    // Wskaznik na liste sasiedztwa dla grafu skierowanego
     AdjacencyList* adjacencyUndirectedList;  // Wskaznik na liste sasiedztwa dla grafu nieskierowanego
     std::chrono::high_resolution_clock::time_point start, stop;  // Punkty czasowe do mierzenia czasu wykonania

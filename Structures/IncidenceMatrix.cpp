@@ -35,7 +35,7 @@ IncidenceMatrix::~IncidenceMatrix() {
 }
 
 // Metoda odpowiedzialna za dodanie krawedzi do macierzy incydencji
-void IncidenceMatrix::addEdge(int u, int v, int weight) {
+void IncidenceMatrix::addEdge(int u, int v, int weight, bool directed) {
     if (u >= vertices || v >= vertices) {
         std::cerr << "Blad: Wierzcholek poza zakresem" << std::endl;
         return;
@@ -52,7 +52,10 @@ void IncidenceMatrix::addEdge(int u, int v, int weight) {
 
     // Ustawienie wartosci w macierzy incydencji
     matrix[u][currentEdge] = weight;
-    matrix[v][currentEdge] = -weight;
+    if(directed == 1)
+        matrix[v][currentEdge] = -weight;
+    else
+        matrix[v][currentEdge] = weight;
 
     currentEdge++;
 }
