@@ -31,7 +31,8 @@ void AdjacencyList::addEdge(int from, int to, int weight) {
     }
 
     Node* newNode = new Node;
-    newNode->edge = {to, weight};
+    newNode->vertex = to;
+    newNode->edge = weight;
     newNode->next = adjList[from];
     adjList[from] = newNode;
     edges++;
@@ -42,12 +43,8 @@ void AdjacencyList::display() const {
     for (int i = 0; i < vertices; ++i) {
         std::cout << "Wierzcholek " << i << ":";
         Node* current = adjList[i];
-        if (current) {
-            std::cout << " (" << current->edge.to << ";" << current->edge.weight << ")";
-            current = current->next;
-        }
         while (current) {
-            std::cout << ", (" << current->edge.to << ";" << current->edge.weight << ")";
+            std::cout << " (" << current->vertex << ";" << current->edge << ")";
             current = current->next;
         }
         std::cout << std::endl;
@@ -63,11 +60,4 @@ int AdjacencyList::getVertices() const {
 int AdjacencyList::getEdges() const {
     return edges;
 }
-
-// Getter listy sasiedztwa
-AdjacencyList::Node** AdjacencyList::getAdjacencyList() const {
-    return adjList;
-}
-
-
 

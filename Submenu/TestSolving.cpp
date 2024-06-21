@@ -184,7 +184,7 @@ void TestSolving::algorithmPrim() {
 
     if (incidenceUndirectedMatrix != nullptr) {
         cout << "Algorytm Prima dla macierzy incydencji:" << endl;
-        Prim::runIncidenceMatrix(*incidenceUndirectedMatrix, parent, key);
+   //     Prim::runIncidenceMatrix(*incidenceUndirectedMatrix, parent, key);
         cout << "Krawedz \tWaga\n";
         for (int i = 1; i < incidenceUndirectedMatrix->getVertices(); ++i) {
             cout << parent[i] << " - " << i << "\t" << key[i] << "\n";
@@ -195,7 +195,7 @@ void TestSolving::algorithmPrim() {
 
     if (adjacencyUndirectedList != nullptr) {
         cout << "Algorytm Prima dla listy sasiedztwa:" << endl;
-        Prim::runAdjacencyList(*adjacencyUndirectedList, parent, key);
+    //    Prim::runAdjacencyList(*adjacencyUndirectedList, parent, key);
         cout << "Krawedz \tWaga\n";
         for (int i = 1; i < adjacencyUndirectedList->getVertices(); ++i) {
             cout << parent[i] << " - " << i << "\t" << key[i] << "\n";
@@ -214,7 +214,7 @@ void TestSolving::algorithmPrim() {
 void TestSolving::algorithmKruskal() {
     if (incidenceUndirectedMatrix != nullptr) {
         cout << "Algorytm Kruskala dla macierzy incydencji:" << endl;
-        Kruskal::runIncidenceMatrix(*incidenceUndirectedMatrix);
+ //       Kruskal::runIncidenceMatrix(*incidenceUndirectedMatrix);
         cout << "Krawedz \tWaga\n";
     } else {
         cout << "Brak macierzy\n" << endl;
@@ -222,7 +222,7 @@ void TestSolving::algorithmKruskal() {
 
     if (adjacencyUndirectedList != nullptr) {
         cout << "Algorytm Kruskala dla listy sasiedztwa:" << endl;
-        Kruskal::runAdjacencyList(*adjacencyUndirectedList);
+ //       Kruskal::runAdjacencyList(*adjacencyUndirectedList);
     } else {
         cout << "Brak listy." << endl;
     }
@@ -238,14 +238,14 @@ void TestSolving::algorithmDijkstra() {
 
     if (incidenceDirectedMatrix != nullptr) {
         cout << "Algorytm Dijkstry dla macierzy incydencji:" << endl;
-        Dijkstra::runIncidenceMatrix(*incidenceDirectedMatrix, startVertex, endVertex);
+//        Dijkstra::runIncidenceMatrix(*incidenceDirectedMatrix, startVertex, endVertex);
     } else {
         cout << "Brak macierzy" << endl;
     }
 
     if (adjacencyDirectedList != nullptr) {
         cout << "Algorytm Dijkstry dla listy sasiedztwa:" << endl;
-        Dijkstra::runAdjacencyList(*adjacencyDirectedList, startVertex, endVertex);
+ //       Dijkstra::runAdjacencyList(*adjacencyDirectedList, startVertex, endVertex);
     } else {
         cout << "Brak listy" << endl;
     }
@@ -261,14 +261,14 @@ void TestSolving::algorithmFordBellman() {
 
     if (incidenceDirectedMatrix != nullptr) {
         cout << "Algorytm Bellmana-Forda dla macierzy incydencji:" << endl;
-        BellmanFord::runIncidenceMatrix(*incidenceDirectedMatrix, startVertex, endVertex);
+ //       BellmanFord::runIncidenceMatrix(*incidenceDirectedMatrix, startVertex, endVertex);
     } else {
         cout << "Brak macierzy" << endl;
     }
 
     if (adjacencyDirectedList != nullptr) {
         cout << "Algorytm Bellmana-Forda dla listy sasiedztwa:" << endl;
-        BellmanFord::runAdjacencyList(*adjacencyDirectedList, startVertex, endVertex);
+   //     BellmanFord::runAdjacencyList(*adjacencyDirectedList, startVertex, endVertex);
     } else {
         cout << "Brak listy" << endl;
     }

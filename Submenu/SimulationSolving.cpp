@@ -72,42 +72,42 @@ double SimulationSolving::runAlgorithm(int algorithmType, int vertices) {
     switch (algorithmType) {
         case 1:
             start = high_resolution_clock::now();
-            Prim::runIncidenceMatrix(*incidenceUndirectedMatrix, parent, key);
+    //        Prim::runIncidenceMatrix(*incidenceUndirectedMatrix, parent, key);
             stop = high_resolution_clock::now();
             break;
         case 2:
             start = high_resolution_clock::now();
-            Prim::runAdjacencyList(*adjacencyUndirectedList, parent, key);
+//            Prim::runAdjacencyList(*adjacencyUndirectedList, parent, key);
             stop = high_resolution_clock::now();
             break;
         case 3:
             start = high_resolution_clock::now();
-            Kruskal::runIncidenceMatrix(*incidenceUndirectedMatrix);
+     //       Kruskal::runIncidenceMatrix(*incidenceUndirectedMatrix);
             stop = high_resolution_clock::now();
             break;
         case 4:
             start = high_resolution_clock::now();
-            Kruskal::runAdjacencyList(*adjacencyUndirectedList);
+   //         Kruskal::runAdjacencyList(*adjacencyUndirectedList);
             stop = high_resolution_clock::now();
             break;
         case 5:
             start = high_resolution_clock::now();
-            Dijkstra::runIncidenceMatrix(*incidenceDirectedMatrix, 0, vertices - 1); // Example: from vertex 0 to vertex (vertices - 1)
+     //       Dijkstra::runIncidenceMatrix(*incidenceDirectedMatrix, 0, vertices - 1); // Example: from vertex 0 to vertex (vertices - 1)
             stop = high_resolution_clock::now();
             break;
         case 6:
             start = high_resolution_clock::now();
-            Dijkstra::runAdjacencyList(*adjacencyDirectedList, 0, vertices - 1); // Example: from vertex 0 to vertex (vertices - 1)
+  //          Dijkstra::runAdjacencyList(*adjacencyDirectedList, 0, vertices - 1); // Example: from vertex 0 to vertex (vertices - 1)
             stop = high_resolution_clock::now();
             break;
         case 7:
             start = high_resolution_clock::now();
-            BellmanFord::runIncidenceMatrix(*incidenceDirectedMatrix, 0, vertices - 1); // Example: from vertex 0 to vertex (vertices - 1)
+    //        BellmanFord::runIncidenceMatrix(*incidenceDirectedMatrix, 0, vertices - 1); // Example: from vertex 0 to vertex (vertices - 1)
             stop = high_resolution_clock::now();
             break;
         case 8:
             start = high_resolution_clock::now();
-            BellmanFord::runAdjacencyList(*adjacencyDirectedList, 0, vertices - 1); // Example: from vertex 0 to vertex (vertices - 1)
+   //         BellmanFord::runAdjacencyList(*adjacencyDirectedList, 0, vertices - 1); // Example: from vertex 0 to vertex (vertices - 1)
             stop = high_resolution_clock::now();
             break;
         default:
