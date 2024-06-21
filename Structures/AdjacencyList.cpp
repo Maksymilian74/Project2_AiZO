@@ -61,3 +61,4 @@ int AdjacencyList::getEdges() const {
     return edges;
 }
 
+Node* AdjacencyList::getList(int vertex) { return adjList[vertex]; }

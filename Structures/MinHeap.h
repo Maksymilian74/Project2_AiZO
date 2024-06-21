@@ -24,9 +24,9 @@ public:
     MinHeap(const MinHeap& other);
     MinHeap& operator=(const MinHeap& other);
 
-    Edge front() const;
-    void push(const Edge& edge);
-    void pop();
+    Edge root() const;
+    void add(const Edge& edge);
+    void erase();
     bool empty() const { return currentSize == 0; }
 
 private:

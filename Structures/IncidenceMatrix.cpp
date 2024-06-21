@@ -82,6 +82,21 @@ int IncidenceMatrix::getEdges() const {
     return edges;
 }
 
+int IncidenceMatrix::getWeight(int u, int x) {
+    return matrix[u][x];
+}
+
+int IncidenceMatrix::getSecondVertex(int j, int u) {
+    if (j > edges - 1) return -1;
+
+    for (int i = 0; i < vertices; i++) {
+        if (i == u) continue;
+        if (matrix[i][j] > 0)
+            return i;
+    }
+    return -1;
+}
+
 //Metoda sprawdzajaca istnienie krawedzi
 bool IncidenceMatrix::checkEdge(int v1, int v2){
     if (v1 >= vertices || v2 >= vertices) {

@@ -68,12 +68,12 @@ double SimulationSolving::runAlgorithm(int algorithmType, int vertices) {
     switch (algorithmType) {
         case 1:
             start = high_resolution_clock::now();
-    //        Prim::runIncidenceMatrix(*incidenceUndirectedMatrix, parent, key);
+            Prim::runIncidenceMatrix(*incidenceUndirectedMatrix);
             stop = high_resolution_clock::now();
             break;
         case 2:
             start = high_resolution_clock::now();
-//            Prim::runAdjacencyList(*adjacencyUndirectedList, parent, key);
+            Prim::runAdjacencyList(*adjacencyUndirectedList);
             stop = high_resolution_clock::now();
             break;
         case 3:

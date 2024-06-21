@@ -191,25 +191,16 @@ void TestSolving::displayDirectedGraph() {
 
 // Metoda odpowiedzialna za uruchomienie algorytmu Prima
 void TestSolving::algorithmPrim() {
-    int vertices = incidenceUndirectedMatrix->getVertices();
-
-
     if (incidenceUndirectedMatrix != nullptr) {
         cout << "Algorytm Prima dla macierzy incydencji:" << endl;
-   //     Prim::runIncidenceMatrix(*incidenceUndirectedMatrix, parent, key);
-        cout << "Krawedz \tWaga\n";
-        for (int i = 1; i < incidenceUndirectedMatrix->getVertices(); ++i) {
-        }
+        Prim::runIncidenceMatrix(*incidenceUndirectedMatrix).display();
     } else {
         cout << "Brak macierzy" << endl;
     }
 
     if (adjacencyUndirectedList != nullptr) {
-        cout << "Algorytm Prima dla listy sasiedztwa:" << endl;
-    //    Prim::runAdjacencyList(*adjacencyUndirectedList, parent, key);
-        cout << "Krawedz \tWaga\n";
-        for (int i = 1; i < adjacencyUndirectedList->getVertices(); ++i) {
-        }
+        cout << endl << "Algorytm Prima dla listy sasiedztwa:" << endl;
+        Prim::runAdjacencyList(*adjacencyUndirectedList).display();
     } else {
         cout << "Brak listy" << endl;
     }

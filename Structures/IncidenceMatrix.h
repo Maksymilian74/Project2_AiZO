@@ -30,8 +30,14 @@ public:
     // Metoda zwracajaca liczbe wierzcholkow
     int getVertices() const;
 
+    // Metoda zwracajaca wage krawedzi
+    int getWeight(int u, int x);
+
     // Metoda zwracajaca liczbe krawedzi
     int getEdges() const;
+
+    // Metoda zwracajaca drugi wierzcholek danej krawedzi
+    int getSecondVertex(int j, int u);
 
     // Metoda sprawdzajaca istnienie krawedzi
     bool checkEdge(int, int);

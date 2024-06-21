@@ -9,14 +9,16 @@
 
 #include "../Structures/IncidenceMatrix.h"
 #include "../Structures/AdjacencyList.h"
+#include "../Structures/MinHeap.h"
+#include "../Structures/Array.h"
 
 class Prim {
 public:
     // Metoda odpowiedzialna za uruchumienie algorytmu dla macierzy incydencji
-    static void runIncidenceMatrix(const IncidenceMatrix &graph, int* &parent, int* &key);
+    static IncidenceMatrix runIncidenceMatrix(IncidenceMatrix &matrix);
 
     // Metoda odpowiedzialna za uruchumienie algorytmu dla listy sasiedztwa
-    static void runAdjacencyList(const AdjacencyList &graph, int* &parent, int* &key);
+    static AdjacencyList runAdjacencyList(AdjacencyList &graph);
 };
 
 #endif

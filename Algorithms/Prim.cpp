@@ -1,88 +1,88 @@
-//#include "Prim.h"
-//#include "../Structures/MinHeap.h"
-//#include <iostream>
-//#include <limits>
-//#include <cmath>
-//
-//using namespace std;
-//
-//// Algorytm Prima dla macierzy incydencji
-//void Prim::runIncidenceMatrix(const IncidenceMatrix &graph, int* &parent, int* &key) {
-//    int vertices = graph.getVertices();
-//    int edges = graph.getEdges();
-//    const int** matrix = graph.getMatrix();
-//
-//    bool* inMST = new bool[vertices];
-//
-//    MinHeap minHeap(vertices);
-//
-//    for (int i = 0; i < vertices; ++i) {
-//        key[i] = numeric_limits<int>::max();
-//        inMST[i] = false;
-//        minHeap.insertKey(i, -1, key[i]);
-//    }
-//
-//    key[0] = 0;
-//    minHeap.decreaseKey(0, 0);
-//
-//    while (!minHeap.isEmpty()) {
-//        int* minNode = minHeap.extractMin();
-//        int u = minNode[0];
-//        inMST[u] = true;
-//
-//        for (int e = 0; e < edges; ++e) {
-//            if (matrix[u][e] != 0) {
-//                for (int v = 0; v < vertices; ++v) {
-//                    if (v != u && matrix[v][e] != 0 && !inMST[v]) {
-//                        int weight = abs(matrix[u][e]);
-//                        if (weight < key[v]) {
-//                            key[v] = weight;
-//                            parent[v] = u;
-//                            minHeap.decreaseKey(v, weight);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//    delete[] inMST;
-//}
-//
-//// Algorytm Prima dla listy sasiedztwa
-//void Prim::runAdjacencyList(const AdjacencyList &graph, int* &parent, int* &key) {
-//    int vertices = graph.getVertices();
-//    AdjacencyList::Node** adjList = graph.getAdjacencyList();
-//
-//    bool* inMST = new bool[vertices];
-//
-//    MinHeap minHeap(vertices);
-//
-//    for (int i = 0; i < vertices; ++i) {
-//        key[i] = numeric_limits<int>::max();
-//        inMST[i] = false;
-//        minHeap.insertKey(i, -1, key[i]);
-//    }
-//
-//    key[0] = 0;
-//    minHeap.decreaseKey(0, 0);
-//
-//    while (!minHeap.isEmpty()) {
-//        int* minNode = minHeap.extractMin();
-//        int u = minNode[0];
-//        inMST[u] = true;
-//
-//        AdjacencyList::Node* node = adjList[u];
-//        while (node != nullptr) {
-//            int v = node->edge.to;
-//            int weight = node->edge.weight;
-//            if (!inMST[v] && weight < key[v]) {
-//                key[v] = weight;
-//                parent[v] = u;
-//                minHeap.decreaseKey(v, weight);
-//            }
-//            node = node->next;
-//        }
-//    }
-//    delete[] inMST;
-//}
+#include "Prim.h"
+#include "../Structures/MinHeap.h"
+#include "../Structures/Array.cpp"
+
+using namespace std;
+
+// Algorytm Prima dla macierzy incydencji
+IncidenceMatrix Prim::runIncidenceMatrix(IncidenceMatrix &matrix) {
+    int vertexes = matrix.getVertices();
+    int maxEdges = vertexes -1;
+    int edges = matrix.getEdges();
+
+    IncidenceMatrix result(vertexes, maxEdges); // Macierz wynikowa
+    Array<bool> visited(vertexes); // Tablica przechowujaca informacje o odwiedzeniu wierzcholka
+    MinHeap minHeap(edges);
+    Edge edge;
+
+    for (int i = 0; i < vertexes; i++) {
+        visited[i] = false;
+    }
+
+    visited[0] = true;
+    int v = 0;
+
+    for (int i = 0; i < vertexes - 1; i++) {
+        for (int j = 0; j < edges; j++) {
+            int secondVertex = matrix.getSecondVertex(j, v);
+            if (matrix.getWeight(v, j) > 0 && !visited[secondVertex]) {
+                edge.startVertex = v;
+                edge.endVertex = secondVertex;
+                edge.weight = matrix.getWeight(v, j);
+                minHeap.add(edge);
+            }
+        }
+
+        do {
+            edge = minHeap.root();
+            minHeap.erase();
+        } while (visited[edge.endVertex]);
+
+        result.addEdge(edge.startVertex, edge.endVertex, edge.weight, false);
+        visited[edge.endVertex] = true;
+        v = edge.endVertex;
+    }
+    return result;
+}
+
+// Algorytm Prima dla listy sasiedztwa
+AdjacencyList Prim::runAdjacencyList(AdjacencyList &list) {
+    int vertexes = list.getVertices();
+    int edges = list.getEdges();
+
+    AdjacencyList result(vertexes);  // Lista wynikowa
+    Array<bool> visited(vertexes);  // Tablica przechowujaca informacje o odwiedzeniu wierzcholka
+    MinHeap minHeap(edges);
+    Edge edge;
+
+    for (int i = 0; i < vertexes; i++) {
+        visited[i] = false;
+    }
+
+    visited[0] = true;
+    int v = 0;
+
+    for (int i = 0; i < vertexes - 1; i++) {
+        for (Node *vertex = list.getList(v); vertex; vertex = vertex->next) {
+            if (!visited[vertex->vertex]) {
+                edge.startVertex = v;
+                edge.endVertex = vertex->vertex;
+                edge.weight = vertex->edge;
+                minHeap.add(edge);
+            }
+        }
+
+        do {
+            edge = minHeap.root();
+            minHeap.erase();
+        } while (visited[edge.endVertex]);
+
+        result.addEdge(edge.startVertex, edge.endVertex, edge.weight);
+        result.addEdge(edge.endVertex, edge.startVertex, edge.weight);
+
+        visited[edge.endVertex] = true;
+        v = edge.endVertex;
+    }
+
+    return result;
+}

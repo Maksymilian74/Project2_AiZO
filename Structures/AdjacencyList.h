@@ -40,6 +40,8 @@ public:
     // Metoda zwracajaca liczbe krawedzi w grafie
     int getEdges() const;
 
+    // Metoda zwracajaca liste dla danego wierzcholka
+    Node* getList(int vertex);
 };
 
 #endif

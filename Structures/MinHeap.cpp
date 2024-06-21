@@ -48,7 +48,7 @@ void MinHeap::heapifyDown(int index) {
     }
 }
 
-void MinHeap::push(const Edge& edge) {
+void MinHeap::add(const Edge& edge) {
     if (currentSize == heap.size()) {
         heap.resize(heap.size() * 2);
     }
@@ -57,7 +57,7 @@ void MinHeap::push(const Edge& edge) {
     currentSize++;
 }
 
-void MinHeap::pop() {
+void MinHeap::erase() {
     if (currentSize == 0) {
         return;
     }
@@ -66,7 +66,7 @@ void MinHeap::pop() {
     heapifyDown(0);
 }
 
-Edge MinHeap::front() const {
+Edge MinHeap::root() const {
     if (currentSize == 0) {
         throw out_of_range("Kolejka jest pusta");
     }
