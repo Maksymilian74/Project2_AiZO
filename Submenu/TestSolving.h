@@ -25,16 +25,16 @@ public:
     // Metoda odpowiedzialna za wczytanie danych z pliku
     void loadDataFromFile(string fileToOpen);
 
-    // Metoda odpowiedzialna za generowanie grafu
+    // Metoda odpowiedzialna za generowanie grafu skierowanego
     void generateRandomDirectedGraph(int vertices, int density);
 
-    // Metoda odpowiedzialna za generowanie grafu
+    // Metoda odpowiedzialna za generowanie grafu nieskierowanego
     void generateRandomUndirectedGraph(int vertices, int density);
 
-    // Metoda odpowiedzialna za wyswietlenie grafu
+    // Metoda odpowiedzialna za wyswietlenie grafu nieskierowanego
     void displayUndirectedGraph();
 
-    // Metoda odpowiedzialna za wyswietlenie grafu
+    // Metoda odpowiedzialna za wyswietlenie grafu skierowanego
     void displayDirectedGraph();
 
     // Metoda uruchamiajaca algorytm Prima
@@ -51,8 +51,8 @@ public:
 
 private:
     IncidenceMatrix* incidenceUndirectedMatrix; // Wskaznik na macierz incydencji
-    IncidenceMatrix* incidenceDirectedMatrix; // Wskaznik na macierz incydencji
-    AdjacencyList* adjacencyDirectedList;     // Wskaznik na liste sasiedztwa
+    IncidenceMatrix* incidenceDirectedMatrix;   // Wskaznik na macierz incydencji
+    AdjacencyList* adjacencyDirectedList;       // Wskaznik na liste sasiedztwa
     AdjacencyList* adjacencyUndirectedList;     // Wskaznik na liste sasiedztwa
 };
 

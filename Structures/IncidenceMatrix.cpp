@@ -14,7 +14,6 @@ IncidenceMatrix::IncidenceMatrix(int vertices, int edges) : vertices(vertices), 
             matrix[i][j] = 0;
         }
     }
-
 }
 
 // Destruktor
@@ -23,7 +22,6 @@ IncidenceMatrix::~IncidenceMatrix() {
         delete[] matrix[i];
     }
     delete[] matrix;
-
 }
 
 // Metoda odpowiedzialna za dodanie krawedzi do macierzy incydencji
@@ -32,7 +30,6 @@ void IncidenceMatrix::addEdge(int u, int v, int weight, bool directed) {
         std::cerr << "Blad: Wierzcholek poza zakresem" << std::endl;
         return;
     }
-
     if (currentEdge > edges) {
         std::cerr << "Blad: Osiagnieto minimalna liczbe krawedzi" << std::endl;
         return;
@@ -50,8 +47,9 @@ void IncidenceMatrix::addEdge(int u, int v, int weight, bool directed) {
     currentEdge++;
 }
 
+// Metoda odpowiedzialna za wyswietlenie macierzy
 void IncidenceMatrix::display() const {
-    // Wyswietlanie nagłowka z numerami krawedzi
+    // Wyswietlanie naglowka z numerami krawedzi
     std::cout << "      ";
     for (int j = 0; j < edges; ++j) {
         std::cout << std::setw(3) << j << " ";
@@ -73,7 +71,6 @@ void IncidenceMatrix::display() const {
         }
         std::cout << std::endl;
     }
-
     std::cout << std::endl << "Waga calego grafu: " << totalWeight << std::endl;
 }
 
@@ -87,10 +84,12 @@ int IncidenceMatrix::getEdges() const {
     return edges;
 }
 
+// Getter wagi
 int IncidenceMatrix::getWeight(int u, int x) {
     return matrix[u][x];
 }
 
+// Metoda zwracajaca koniec danej krawedzi
 int IncidenceMatrix::getSecondVertex(int j, int u) {
     if (j > edges - 1) return -1;
 
@@ -102,6 +101,7 @@ int IncidenceMatrix::getSecondVertex(int j, int u) {
     return -1;
 }
 
+// Metoda zwracajaca koniec danej krawedzi
 int IncidenceMatrix::getSecVertex(int j) {
     if (j > edges - 1) return -1;
 
@@ -112,6 +112,7 @@ int IncidenceMatrix::getSecVertex(int j) {
     return -1;
 }
 
+// Metoda zwracajaca poczatek danej krawedzi
 int IncidenceMatrix::getFirstVertex(int j) {
     if (j > edges - 1) return -1;
 

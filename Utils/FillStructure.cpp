@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 
-// Metoda odpowiedzialna za generowanie losowego grafu
+// Metoda odpowiedzialna za generowanie losowego grafu skierowanego
 void FillStructure::generateRandomDirectedGraph(IncidenceMatrix &directedMatrix, AdjacencyList &directedList, int vertices, int density) {
     std::srand(std::time(0));
 
@@ -10,7 +10,7 @@ void FillStructure::generateRandomDirectedGraph(IncidenceMatrix &directedMatrix,
     for (int i = 1; i < vertices; ++i) {
         int u = i;
         int v = std::rand() % i;
-        int weight = std::rand() % 100 + 1; // Losowa waga krawedzi
+        int weight = std::rand() % 1000 + 1; // Losowa waga krawedzi
         directedMatrix.addEdge(u, v, weight, true);
         directedList.addEdgeDirected(u, v, weight);
     }
@@ -25,7 +25,7 @@ void FillStructure::generateRandomDirectedGraph(IncidenceMatrix &directedMatrix,
         int u = std::rand() % vertices;
         int v = std::rand() % vertices;
         if (u != v && !directedMatrix.checkEdge(u,v)) {
-            int weight = std::rand() % 100 + 1;
+            int weight = std::rand() % 1000 + 1;
             directedMatrix.addEdge(u, v, weight, true);
             directedList.addEdgeDirected(u, v, weight);
             edgeCount++;
@@ -33,7 +33,7 @@ void FillStructure::generateRandomDirectedGraph(IncidenceMatrix &directedMatrix,
     }
 }
 
-// Metoda odpowiedzialna za generowanie losowego grafu
+// Metoda odpowiedzialna za generowanie losowego grafu nieskierowanego
 void FillStructure::generateRandomUndirectedGraph(IncidenceMatrix &undirectedMatrix, AdjacencyList &undirectedList, int vertices, int density) {
     std::srand(std::time(0));
 
@@ -41,7 +41,7 @@ void FillStructure::generateRandomUndirectedGraph(IncidenceMatrix &undirectedMat
     for (int i = 1; i < vertices; ++i) {
         int u = i;
         int v = std::rand() % i;
-        int weight = std::rand() % 100 + 1; // Losowa waga krawedzi
+        int weight = std::rand() % 1000 + 1;
         undirectedMatrix.addEdge(u, v, weight, false);
         undirectedList.addEdgeUndirected(u, v, weight);
     }
@@ -56,7 +56,7 @@ void FillStructure::generateRandomUndirectedGraph(IncidenceMatrix &undirectedMat
         int u = std::rand() % vertices;
         int v = std::rand() % vertices;
         if (u != v && !undirectedMatrix.checkEdge(u,v)) {
-            int weight = std::rand() % 100 + 1;
+            int weight = std::rand() % 1000 + 1;
             undirectedMatrix.addEdge(u, v, weight, false);
             undirectedList.addEdgeUndirected(u, v, weight);
             edgeCount++;

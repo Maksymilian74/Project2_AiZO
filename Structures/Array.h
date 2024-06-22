@@ -20,17 +20,16 @@ public:
     Array& operator=(const Array& other);      // Operator przypisania
 
     T& operator[](int index) const;  // Operator dostepu do elementu (const)
-    T& operator[](int index);  // Operator dostepu do elementu
+    T& operator[](int index);       // Operator dostepu do elementu
 
-    void pushBack(const T& value);  // Dodanie elementu na koniec
-    void popBack();  // Usuniecie elementu z konca
-    void resize(int newSize);  // Zmiana rozmiaru tablicy
+    void pushBack(const T& value);  // Metoda dodajaca element na koniec
+    void popBack();                 // Metoda usuwajaca element z konca
+    void resize(int newSize);       // Zmiana rozmiaru tablicy
 
-    int size() const;  // Zwraca rozmiar tablicy
-    bool IsEmpty() const;  // Sprawdza, czy tablica jest pusta
+    int size() const;       // Metoda zwracajaca rozmiar tablicy
 
 private:
-    T* data;  // Wskaznik na dane tablicy
+    T* data;           // Wskaznik na dane tablicy
     size_t sizeOfTab;  // Rozmiar tablicy
 };
 

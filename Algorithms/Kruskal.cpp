@@ -72,6 +72,5 @@ AdjacencyList Kruskal::runAdjacencyList(AdjacencyList &list) {
         result.addEdgeUndirected(edge.startVertex, edge.endVertex, edge.weight);
         set.unionSets(edge);
     }
-
     return result;
 }

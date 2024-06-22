@@ -55,12 +55,6 @@ int Array<T>::size() const {
     return sizeOfTab;
 }
 
-// Sprawdza, czy tablica jest pusta
-template <typename T>
-bool Array<T>::IsEmpty() const {
-    return sizeOfTab == 0;
-}
-
 // Zmiana rozmiaru tablicy
 template <typename T>
 void Array<T>::resize(int newSize) {

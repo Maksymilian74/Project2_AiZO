@@ -12,10 +12,10 @@
 
 class FillStructure {
 public:
-    // Metoda odpowiedzialna za generowanie losowego grafu
+    // Metoda odpowiedzialna za generowanie losowego grafu skierowanego
     static void generateRandomDirectedGraph(IncidenceMatrix &directedMatrix, AdjacencyList &directedList, int vertices, int density);
 
-    // Metoda odpowiedzialna za generowanie losowego grafu
+    // Metoda odpowiedzialna za generowanie losowego grafu nieskierowanego
     static void generateRandomUndirectedGraph(IncidenceMatrix &undirectedMatrix, AdjacencyList &undirectedList, int vertices, int density);
 };
 

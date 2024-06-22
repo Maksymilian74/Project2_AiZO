@@ -57,7 +57,6 @@ void AdjacencyList::display() const {
         }
         std::cout << std::endl;
     }
-
     std::cout << std::endl << "Waga calego grafu: " << totalWeight << std::endl;
 }
 
@@ -71,4 +70,5 @@ int AdjacencyList::getEdges() const {
     return edges;
 }
 
+// Getter listy dla danego wierzcholka
 Node* AdjacencyList::getList(int vertex) { return adjList[vertex]; }

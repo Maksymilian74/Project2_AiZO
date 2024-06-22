@@ -19,21 +19,38 @@ struct Edge {
 
 class MinHeap {
 public:
+    // Konstruktor
     MinHeap(int edges);
+
+    // Destruktor
     ~MinHeap();
+
+    // Konstruktor kopiujacy
     MinHeap(const MinHeap& other);
+
+    // Operator przypisania
     MinHeap& operator=(const MinHeap& other);
 
+    // Metoda zwracajaca korzen kopca
     Edge root() const;
+
+    // Metoda dodajaca krawedz do kopca
     void add(const Edge& edge);
+
+    // Metoda usuwajaca krawedz z kopca
     void erase();
+
+    // Metoda sprawdzajaca czy kopiec jest pusty
     bool empty() const { return currentSize == 0; }
 
 private:
-    Array<Edge> heap;
-    int currentSize;
+    Array<Edge> heap;  // Tablica reprezentujaca kopiec
+    int currentSize;   // Aktualny rozmiar kopca
 
+    // Metoda odpowiedzialna za naprawe kopca w gore
     void heapifyUp(int index);
+
+    // Metoda odpowiedzialna za naprawe kopca w dol
     void heapifyDown(int index);
 };
 

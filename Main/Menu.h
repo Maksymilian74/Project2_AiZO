@@ -1,7 +1,7 @@
 /*
  * Klasa Menu odpowiedzialna jest za komunikacje z uzytkownikiem,
  * wybor niezbednych parametrow takich jak nazwa pliku do wczytania danych
- * i wywołanie odpowiednich metod w celu dalszej pracy
+ * i wywolanie odpowiednich metod w celu dalszej pracy
  */
 
 #ifndef MENU_H

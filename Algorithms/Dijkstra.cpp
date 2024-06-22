@@ -1,7 +1,6 @@
 #include "Dijkstra.h"
 #include "../Structures/Array.cpp"
 
-
 // Algorytm Dijkstry dla macierzy incydencji
 Array<int> Dijkstra::runIncidenceMatrix(IncidenceMatrix &matrix, int startingVertex, int endingVertex) {
     int vertexes = matrix.getVertices();
@@ -106,6 +105,7 @@ Array<int> Dijkstra::runAdjacencyList(AdjacencyList &list, int startingVertex, i
     return result;
 }
 
+// Metoda odpowiedzialna za znalezienie wierzcholka o najmniejszej odleglosci
 int Dijkstra::minimumVertex(Array<int> &dist, Array<bool> &visited, int n) {
     int min = -1;
     for (int i = 0; i < n; i++) {

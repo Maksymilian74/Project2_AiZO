@@ -38,15 +38,15 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
     }
 
     int numEdges, numVertices;
-    file >> numEdges >> numVertices; // Wczytanie liczby krawędzi i wierzchołków
+    file >> numEdges >> numVertices; // Wczytanie liczby krawędzi i wierzchołkow
 
-    // Usuwanie istniejącej macierzy, jesli istnieje
+    // Usuwanie istniejacej macierzy, jesli istnieje
     if (incidenceUndirectedMatrix != nullptr) {
         delete incidenceUndirectedMatrix;
         incidenceUndirectedMatrix = nullptr;
     }
 
-    // Usuwanie istniejącej macierzy, jesli istnieje
+    // Usuwanie istniejacej macierzy, jesli istnieje
     if (incidenceDirectedMatrix != nullptr) {
         delete incidenceDirectedMatrix;
         incidenceDirectedMatrix = nullptr;
@@ -85,11 +85,10 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
         adjacencyDirectedList->addEdgeDirected(startVertex, endVertex, weight);
         adjacencyUndirectedList->addEdgeUndirected(startVertex, endVertex, weight);
     }
-
     file.close();
 }
 
-// Metoda odpowiedzialna za wygenerowanie grafu
+// Metoda odpowiedzialna za wygenerowanie grafu skierowanego
 void TestSolving::generateRandomDirectedGraph(int vertices, int density) {
     // Usuwanie istniejacej macierzy, jesli istnieje
     if (incidenceDirectedMatrix != nullptr) {
@@ -97,7 +96,7 @@ void TestSolving::generateRandomDirectedGraph(int vertices, int density) {
         incidenceDirectedMatrix = nullptr;
     }
 
-    // Usuwanie istniejącej listy sasiedztwa dla grafu skierowanego, jesli istnieje
+    // Usuwanie istniejacej listy sasiedztwa dla grafu skierowanego, jesli istnieje
     if (adjacencyDirectedList != nullptr) {
         delete adjacencyDirectedList;
         adjacencyDirectedList = nullptr;
@@ -118,11 +117,11 @@ void TestSolving::generateRandomDirectedGraph(int vertices, int density) {
     // Tworzenie instancji listy sasiedztwa dla grafu skierowanego
     adjacencyDirectedList = new AdjacencyList(vertices);
 
-    // Wygenerowanie losowego grafu za pomocą metody z klasy FillStructure
+    // Wygenerowanie losowego grafu za pomoca metody z klasy FillStructure
     FillStructure::generateRandomDirectedGraph( *incidenceDirectedMatrix, *adjacencyDirectedList, vertices, density);
 }
 
-// Metoda odpowiedzialna za wygenerowanie grafu
+// Metoda odpowiedzialna za wygenerowanie grafu nieskierowanego
 void TestSolving::generateRandomUndirectedGraph(int vertices, int density) {
     // Usuwanie istniejacej macierzy, jesli istnieje
     if (incidenceUndirectedMatrix != nullptr) {
@@ -130,7 +129,7 @@ void TestSolving::generateRandomUndirectedGraph(int vertices, int density) {
         incidenceUndirectedMatrix = nullptr;
     }
 
-    // Usuwanie istniejącej listy sasiedztwa dla grafu nieskierowanego, jesli istnieje
+    // Usuwanie istniejacej listy sasiedztwa dla grafu nieskierowanego, jesli istnieje
     if (adjacencyUndirectedList != nullptr) {
         delete adjacencyUndirectedList;
         adjacencyUndirectedList = nullptr;
@@ -155,7 +154,7 @@ void TestSolving::generateRandomUndirectedGraph(int vertices, int density) {
     FillStructure::generateRandomUndirectedGraph(*incidenceUndirectedMatrix, *adjacencyUndirectedList, vertices, density);
 }
 
-// Metoda odpowiedzialna za wyswietlenie grafu
+// Metoda odpowiedzialna za wyswietlenie grafu nieskierowanego
 void TestSolving::displayUndirectedGraph() {
     if (incidenceUndirectedMatrix != nullptr) {
         std::cout << std::endl << "Macierz incydencji dla grafu nieskierowanego:" << std::endl;
@@ -172,7 +171,7 @@ void TestSolving::displayUndirectedGraph() {
     }
 }
 
-// Metoda odpowiedzialna za wyswietlenie grafu
+// Metoda odpowiedzialna za wyswietlenie grafu skierowanego
 void TestSolving::displayDirectedGraph() {
     if (incidenceDirectedMatrix != nullptr) {
         std::cout << std::endl << "Macierz incydencji dla grafu skierowanego:" << std::endl;
@@ -232,29 +231,29 @@ void TestSolving::algorithmDijkstra() {
     cin >> endingVertex;
 
     if (incidenceDirectedMatrix != nullptr) {
-        Array<int> resultPath;
+        Array<int> result;
         cout << "Algorytm Dijkstry dla macierzy incydencji:" << endl;
-        resultPath=Dijkstra::runIncidenceMatrix(*incidenceDirectedMatrix, startingVertex, endingVertex);
+        result = Dijkstra::runIncidenceMatrix(*incidenceDirectedMatrix, startingVertex, endingVertex);
         std::cout << std::endl << " Wynik algorytmu: " << std::endl;
         std::cout << " Sciezka: ";
-        for (int i = 0; i < resultPath.size() - 1; ++i) {
-            std::cout << resultPath[i] << " ";
+        for (int i = 0; i < result.size() - 1; ++i) {
+            std::cout << result[i] << " ";
         }
-        std::cout << "\n Dystans: " << resultPath[resultPath.size() - 1] << std::endl << std::endl;
+        std::cout << "\n Dystans: " << result[result.size() - 1] << std::endl << std::endl;
     } else {
         cout << "Brak macierzy" << endl;
     }
 
     if (adjacencyDirectedList != nullptr) {
-        Array<int> resultPath;
+        Array<int> result;
         cout << "Algorytm Dijkstry dla listy sasiedztwa:" << endl;
-        resultPath=Dijkstra::runAdjacencyList(*adjacencyDirectedList, startingVertex, endingVertex);
+        result = Dijkstra::runAdjacencyList(*adjacencyDirectedList, startingVertex, endingVertex);
         std::cout << std::endl << " Wynik algorytmu: " << std::endl;
         std::cout << " Sciezka: ";
-        for (int i = 0; i < resultPath.size() - 1; ++i) {
-            std::cout << resultPath[i] << " ";
+        for (int i = 0; i < result.size() - 1; ++i) {
+            std::cout << result[i] << " ";
         }
-        std::cout << "\n Dystans: " << resultPath[resultPath.size() - 1] << std::endl << std::endl;
+        std::cout << "\n Dystans: " << result[result.size() - 1] << std::endl << std::endl;
     } else {
         cout << "Brak listy" << endl;
     }
@@ -269,29 +268,29 @@ void TestSolving::algorithmFordBellman() {
     cin >> endVertex;
 
     if (incidenceDirectedMatrix != nullptr) {
-        Array<int> resultPath;
+        Array<int> result;
         cout << "Algorytm Bellmana-Forda dla macierzy incydencji:" << endl;
-        resultPath=BellmanFord::runIncidenceMatrix(*incidenceDirectedMatrix, startVertex, endVertex);
+        result = BellmanFord::runIncidenceMatrix(*incidenceDirectedMatrix, startVertex, endVertex);
         std::cout << std::endl << " Wynik algorytmu: " << std::endl;
         std::cout << " Sciezka: ";
-        for (int i = 0; i < resultPath.size() - 1; ++i) {
-            std::cout << resultPath[i] << " ";
+        for (int i = 0; i < result.size() - 1; ++i) {
+            std::cout << result[i] << " ";
         }
-        std::cout << "\n Dystans: " << resultPath[resultPath.size() - 1] << std::endl << std::endl;
+        std::cout << "\n Dystans: " << result[result.size() - 1] << std::endl << std::endl;
     } else {
         cout << "Brak macierzy" << endl;
     }
 
     if (adjacencyDirectedList != nullptr) {
-        Array<int> resultPath;
+        Array<int> result;
         cout << "Algorytm Bellmana-Forda dla listy sasiedztwa:" << endl;
-        resultPath=BellmanFord::runAdjacencyList(*adjacencyDirectedList, startVertex, endVertex);
+        result = BellmanFord::runAdjacencyList(*adjacencyDirectedList, startVertex, endVertex);
         std::cout << std::endl << " Wynik algorytmu: " << std::endl;
         std::cout << " Sciezka: ";
-        for (int i = 0; i < resultPath.size() - 1; ++i) {
-            std::cout << resultPath[i] << " ";
+        for (int i = 0; i < result.size() - 1; ++i) {
+            std::cout << result[i] << " ";
         }
-        std::cout << "\n Dystans: " << resultPath[resultPath.size() - 1] << std::endl << std::endl;
+        std::cout << "\n Dystans: " << result[result.size() - 1] << std::endl << std::endl;
     } else {
         cout << "Brak listy" << endl;
     }

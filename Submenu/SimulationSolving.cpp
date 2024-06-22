@@ -31,7 +31,7 @@ SimulationSolving::~SimulationSolving() {
 void SimulationSolving::testAlgorithm(int algorithmType) {
     int verticesArray[] = {5,10, 20, 50, 100, 200, 500};
     int densityArray[] = {25, 50, 99};
-    int iterations = 20;
+    int iterations = 50;
 
     for (int density : densityArray) {
         switch (density) {

@@ -18,7 +18,7 @@ public:
     static IncidenceMatrix runIncidenceMatrix(IncidenceMatrix &matrix);
 
     // Metoda odpowiedzialna za uruchumienie algorytmu dla listy sasiedztwa
-    static AdjacencyList runAdjacencyList(AdjacencyList &graph);
+    static AdjacencyList runAdjacencyList(AdjacencyList &list);
 };
 
 #endif

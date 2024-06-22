@@ -13,10 +13,10 @@
 
 class SimulationSolving {
 private:
-    IncidenceMatrix* incidenceUndirectedMatrix;        // Wskaznik na macierz incydencji
+    IncidenceMatrix* incidenceUndirectedMatrix;      // Wskaznik na macierz incydencji
     IncidenceMatrix* incidenceDirectedMatrix;        // Wskaznik na macierz incydencji
-    AdjacencyList* adjacencyDirectedList;    // Wskaznik na liste sasiedztwa dla grafu skierowanego
-    AdjacencyList* adjacencyUndirectedList;  // Wskaznik na liste sasiedztwa dla grafu nieskierowanego
+    AdjacencyList* adjacencyDirectedList;            // Wskaznik na liste sasiedztwa dla grafu skierowanego
+    AdjacencyList* adjacencyUndirectedList;          // Wskaznik na liste sasiedztwa dla grafu nieskierowanego
     std::chrono::high_resolution_clock::time_point start, stop;  // Punkty czasowe do mierzenia czasu wykonania
     double time;  // Zmienna do przechowywania zmierzonego czasu
 
@@ -31,7 +31,7 @@ public:
     void testAlgorithm(int algorithmType);
 
 private:
-    // Metoda do uruchamiania konkretnego algorytmu i mierzenia jego czasu wykonania
+    // Metoda do uruchamiania konkretnego algorytmu i mierzenia czasu jego wykonania
     double runAlgorithm(int algorithmType, int vertices);
 
     // Metoda do generowania losowego grafu

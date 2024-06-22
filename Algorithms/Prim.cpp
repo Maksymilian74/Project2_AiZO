@@ -82,6 +82,5 @@ AdjacencyList Prim::runAdjacencyList(AdjacencyList &list) {
         visited[edge.endVertex] = true;
         v = edge.endVertex;
     }
-
     return result;
 }

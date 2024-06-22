@@ -20,6 +20,7 @@ public:
     static Array<int> runAdjacencyList(AdjacencyList &list, int startingVertex, int endingVertex);
 
 private:
+    // Metoda odpowiedzialna za znalezienie wierzcholka o najmniejszej odleglosci
     static int minimumVertex(Array<int> &dist, Array<bool> &visited, int n);
 };
 
