@@ -82,9 +82,8 @@ void TestSolving::loadDataFromFile(string fileToOpen) {
         file >> startVertex >> endVertex >> weight;
         incidenceUndirectedMatrix->addEdge(startVertex, endVertex, weight,false);
         incidenceDirectedMatrix->addEdge(startVertex, endVertex, weight,true);
-        adjacencyDirectedList->addEdge(startVertex, endVertex, weight);
-        adjacencyUndirectedList->addEdge(startVertex, endVertex, weight);
-        adjacencyUndirectedList->addEdge(endVertex, startVertex, weight);
+        adjacencyDirectedList->addEdgeDirected(startVertex, endVertex, weight);
+        adjacencyUndirectedList->addEdgeUndirected(startVertex, endVertex, weight);
     }
 
     file.close();

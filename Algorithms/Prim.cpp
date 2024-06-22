@@ -77,8 +77,7 @@ AdjacencyList Prim::runAdjacencyList(AdjacencyList &list) {
             minHeap.erase();
         } while (visited[edge.endVertex]);
 
-        result.addEdge(edge.startVertex, edge.endVertex, edge.weight);
-        result.addEdge(edge.endVertex, edge.startVertex, edge.weight);
+        result.addEdgeUndirected(edge.startVertex, edge.endVertex, edge.weight);
 
         visited[edge.endVertex] = true;
         v = edge.endVertex;

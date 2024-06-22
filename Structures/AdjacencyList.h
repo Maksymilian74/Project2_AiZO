@@ -19,6 +19,7 @@ class AdjacencyList {
 private:
     int vertices;      // Liczba wierzcholkow
     int edges;         // Liczba krawedzi
+    int totalWeight; // Waga calego grafu
     Node** adjList;    // Tablica wskaznikow do list sasiedztwa
 
 public:
@@ -29,7 +30,10 @@ public:
     ~AdjacencyList();
 
     // Metoda dodajaca krawedz do grafu
-    void addEdge(int from, int to, int weight);
+    void addEdgeDirected(int from, int to, int weight);
+
+    // Metoda dodajaca krawedz do grafu
+    void addEdgeUndirected(int from, int to, int weight);
 
     // Metoda wyswietlajaca liste sasiedztwa
     void display() const;

@@ -29,7 +29,7 @@ SimulationSolving::~SimulationSolving() {
 
 // Metoda do testowania konkretnego algorytmu
 void SimulationSolving::testAlgorithm(int algorithmType) {
-    int verticesArray[] = {10, 20, 50, 100, 200, 500, 1000};
+    int verticesArray[] = {5,10, 20, 50, 100, 200, 500};
     int densityArray[] = {25, 50, 99};
     int iterations = 20;
 

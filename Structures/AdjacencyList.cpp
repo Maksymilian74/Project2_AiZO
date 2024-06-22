@@ -3,7 +3,7 @@
 
 // Konstruktor
 AdjacencyList::AdjacencyList(int vertices)
-        : vertices(vertices), edges(0) {
+        : vertices(vertices), edges(0), totalWeight(0) {
     adjList = new Node*[vertices];
     for (int i = 0; i < vertices; ++i) {
         adjList[i] = nullptr;
@@ -23,19 +23,27 @@ AdjacencyList::~AdjacencyList() {
     delete[] adjList;
 }
 
-// Metoda odpowiedzialna za dodanie krawedzi do listy sasiedztwa
-void AdjacencyList::addEdge(int from, int to, int weight) {
+// Metoda odpowiedzialna za dodanie skierowanej krawedzi do listy sasiedztwa
+void AdjacencyList::addEdgeDirected(int from, int to, int weight) {
     if (from >= vertices || to >= vertices) {
         std::cerr << "Zla liczba wierzcholkow!" << std::endl;
         return;
     }
 
+    totalWeight += weight;
     Node* newNode = new Node;
     newNode->vertex = to;
     newNode->edge = weight;
     newNode->next = adjList[from];
     adjList[from] = newNode;
     edges++;
+}
+
+// Metoda odpowiedzialna za dodanie nieskierowanej krawedzi do listy sasiedztwa
+void AdjacencyList::addEdgeUndirected(int from, int to, int weight) {
+    addEdgeDirected(from, to, weight);
+    addEdgeDirected(to, from, weight);
+    totalWeight -= weight;
 }
 
 // Metoda odpowiedzialna za wyswietlanie listy sasiedztwa
@@ -49,6 +57,8 @@ void AdjacencyList::display() const {
         }
         std::cout << std::endl;
     }
+
+    std::cout << std::endl << "Waga calego grafu: " << totalWeight << std::endl;
 }
 
 // Getter liczby wierzcholkow

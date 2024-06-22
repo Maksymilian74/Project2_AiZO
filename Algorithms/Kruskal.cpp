@@ -69,8 +69,7 @@ AdjacencyList Kruskal::runAdjacencyList(AdjacencyList &list) {
             minHeap.erase();
         } while (set.findSet(edge.startVertex) == set.findSet(edge.endVertex));
 
-        result.addEdge(edge.startVertex, edge.endVertex, edge.weight);
-        result.addEdge( edge.endVertex, edge.startVertex, edge.weight);
+        result.addEdgeUndirected(edge.startVertex, edge.endVertex, edge.weight);
         set.unionSets(edge);
     }
 

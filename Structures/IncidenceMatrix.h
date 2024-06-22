@@ -12,6 +12,7 @@ private:
     int vertices;    // Liczba wierzcholkow
     int edges;       // Liczba krawedzi
     int currentEdge; // Liczba krawedzi aktualnie
+    int totalWeight; // Waga calego grafu
     int** matrix;    // Macierz incydencji
 
 public:

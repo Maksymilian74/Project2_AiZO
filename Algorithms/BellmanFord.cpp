@@ -20,7 +20,7 @@ Array<int> BellmanFord::runIncidenceMatrix(IncidenceMatrix &matrix, int starting
     for (int i = 0; i < vertexes - 1; i++) {
         stop = true;
         for (int j = 0; j < edges; j++) {
-            int u = matrix.getFirstVertex(j);  // tutaj dodać chyba metodę
+            int u = matrix.getFirstVertex(j);
             int v = matrix.getSecVertex(j);
             int w = matrix.getWeight(u, j);
             if (distance[u] != INT_MAX && distance[u] + w < distance[v]) {

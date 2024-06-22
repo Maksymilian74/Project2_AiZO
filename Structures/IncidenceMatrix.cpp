@@ -5,6 +5,7 @@
 // Konstruktor
 IncidenceMatrix::IncidenceMatrix(int vertices, int edges) : vertices(vertices), edges(edges) {
     currentEdge = 0;
+    totalWeight = 0;
     // Alokacja macierzy incydencji
     matrix = new int*[vertices];
     for (int i = 0; i < vertices; ++i) {
@@ -36,6 +37,8 @@ void IncidenceMatrix::addEdge(int u, int v, int weight, bool directed) {
         std::cerr << "Blad: Osiagnieto minimalna liczbe krawedzi" << std::endl;
         return;
     }
+
+    totalWeight += weight;
 
     // Ustawienie wartosci w macierzy incydencji
     matrix[u][currentEdge] = weight;
@@ -70,6 +73,8 @@ void IncidenceMatrix::display() const {
         }
         std::cout << std::endl;
     }
+
+    std::cout << std::endl << "Waga calego grafu: " << totalWeight << std::endl;
 }
 
 // Getter liczby wierzcholkow

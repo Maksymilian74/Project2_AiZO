@@ -12,7 +12,7 @@ void FillStructure::generateRandomDirectedGraph(IncidenceMatrix &directedMatrix,
         int v = std::rand() % i;
         int weight = std::rand() % 100 + 1; // Losowa waga krawedzi
         directedMatrix.addEdge(u, v, weight, true);
-        directedList.addEdge(u, v, weight);
+        directedList.addEdgeDirected(u, v, weight);
     }
 
     // Obliczenie maksymalnej liczby krawedzi
@@ -27,7 +27,7 @@ void FillStructure::generateRandomDirectedGraph(IncidenceMatrix &directedMatrix,
         if (u != v && !directedMatrix.checkEdge(u,v)) {
             int weight = std::rand() % 100 + 1;
             directedMatrix.addEdge(u, v, weight, true);
-            directedList.addEdge(u, v, weight);
+            directedList.addEdgeDirected(u, v, weight);
             edgeCount++;
         }
     }
@@ -43,8 +43,7 @@ void FillStructure::generateRandomUndirectedGraph(IncidenceMatrix &undirectedMat
         int v = std::rand() % i;
         int weight = std::rand() % 100 + 1; // Losowa waga krawedzi
         undirectedMatrix.addEdge(u, v, weight, false);
-        undirectedList.addEdge(u, v, weight);
-        undirectedList.addEdge(v, u, weight);
+        undirectedList.addEdgeUndirected(u, v, weight);
     }
 
     // Obliczenie maksymalnej liczby krawedzi
@@ -59,8 +58,7 @@ void FillStructure::generateRandomUndirectedGraph(IncidenceMatrix &undirectedMat
         if (u != v && !undirectedMatrix.checkEdge(u,v)) {
             int weight = std::rand() % 100 + 1;
             undirectedMatrix.addEdge(u, v, weight, false);
-            undirectedList.addEdge(u, v, weight);
-            undirectedList.addEdge(v, u, weight);
+            undirectedList.addEdgeUndirected(u, v, weight);
             edgeCount++;
         }
     }
