@@ -236,9 +236,9 @@ void TestSolving::algorithmDijkstra() {
         result = Dijkstra::runIncidenceMatrix(*incidenceDirectedMatrix, startingVertex, endingVertex);
         if (result.size() != 0) {
             std::cout << std::endl << " Wynik algorytmu: " << std::endl;
-            std::cout << " Sciezka: ";
+            std::cout << " Sciezka: " << std::endl;
             for (int i = 0; i < result.size() - 1; ++i) {
-                std::cout << result[i] << " ";
+                std::cout << result[i] << std::endl;
             }
             std::cout << "\n Dystans: " << result[result.size() - 1] << std::endl << std::endl;
         }
@@ -252,9 +252,9 @@ void TestSolving::algorithmDijkstra() {
         result = Dijkstra::runAdjacencyList(*adjacencyDirectedList, startingVertex, endingVertex);
         if (result.size() != 0) {
             std::cout << std::endl << " Wynik algorytmu: " << std::endl;
-            std::cout << " Sciezka: ";
+            std::cout << " Sciezka: " << std::endl;
             for (int i = 0; i < result.size() - 1; ++i) {
-                std::cout << result[i] << " ";
+                std::cout << result[i] << std::endl;
             }
             std::cout << "\n Dystans: " << result[result.size() - 1] << std::endl << std::endl;
         }
@@ -277,11 +277,11 @@ void TestSolving::algorithmFordBellman() {
         result = BellmanFord::runIncidenceMatrix(*incidenceDirectedMatrix, startVertex, endVertex);
         if (result.size() != 0) {
             std::cout << std::endl << " Wynik algorytmu: " << std::endl;
-            std::cout << " Sciezka: ";
+            std::cout << " Sciezka: " << std::endl;
             for (int i = 0; i < result.size() - 1; ++i) {
-                std::cout << result[i] << " ";
+                std::cout << result[i] << std::endl;
             }
-            std::cout << "\n Dystans: " << result[result.size() - 1] << std::endl << std::endl;
+            std::cout << std::endl << "Dystans: " << result[result.size() - 1] << std::endl << std::endl;
         }
     } else {
         cout << "Brak macierzy" << endl;
@@ -293,9 +293,9 @@ void TestSolving::algorithmFordBellman() {
         result = BellmanFord::runAdjacencyList(*adjacencyDirectedList, startVertex, endVertex);
         if (result.size() != 0) {
             std::cout << std::endl << " Wynik algorytmu: " << std::endl;
-            std::cout << " Sciezka: ";
+            std::cout << " Sciezka: " << std::endl;
             for (int i = 0; i < result.size() - 1; ++i) {
-                std::cout << result[i] << " ";
+                std::cout << result[i] << std::endl;
             }
             std::cout << "\n Dystans: " << result[result.size() - 1] << std::endl << std::endl;
         }
