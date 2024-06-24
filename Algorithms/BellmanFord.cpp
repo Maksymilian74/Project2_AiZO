@@ -32,6 +32,11 @@ Array<int> BellmanFord::runIncidenceMatrix(IncidenceMatrix &matrix, int starting
         if (stop) break;
     }
 
+    if (distance[endingVertex] == INT_MAX) {
+        std::cout << "Brak sciezki" << std::endl << std::endl;
+        return Array<int>();
+    }
+
     Array<int> tmpPath(vertexes);
     int pathIndex = 0;
     int tmp = endingVertex;
@@ -81,6 +86,11 @@ Array<int> BellmanFord::runAdjacencyList(AdjacencyList &list, int startingVertex
             }
         }
         if (stop) break;
+    }
+
+    if (distance[endingVertex] == INT_MAX) {
+        std::cout << "Brak sciezki" << std::endl << std::endl;
+        return Array<int>();
     }
 
     Array<int> tmpPath(vertexes);

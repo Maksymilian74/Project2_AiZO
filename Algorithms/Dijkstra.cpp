@@ -34,6 +34,11 @@ Array<int> Dijkstra::runIncidenceMatrix(IncidenceMatrix &matrix, int startingVer
         }
     }
 
+    if (distance[endingVertex] == INT_MAX) {
+        std::cout << "Brak sciezki" << std::endl << std::endl;
+        return Array<int>();
+    }
+
     Array<int> tmpPath(vertexes);
     int pathIndex = 0;
     int tmp = endingVertex;
@@ -82,6 +87,11 @@ Array<int> Dijkstra::runAdjacencyList(AdjacencyList &list, int startingVertex, i
                 parent[vertex->vertex] = minimum;
             }
         }
+    }
+
+    if (distance[endingVertex] == INT_MAX) {
+        std::cout << "Brak sciezki" << std::endl << std::endl;
+        return Array<int>();
     }
 
     Array<int> tmpPath(vertexes);

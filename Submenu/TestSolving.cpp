@@ -234,12 +234,14 @@ void TestSolving::algorithmDijkstra() {
         Array<int> result;
         cout << "Algorytm Dijkstry dla macierzy incydencji:" << endl;
         result = Dijkstra::runIncidenceMatrix(*incidenceDirectedMatrix, startingVertex, endingVertex);
-        std::cout << std::endl << " Wynik algorytmu: " << std::endl;
-        std::cout << " Sciezka: ";
-        for (int i = 0; i < result.size() - 1; ++i) {
-            std::cout << result[i] << " ";
+        if (result.size() != 0) {
+            std::cout << std::endl << " Wynik algorytmu: " << std::endl;
+            std::cout << " Sciezka: ";
+            for (int i = 0; i < result.size() - 1; ++i) {
+                std::cout << result[i] << " ";
+            }
+            std::cout << "\n Dystans: " << result[result.size() - 1] << std::endl << std::endl;
         }
-        std::cout << "\n Dystans: " << result[result.size() - 1] << std::endl << std::endl;
     } else {
         cout << "Brak macierzy" << endl;
     }
@@ -248,12 +250,14 @@ void TestSolving::algorithmDijkstra() {
         Array<int> result;
         cout << "Algorytm Dijkstry dla listy sasiedztwa:" << endl;
         result = Dijkstra::runAdjacencyList(*adjacencyDirectedList, startingVertex, endingVertex);
-        std::cout << std::endl << " Wynik algorytmu: " << std::endl;
-        std::cout << " Sciezka: ";
-        for (int i = 0; i < result.size() - 1; ++i) {
-            std::cout << result[i] << " ";
+        if (result.size() != 0) {
+            std::cout << std::endl << " Wynik algorytmu: " << std::endl;
+            std::cout << " Sciezka: ";
+            for (int i = 0; i < result.size() - 1; ++i) {
+                std::cout << result[i] << " ";
+            }
+            std::cout << "\n Dystans: " << result[result.size() - 1] << std::endl << std::endl;
         }
-        std::cout << "\n Dystans: " << result[result.size() - 1] << std::endl << std::endl;
     } else {
         cout << "Brak listy" << endl;
     }
@@ -271,12 +275,14 @@ void TestSolving::algorithmFordBellman() {
         Array<int> result;
         cout << "Algorytm Bellmana-Forda dla macierzy incydencji:" << endl;
         result = BellmanFord::runIncidenceMatrix(*incidenceDirectedMatrix, startVertex, endVertex);
-        std::cout << std::endl << " Wynik algorytmu: " << std::endl;
-        std::cout << " Sciezka: ";
-        for (int i = 0; i < result.size() - 1; ++i) {
-            std::cout << result[i] << " ";
+        if (result.size() != 0) {
+            std::cout << std::endl << " Wynik algorytmu: " << std::endl;
+            std::cout << " Sciezka: ";
+            for (int i = 0; i < result.size() - 1; ++i) {
+                std::cout << result[i] << " ";
+            }
+            std::cout << "\n Dystans: " << result[result.size() - 1] << std::endl << std::endl;
         }
-        std::cout << "\n Dystans: " << result[result.size() - 1] << std::endl << std::endl;
     } else {
         cout << "Brak macierzy" << endl;
     }
@@ -285,12 +291,14 @@ void TestSolving::algorithmFordBellman() {
         Array<int> result;
         cout << "Algorytm Bellmana-Forda dla listy sasiedztwa:" << endl;
         result = BellmanFord::runAdjacencyList(*adjacencyDirectedList, startVertex, endVertex);
-        std::cout << std::endl << " Wynik algorytmu: " << std::endl;
-        std::cout << " Sciezka: ";
-        for (int i = 0; i < result.size() - 1; ++i) {
-            std::cout << result[i] << " ";
+        if (result.size() != 0) {
+            std::cout << std::endl << " Wynik algorytmu: " << std::endl;
+            std::cout << " Sciezka: ";
+            for (int i = 0; i < result.size() - 1; ++i) {
+                std::cout << result[i] << " ";
+            }
+            std::cout << "\n Dystans: " << result[result.size() - 1] << std::endl << std::endl;
         }
-        std::cout << "\n Dystans: " << result[result.size() - 1] << std::endl << std::endl;
     } else {
         cout << "Brak listy" << endl;
     }
